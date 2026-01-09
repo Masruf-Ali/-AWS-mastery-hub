@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project: CI/CD Pipeline on AWS - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="project-guide">
+            <h1>Final Project: Building a CI/CD Pipeline with AWS CodePipeline and GitHub</h1>
+            <p>This project guides you through setting up a Continuous Integration and Continuous Delivery (CI/CD) pipeline on AWS using AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, and GitHub. The pipeline will automatically build, test, and deploy a sample web application whenever changes are pushed to a GitHub repository.</p>
+
+            <h2>Architecture Overview</h2>
+            <p>The CI/CD pipeline will consist of the following stages:</p>
+            <ul>
+                <li><strong>Source:</strong> GitHub repository (where your application code resides).</li>
+                <li><strong>Build:</strong> AWS CodeBuild to compile code, run unit tests, and package the application.</li>
+                <li><strong>Deploy:</strong> AWS CodeDeploy to deploy the application to EC2 instances.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cicd-pipeline-architecture.svg" alt="CI/CD Pipeline Architecture Diagram" style="max-width:100%; height:auto;"></p>
+
+            <h2>Prerequisites</h2>
+            <ul>
+                <li>An active AWS account.</li>
+                <li>AWS CLI installed and configured.</li>
+                <li>A GitHub account with a sample web application repository.</li>
+                <li>Basic understanding of EC2, IAM, CodePipeline, CodeBuild, and CodeDeploy.</li>
+            </ul>
+
+            <h2>Step-by-Step Guide</h2>
+
+            <h3>Step 1: Prepare Your Sample Application and EC2 Instances</h3>
+            <p>You'll need a simple web application (e.g., Node.js, Python Flask, or static HTML) and at least one EC2 instance to deploy to.</p>
+            <ol>
+                <li><strong>Create a Sample Application:</strong> Create a simple <code>index.html</code> or a basic web app. For example:
+                    <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My CI/CD App&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello from CI/CD Pipeline!&lt;/h1&gt;
+    &lt;p&gt;Deployment successful.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </code></pre>
+                </li>
+                <li><strong>Create <code>appspec.yml</code> for CodeDeploy:</strong> This file tells CodeDeploy what to do.
+                    <pre><code class="language-yaml">
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html
+permissions:
+  - object: /var/www/html
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 300
+      runas: root
+                    </code></pre>
+                </li>
+                <li><strong>Create <code>scripts/install_dependencies.sh</code>:</strong>
+                    <pre><code class="language-bash">
+#!/bin/bash
+yum update -y
+yum install -y httpd
+                    </code></pre>
+                </li>
+                <li><strong>Create <code>scripts/start_server.sh</code>:</strong>
+                    <pre><code class="language-bash">
+#!/bin/bash
+systemctl start httpd
+systemctl enable httpd
+                    </code></pre>
+                </li>
+                <li><strong>Push to GitHub:</strong> Create a new GitHub repository and push your application code (<code>index.html</code>, <code>appspec.yml</code>, <code>scripts/</code> folder) to it.</li>
+                <li><strong>Launch EC2 Instance:</strong> Launch an Amazon Linux 2 EC2 instance. Ensure it has a public IP and a security group allowing SSH (port 22) and HTTP (port 80) access. Tag the instance with <code>Key: Name, Value: WebServer</code> and <code>Key: Environment, Value: Production</code> (or similar, for CodeDeploy targeting).</li>
+                <li><strong>Install CodeDeploy Agent on EC2:</strong> SSH into your EC2 instance and run:
+                    <pre><code class="language-bash">
+sudo yum update -y
+sudo yum install -y ruby
+sudo yum install -y wget
+cd /home/ec2-user
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+sudo service codedeploy-agent status
+                    </code></pre>
+                    <p>Adjust the S3 bucket URL for the CodeDeploy agent based on your EC2 instance's region.</p>
+                </li>
+            </ol>
+
+            <h3>Step 2: Create IAM Roles for CodePipeline and CodeBuild</h3>
+            <p>These services need permissions to interact with other AWS services.</p>
+            <ol>
+                <li><strong>CodePipeline Role:</strong> Create a role with trust policy for <code>codepipeline.amazonaws.com</code> and attach managed policies like <code>AWSCodePipelineFullAccess</code>, <code>AmazonS3FullAccess</code>, <code>CloudWatchLogsFullAccess</code>, and permissions for CodeBuild and CodeDeploy.</li>
+                <li><strong>CodeBuild Role:</strong> Create a role with trust policy for <code>codebuild.amazonaws.com</code> and attach managed policies like <code>AWSCodeBuildDeveloperAccess</code>, <code>AmazonS3FullAccess</code>, <code>CloudWatchLogsFullAccess</code>.</li>
+                <li><strong>CodeDeploy Role:</strong> Create a role with trust policy for <code>codedeploy.amazonaws.com</code> and attach managed policy <code>AWSCodeDeployRole</code>.</li>
+                <li><strong>EC2 Instance Profile Role for CodeDeploy:</strong> Create a role with trust policy for <code>ec2.amazonaws.com</code> and attach managed policy <code>AmazonEC2RoleforAWSCodeDeploy</code>. Attach this role to your EC2 instance.</li>
+            </ol>
+
+            <h3>Step 3: Create an AWS CodeDeploy Application and Deployment Group</h3>
+            <ol>
+                <li><strong>Create CodeDeploy Application:</strong>
+                    <pre><code class="language-bash">
+aws deploy create-application --application-name MyWebAppDeployment
+                    </code></pre>
+                </li>
+                <li><strong>Create CodeDeploy Deployment Group:</strong>
+                    <pre><code class="language-bash">
+aws deploy create-deployment-group \
+    --application-name MyWebAppDeployment \
+    --deployment-group-name MyWebAppDG \
+    --service-role-arn &lt;CodeDeploy_Service_Role_ARN&gt; \
+    --ec2-tag-filters Key=Name,Value=WebServer,Type=KEY_AND_VALUE \
+    --deployment-config-name CodeDeployDefault.OneAtATime \
+    --auto-scaling-groups [] \
+    --deployment-style deploymentType=IN_PLACE,deploymentOption=WITH_TRAFFIC_CONTROL
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h3>Step 4: Create an AWS CodeBuild Project</h3>
+            <p>This project will build your application.</p>
+            <ol>
+                <li><strong>Create <code>buildspec.yml</code> in your GitHub repo:</strong>
+                    <pre><code class="language-yaml">
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Zipping application files...
+      - zip -r app.zip .
+artifacts:
+  files:
+    - app.zip
+                    </code></pre>
+                </li>
+                <li><strong>Create CodeBuild Project:</strong>
+                    <pre><code class="language-bash">
+aws codebuild create-project \
+    --name MyWebAppBuild \
+    --description "Build project for MyWebApp" \
+    --source type=GITHUB,location=&lt;YOUR_GITHUB_REPO_URL&gt;,auth={type=OAUTH,resource=&lt;YOUR_GITHUB_TOKEN&gt;} \
+    --artifacts type=S3,location=&lt;YOUR_S3_BUCKET_FOR_ARTIFACTS&gt;,packaging=ZIP \
+    --environment type=LINUX_CONTAINER,image=aws/codebuild/standard:5.0,computeType=BUILD_GENERAL1_SMALL \
+    --service-role &lt;CodeBuild_Service_Role_ARN&gt; \
+    --timeout-in-minutes 10
+                    </code></pre>
+                    <p>You'll need to create an S3 bucket for CodeBuild artifacts and a GitHub personal access token.</p>
+                </li>
+            </ol>
+
+            <h3>Step 5: Create an AWS CodePipeline</h3>
+            <p>This will orchestrate the entire CI/CD process.</p>
+            <ol>
+                <li><strong>Create CodePipeline:</strong>
+                    <pre><code class="language-bash">
+aws codepipeline create-pipeline \
+    --pipeline '{ \
+        "name": "MyWebAppPipeline", \
+        "roleArn": "&lt;CodePipeline_Service_Role_ARN&gt;", \
+        "artifactStore": { \
+            "type": "S3", \
+            "location": "&lt;YOUR_S3_BUCKET_FOR_ARTIFACTS&gt;" \
+        }, \
+        "stages": [ \
+            { \
+                "name": "Source", \
+                "actions": [ \
+                    { \
+                        "name": "Source", \
+                        "actionTypeId": { \
+                            "category": "Source", \
+                            "owner": "ThirdParty", \
+                            "provider": "GitHub", \
+                            "version": "1" \
+                        }, \
+                        "outputArtifacts": [ { "name": "SourceArtifact" } ], \
+                        "configuration": { \
+                            "Owner": "&lt;YOUR_GITHUB_USERNAME&gt;", \
+                            "Repo": "&lt;YOUR_GITHUB_REPO_NAME&gt;", \
+                            "Branch": "main", \
+                            "OAuthToken": "&lt;YOUR_GITHUB_TOKEN&gt;" \
+                        }, \
+                        "runOrder": 1 \
+                    } \
+                ] \
+            }, \
+            { \
+                "name": "Build", \
+                "actions": [ \
+                    { \
+                        "name": "Build", \
+                        "actionTypeId": { \
+                            "category": "Build", \
+                            "owner": "AWS", \
+                            "provider": "CodeBuild", \
+                            "version": "1" \
+                        }, \
+                        "inputArtifacts": [ { "name": "SourceArtifact" } ], \
+                        "outputArtifacts": [ { "name": "BuildArtifact" } ], \
+                        "configuration": { \
+                            "ProjectName": "MyWebAppBuild" \
+                        }, \
+                        "runOrder": 1 \
+                    } \
+                ] \
+            }, \
+            { \
+                "name": "Deploy", \
+                "actions": [ \
+                    { \
+                        "name": "Deploy", \
+                        "actionTypeId": { \
+                            "category": "Deploy", \
+                            "owner": "AWS", \
+                            "provider": "CodeDeploy", \
+                            "version": "1" \
+                        }, \
+                        "inputArtifacts": [ { "name": "BuildArtifact" } ], \
+                        "configuration": { \
+                            "ApplicationName": "MyWebAppDeployment", \
+                            "DeploymentGroupName": "MyWebAppDG" \
+                        }, \
+                        "runOrder": 1 \
+                    } \
+                ] \
+            } \
+        ] \
+    }"
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h2>Testing and Cleanup</h2>
+            <ol>
+                <li><strong>Test:</strong> Push a change to your GitHub repository. Observe the CodePipeline execution in the AWS Console. Once successful, access your EC2 instance's public IP in a browser to see the updated application.</li>
+                <li><strong>Cleanup:</strong> Remember to delete all resources created to avoid incurring charges:
+                    <ul>
+                        <li>Delete CodePipeline.</li>
+                        <li>Delete CodeBuild project.</li>
+                        <li>Delete CodeDeploy application and deployment group.</li>
+                        <li>Delete IAM roles and policies.</li>
+                        <li>Terminate EC2 instances.</li>
+                        <li>Delete S3 buckets used for artifacts.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

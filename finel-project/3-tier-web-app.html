@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project: 3-Tier Web App on AWS - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="project-guide">
+            <h1>Final Project: Deploying a 3-Tier Web Application on AWS</h1>
+            <p>This project guides you through deploying a highly available and scalable 3-tier web application on AWS. You will use Amazon EC2 for the web and application tiers, Amazon RDS for the database tier, an Application Load Balancer (ALB) for traffic distribution, and Auto Scaling Groups (ASG) for elasticity.</p>
+
+            <h2>Architecture Overview</h2>
+            <p>The application will consist of three logical tiers:</p>
+            <ul>
+                <li><strong>Web Tier:</strong> Public-facing EC2 instances serving static content and routing requests to the application tier. Behind an ALB in public subnets.</li>
+                <li><strong>Application Tier:</strong> Private EC2 instances running application logic. Behind an internal ALB in private subnets.</li>
+                <li><strong>Database Tier:</strong> Amazon RDS instance (e.g., MySQL or PostgreSQL) in private subnets, configured for Multi-AZ for high availability.</li>
+            </ul>
+            <p><img src="../assets/diagrams/3-tier-web-app-architecture.svg" alt="3-Tier Web Application Architecture Diagram" style="max-width:100%; height:auto;"></p>
+
+            <h2>Prerequisites</h2>
+            <ul>
+                <li>An active AWS account.</li>
+                <li>AWS CLI installed and configured.</li>
+                <li>Basic understanding of VPC, EC2, RDS, ALB, and Auto Scaling.</li>
+            </ul>
+
+            <h2>Step-by-Step Guide</h2>
+
+            <h3>Step 1: Create a Custom VPC</h3>
+            <p>First, create a new VPC with public and private subnets across at least two Availability Zones.</p>
+            <ol>
+                <li><strong>Create VPC:</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=3TierVPC}]'
+                    </code></pre>
+                    <p>Note the <code>VpcId</code>.</p>
+                </li>
+                <li><strong>Create Internet Gateway (IGW) and attach to VPC:</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-internet-gateway --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=3TierIGW}]'
+aws ec2 attach-internet-gateway --internet-gateway-id &lt;IGW_ID&gt; --vpc-id &lt;VPC_ID&gt;
+                    </code></pre>
+                </li>
+                <li><strong>Create Public Subnets (e.g., in two AZs):</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-subnet --vpc-id &lt;VPC_ID&gt; --cidr-block 10.0.1.0/24 --availability-zone us-east-1a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=PublicSubnet1}]'
+aws ec2 create-subnet --vpc-id &lt;VPC_ID&gt; --cidr-block 10.0.2.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=PublicSubnet2}]'
+                    </code></pre>
+                    <p>Note the <code>SubnetIds</code>.</p>
+                </li>
+                <li><strong>Create Private Subnets (e.g., in two AZs):</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-subnet --vpc-id &lt;VPC_ID&gt; --cidr-block 10.0.3.0/24 --availability-zone us-east-1a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=PrivateSubnet1}]'
+aws ec2 create-subnet --vpc-id &lt;VPC_ID&gt; --cidr-block 10.0.4.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=PrivateSubnet2}]'
+                    </code></pre>
+                    <p>Note the <code>SubnetIds</code>.</p>
+                </li>
+                <li><strong>Create Route Tables:</strong>
+                    <ul>
+                        <li><strong>Public Route Table:</strong> Associate with public subnets, add route to IGW.
+                            <pre><code class="language-bash">
+aws ec2 create-route-table --vpc-id &lt;VPC_ID&gt; --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=PublicRT}]'
+aws ec2 create-route --route-table-id &lt;Public_RT_ID&gt; --destination-cidr-block 0.0.0.0/0 --gateway-id &lt;IGW_ID&gt;
+aws ec2 associate-route-table --route-table-id &lt;Public_RT_ID&gt; --subnet-id &lt;PublicSubnet1_ID&gt;
+aws ec2 associate-route-table --route-table-id &lt;Public_RT_ID&gt; --subnet-id &lt;PublicSubnet2_ID&gt;
+                            </code></pre>
+                        </li>
+                        <li><strong>Private Route Table:</strong> Associate with private subnets, add route to NAT Gateway (created next).
+                            <pre><code class="language-bash">
+aws ec2 create-route-table --vpc-id &lt;VPC_ID&gt; --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=PrivateRT}]'
+                            </code></pre>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Create NAT Gateway:</strong>
+                    <pre><code class="language-bash">
+aws ec2 allocate-address --domain vpc --tag-specifications 'ResourceType=elastic-ip,Tags=[{Key=Name,Value=NatGatewayEIP}]'
+aws ec2 create-nat-gateway --subnet-id &lt;PublicSubnet1_ID&gt; --allocation-id &lt;EIP_ALLOCATION_ID&gt; --tag-specifications 'ResourceType=natgateway,Tags=[{Key=Name,Value=NatGatewayAZ1}]'
+                    </code></pre>
+                    <p>Wait for NAT Gateway to be available. Note the <code>NatGatewayId</code>.</p>
+                </li>
+                <li><strong>Update Private Route Table with NAT Gateway:</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-route --route-table-id &lt;Private_RT_ID&gt; --destination-cidr-block 0.0.0.0/0 --nat-gateway-id &lt;NatGatewayAZ1_ID&gt;
+aws ec2 associate-route-table --route-table-id &lt;Private_RT_ID&gt; --subnet-id &lt;PrivateSubnet1_ID&gt;
+aws ec2 associate-route-table --route-table-id &lt;Private_RT_ID&gt; --subnet-id &lt;PrivateSubnet2_ID&gt;
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h3>Step 2: Deploy Database Tier (Amazon RDS)</h3>
+            <p>Create a Multi-AZ RDS instance in your private subnets.</p>
+            <ol>
+                <li><strong>Create DB Subnet Group:</strong>
+                    <pre><code class="language-bash">
+aws rds create-db-subnet-group --db-subnet-group-name 3tier-db-subnet-group --db-subnet-group-description "Subnet group for 3-tier app RDS" --subnet-ids &lt;PrivateSubnet1_ID&gt; &lt;PrivateSubnet2_ID&gt;
+                    </code></pre>
+                </li>
+                <li><strong>Create RDS Security Group:</strong> Allow inbound traffic from application tier security group.
+                    <pre><code class="language-bash">
+aws ec2 create-security-group --group-name RDSSecurityGroup --description "Allow app tier access to RDS" --vpc-id &lt;VPC_ID&gt;
+aws ec2 authorize-security-group-ingress --group-id &lt;RDS_SG_ID&gt; --protocol tcp --port 3306 --source-security-group-id &lt;AppTier_SG_ID&gt; # MySQL default port
+                    </code></pre>
+                </li>
+                <li><strong>Launch RDS Instance:</strong>
+                    <pre><code class="language-bash">
+aws rds create-db-instance \
+    --db-instance-identifier 3tier-mysql-db \
+    --db-instance-class db.t3.micro \
+    --engine mysql \
+    --master-username admin \
+    --master-user-password &lt;YOUR_DB_PASSWORD&gt; \
+    --allocated-storage 20 \
+    --db-subnet-group-name 3tier-db-subnet-group \
+    --vpc-security-group-ids &lt;RDS_SG_ID&gt; \
+    --multi-az \
+    --engine-version 8.0.28 \
+    --backup-retention-period 7 \
+    --publicly-accessible false \
+    --tag-specifications 'ResourceType=db-instance,Tags=[{Key=Name,Value=3TierMySQLDB}]'
+                    </code></pre>
+                    <p>Note the <code>Endpoint.Address</code> once available.</p>
+                </li>
+            </ol>
+
+            <h3>Step 3: Deploy Web Tier (EC2 + ASG + ALB)</h3>
+            <p>Create a web server (e.g., Apache/Nginx) on EC2 instances, managed by an Auto Scaling Group, behind a public Application Load Balancer.</p>
+            <ol>
+                <li><strong>Create Web Tier Security Group:</strong> Allow HTTP/HTTPS from ALB, SSH from your IP.
+                    <pre><code class="language-bash">
+aws ec2 create-security-group --group-name WebTierSecurityGroup --description "Allow ALB and SSH to web tier" --vpc-id &lt;VPC_ID&gt;
+aws ec2 authorize-security-group-ingress --group-id &lt;WebTier_SG_ID&gt; --protocol tcp --port 80 --source-security-group-id &lt;ALB_SG_ID&gt; # ALB SG ID
+aws ec2 authorize-security-group-ingress --group-id &lt;WebTier_SG_ID&gt; --protocol tcp --port 443 --source-security-group-id &lt;ALB_SG_ID&gt; # ALB SG ID
+aws ec2 authorize-security-group-ingress --group-id &lt;WebTier_SG_ID&gt; --protocol tcp --port 22 --cidr &lt;YOUR_IP_CIDR&gt;
+                    </code></pre>
+                </li>
+                <li><strong>Create ALB Security Group:</strong> Allow HTTP/HTTPS from internet.
+                    <pre><code class="language-bash">
+aws ec2 create-security-group --group-name ALBSecurityGroup --description "Allow HTTP/HTTPS to ALB" --vpc-id &lt;VPC_ID&gt;
+aws ec2 authorize-security-group-ingress --group-id &lt;ALB_SG_ID&gt; --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id &lt;ALB_SG_ID&gt; --protocol tcp --port 443 --cidr 0.0.0.0/0
+                    </code></pre>
+                </li>
+                <li><strong>Create EC2 Key Pair:</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-key-pair --key-name 3tier-web-key --query 'KeyMaterial' --output text > 3tier-web-key.pem
+chmod 400 3tier-web-key.pem
+                    </code></pre>
+                </li>
+                <li><strong>Create Launch Template for Web Tier:</strong> (Replace AMI ID with a suitable Amazon Linux 2 AMI)
+                    <pre><code class="language-bash">
+aws ec2 create-launch-template \
+    --launch-template-name 3tier-web-lt \
+    --version-description WebTierLaunchTemplate \
+    --launch-template-data '{ \
+        "ImageId": "ami-0abcdef1234567890", \
+        "InstanceType": "t3.micro", \
+        "KeyName": "3tier-web-key", \
+        "SecurityGroupIds": ["&lt;WebTier_SG_ID&gt;"], \
+        "UserData": "$(base64 -w 0 &lt; web-user-data.sh)", \
+        "TagSpecifications": [{"ResourceType": "instance", "Tags": [{"Key": "Name", "Value": "3TierWebApp"}]}] \
+    }'
+                    </code></pre>
+                    <p><strong><code>web-user-data.sh</code> example:</strong></p>
+                    <pre><code class="language-bash">
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "&lt;h1&gt;Hello from Web Tier!&lt;/h1&gt;" > /var/www/html/index.html
+                    </code></pre>
+                </li>
+                <li><strong>Create Target Group for Web Tier:</strong>
+                    <pre><code class="language-bash">
+aws elbv2 create-target-group \
+    --name 3tier-web-tg \
+    --protocol HTTP \
+    --port 80 \
+    --vpc-id &lt;VPC_ID&gt; \
+    --health-check-protocol HTTP \
+    --health-check-path / \
+    --health-check-interval-seconds 30 \
+    --health-check-timeout-seconds 5 \
+    --healthy-threshold-count 2 \
+    --unhealthy-threshold-count 2
+                    </code></pre>
+                    <p>Note the <code>TargetGroupArn</code>.</p>
+                </li>
+                <li><strong>Create Auto Scaling Group for Web Tier:</strong>
+                    <pre><code class="language-bash">
+aws autoscaling create-auto-scaling-group \
+    --auto-scaling-group-name 3tier-web-asg \
+    --launch-template LaunchTemplateName=3tier-web-lt,Version='$Latest' \
+    --min-size 2 \
+    --max-size 4 \
+    --desired-capacity 2 \
+    --vpc-zone-identifier "&lt;PublicSubnet1_ID&gt;,&lt;PublicSubnet2_ID&gt;" \
+    --target-group-arns &lt;WebTier_TargetGroupArn&gt; \
+    --tags Key=Name,Value=3TierWebASG,PropagateAtLaunch=true
+                    </code></pre>
+                </li>
+                <li><strong>Create Application Load Balancer (ALB):</strong>
+                    <pre><code class="language-bash">
+aws elbv2 create-load-balancer \
+    --name 3tier-web-alb \
+    --subnets &lt;PublicSubnet1_ID&gt; &lt;PublicSubnet2_ID&gt; \
+    --security-groups &lt;ALB_SG_ID&gt; \
+    --scheme internet-facing \
+    --type application
+                    </code></pre>
+                    <p>Note the <code>DNSName</code> of the ALB.</p>
+                </li>
+                <li><strong>Create ALB Listener:</strong>
+                    <pre><code class="language-bash">
+aws elbv2 create-listener \
+    --load-balancer-arn &lt;ALB_ARN&gt; \
+    --protocol HTTP \
+    --port 80 \
+    --default-actions Type=forward,TargetGroupArn=&lt;WebTier_TargetGroupArn&gt;
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h3>Step 4: Deploy Application Tier (EC2 + ASG + Internal ALB)</h3>
+            <p>Create application servers on EC2 instances, managed by an Auto Scaling Group, behind an internal Application Load Balancer in private subnets.</p>
+            <ol>
+                <li><strong>Create App Tier Security Group:</strong> Allow HTTP/HTTPS from Web Tier SG, SSH from Bastion Host (if used).
+                    <pre><code class="language-bash">
+aws ec2 create-security-group --group-name AppTierSecurityGroup --description "Allow Web Tier access to App tier" --vpc-id &lt;VPC_ID&gt;
+aws ec2 authorize-security-group-ingress --group-id &lt;AppTier_SG_ID&gt; --protocol tcp --port 8080 --source-security-group-id &lt;WebTier_SG_ID&gt; # Example app port
+aws ec2 authorize-security-group-ingress --group-id &lt;AppTier_SG_ID&gt; --protocol tcp --port 22 --cidr &lt;BASTION_HOST_IP_CIDR&gt; # Or your IP
+                    </code></pre>
+                </li>
+                <li><strong>Create Internal ALB Security Group:</strong> Allow HTTP/HTTPS from Web Tier SG.
+                    <pre><code class="language-bash">
+aws ec2 create-security-group --group-name InternalALBSecurityGroup --description "Allow Web Tier to Internal ALB" --vpc-id &lt;VPC_ID&gt;
+aws ec2 authorize-security-group-ingress --group-id &lt;Internal_ALB_SG_ID&gt; --protocol tcp --port 8080 --source-security-group-id &lt;WebTier_SG_ID&gt;
+                    </code></pre>
+                </li>
+                <li><strong>Create Launch Template for App Tier:</strong> (Replace AMI ID with a suitable Amazon Linux 2 AMI)
+                    <pre><code class="language-bash">
+aws ec2 create-launch-template \
+    --launch-template-name 3tier-app-lt \
+    --version-description AppTierLaunchTemplate \
+    --launch-template-data '{ \
+        "ImageId": "ami-0abcdef1234567890", \
+        "InstanceType": "t3.micro", \
+        "KeyName": "3tier-web-key", \
+        "SecurityGroupIds": ["&lt;AppTier_SG_ID&gt;"], \
+        "UserData": "$(base64 -w 0 &lt; app-user-data.sh)", \
+        "TagSpecifications": [{"ResourceType": "instance", "Tags": [{"Key": "Name", "Value": "3TierAppApp"}]}] \
+    }'
+                    </code></pre>
+                    <p><strong><code>app-user-data.sh</code> example (simple Node.js app):</strong></p>
+                    <pre><code class="language-bash">
+#!/bin/bash
+yum update -y
+yum install -y nodejs npm
+
+mkdir /home/ec2-user/app
+cd /home/ec2-user/app
+
+echo "const http = require('http');\nconst port = 8080;\nconst hostname = '0.0.0.0';\n\nconst server = http.createServer((req, res) => {\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/plain');\n  res.end('Hello from App Tier!\n');\n});\n\nserver.listen(port, hostname, () => {\n  console.log(`Server running at http://${hostname}:${port}/`);\n});" > app.js
+
+node app.js &
+                    </code></pre>
+                </li>
+                <li><strong>Create Target Group for App Tier:</strong>
+                    <pre><code class="language-bash">
+aws elbv2 create-target-group \
+    --name 3tier-app-tg \
+    --protocol HTTP \
+    --port 8080 \
+    --vpc-id &lt;VPC_ID&gt; \
+    --health-check-protocol HTTP \
+    --health-check-path / \
+    --health-check-interval-seconds 30 \
+    --health-check-timeout-seconds 5 \
+    --healthy-threshold-count 2 \
+    --unhealthy-threshold-count 2
+                    </code></pre>
+                    <p>Note the <code>TargetGroupArn</code>.</p>
+                </li>
+                <li><strong>Create Auto Scaling Group for App Tier:</strong>
+                    <pre><code class="language-bash">
+aws autoscaling create-auto-scaling-group \
+    --auto-scaling-group-name 3tier-app-asg \
+    --launch-template LaunchTemplateName=3tier-app-lt,Version='$Latest' \
+    --min-size 2 \
+    --max-size 4 \
+    --desired-capacity 2 \
+    --vpc-zone-identifier "&lt;PrivateSubnet1_ID&gt;,&lt;PrivateSubnet2_ID&gt;" \
+    --target-group-arns &lt;AppTier_TargetGroupArn&gt; \
+    --tags Key=Name,Value=3TierAppASG,PropagateAtLaunch=true
+                    </code></pre>
+                </li>
+                <li><strong>Create Internal Application Load Balancer (ALB):</strong>
+                    <pre><code class="language-bash">
+aws elbv2 create-load-balancer \
+    --name 3tier-app-internal-alb \
+    --subnets &lt;PrivateSubnet1_ID&gt; &lt;PrivateSubnet2_ID&gt; \
+    --security-groups &lt;Internal_ALB_SG_ID&gt; \
+    --scheme internal \
+    --type application
+                    </code></pre>
+                    <p>Note the <code>DNSName</code> of the internal ALB.</p>
+                </li>
+                <li><strong>Create Internal ALB Listener:</strong>
+                    <pre><code class="language-bash">
+aws elbv2 create-listener \
+    --load-balancer-arn &lt;Internal_ALB_ARN&gt; \
+    --protocol HTTP \
+    --port 8080 \
+    --default-actions Type=forward,TargetGroupArn=&lt;AppTier_TargetGroupArn&gt;
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h3>Step 5: Connect Web Tier to Application Tier</h3>
+            <p>Configure your web tier application to forward requests to the internal ALB of the application tier. This typically involves updating your web server configuration (e.g., Nginx proxy pass) or application code.</p>
+            <p><strong>Example Nginx configuration snippet for web tier to forward to app tier:</strong></p>
+            <pre><code class="language-nginx">
+server {
+    listen 80;
+    location / {
+        proxy_pass http://&lt;Internal_ALB_DNS_Name&gt;:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+            </code></pre>
+
+            <h2>Testing and Cleanup</h2>
+            <ol>
+                <li><strong>Test:</strong> Access your public ALB's DNS name in a web browser. You should see "Hello from Web Tier!" (if not configured to proxy yet) or "Hello from App Tier!" (if proxy is set up and working).</li>
+                <li><strong>Cleanup:</strong> Remember to delete all resources created to avoid incurring charges:
+                    <ul>
+                        <li>Delete Auto Scaling Groups.</li>
+                        <li>Delete Launch Templates.</li>
+                        <li>Delete Load Balancers and Target Groups.</li>
+                        <li>Delete RDS instance.</li>
+                        <li>Delete NAT Gateway and its EIP.</li>
+                        <li>Delete Route Tables, Subnets, Internet Gateway, and finally the VPC.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

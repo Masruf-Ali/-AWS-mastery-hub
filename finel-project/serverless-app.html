@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project: Serverless App on AWS - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="project-guide">
+            <h1>Final Project: Building a Serverless Application on AWS</h1>
+            <p>This project guides you through building a simple serverless application using AWS Lambda, Amazon S3, and Amazon API Gateway. The application will allow users to upload files to S3, trigger a Lambda function to process them, and expose an API endpoint to interact with the system.</p>
+
+            <h2>Architecture Overview</h2>
+            <p>The serverless application will consist of:</p>
+            <ul>
+                <li><strong>Amazon S3:</strong> For storing uploaded files and potentially static website content.</li>
+                <li><strong>AWS Lambda:</strong> To process events (e.g., new file uploads to S3) and handle API requests.</li>
+                <li><strong>Amazon API Gateway:</strong> To create a RESTful API endpoint that invokes Lambda functions.</li>
+                <li>(Optional) <strong>Amazon DynamoDB:</strong> For storing metadata about the processed files.</li>
+            </ul>
+            <p><img src="../assets/diagrams/serverless-app-architecture.svg" alt="Serverless Application Architecture Diagram" style="max-width:100%; height:auto;"></p>
+
+            <h2>Prerequisites</h2>
+            <ul>
+                <li>An active AWS account.</li>
+                <li>AWS CLI installed and configured.</li>
+                <li>Basic understanding of S3, Lambda, and API Gateway.</li>
+                <li>Node.js and npm installed (for Lambda function development).</li>
+            </ul>
+
+            <h2>Step-by-Step Guide</h2>
+
+            <h3>Step 1: Create an S3 Bucket for File Uploads</h3>
+            <p>This bucket will store the files uploaded by users.</p>
+            <ol>
+                <li><strong>Create S3 Bucket:</strong>
+                    <pre><code class="language-bash">
+aws s3 mb s3://your-unique-upload-bucket-name --region us-east-1
+                    </code></pre>
+                    <p>Replace <code>your-unique-upload-bucket-name</code> with a globally unique name.</p>
+                </li>
+            </ol>
+
+            <h3>Step 2: Create an IAM Role for Lambda</h3>
+            <p>The Lambda function needs permissions to access S3 and CloudWatch Logs.</p>
+            <ol>
+                <li><strong>Create Trust Policy JSON (<code>lambda-trust-policy.json</code>):</strong>
+                    <pre><code class="language-json">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+                    </code></pre>
+                </li>
+                <li><strong>Create IAM Role:</strong>
+                    <pre><code class="language-bash">
+aws iam create-role --role-name LambdaS3ProcessorRole --assume-role-policy-document file://lambda-trust-policy.json
+                    </code></pre>
+                    <p>Note the <code>Arn</code> of the created role.</p>
+                </li>
+                <li><strong>Attach Permissions Policy (<code>lambda-s3-policy.json</code>):</strong>
+                    <pre><code class="language-json">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::your-unique-upload-bucket-name/*"
+    }
+  ]
+}
+                    </code></pre>
+                </li>
+                <li><strong>Attach Policy to Role:</strong>
+                    <pre><code class="language-bash">
+aws iam put-role-policy --role-name LambdaS3ProcessorRole --policy-name S3AccessPolicy --policy-document file://lambda-s3-policy.json
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h3>Step 3: Create a Lambda Function</h3>
+            <p>This function will be triggered when a new file is uploaded to the S3 bucket.</p>
+            <ol>
+                <li><strong>Create Lambda Function Code (<code>index.js</code>):</strong>
+                    <pre><code class="language-javascript">
+exports.handler = async (event) => {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+
+    // Example: Process S3 event
+    if (event.Records && event.Records[0].s3) {
+        const bucketName = event.Records[0].s3.bucket.name;
+        const objectKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+        console.log(`New object ${objectKey} uploaded to bucket ${bucketName}`);
+
+        // Add your processing logic here, e.g., resize image, analyze text, store metadata in DynamoDB
+        const response = {
+            statusCode: 200,
+            body: JSON.stringify(`Processed S3 object: ${objectKey} from ${bucketName}`),
+        };
+        return response;
+    }
+
+    // Example: Handle API Gateway request
+    if (event.httpMethod) {
+        const response = {
+            statusCode: 200,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: "Hello from Serverless Lambda!" }),
+        };
+        return response;
+    }
+
+    return { statusCode: 400, body: JSON.stringify("Unsupported event type") };
+};
+                    </code></pre>
+                </li>
+                <li><strong>Zip the function code:</strong>
+                    <pre><code class="language-bash">
+zip function.zip index.js
+                    </code></pre>
+                </li>
+                <li><strong>Create Lambda Function:</strong>
+                    <pre><code class="language-bash">
+aws lambda create-function \
+    --function-name S3FileProcessor \
+    --runtime nodejs18.x \
+    --role &lt;LambdaS3ProcessorRole_Arn&gt; \
+    --handler index.handler \
+    --zip-file fileb://function.zip \
+    --memory-size 128 \
+    --timeout 30 \
+    --tag-specifications 'ResourceType=function,Tags=[{Key=Name,Value=S3FileProcessor}]'
+                    </code></pre>
+                </li>
+            </ol>
+
+            <h3>Step 4: Configure S3 Event Trigger for Lambda</h3>
+            <p>Configure the S3 bucket to trigger the Lambda function when new objects are created.</p>
+            <ol>
+                <li><strong>Add S3 Permissions to Lambda:</strong>
+                    <pre><code class="language-bash">
+aws lambda add-permission \
+    --function-name S3FileProcessor \
+    --statement-id S3InvokePermission \
+    --action "lambda:InvokeFunction" \
+    --principal s3.amazonaws.com \
+    --source-arn arn:aws:s3:::your-unique-upload-bucket-name \
+    --source-account &lt;YOUR_AWS_ACCOUNT_ID&gt;
+                    </code></pre>
+                </li>
+                <li><strong>Configure S3 Event Notification:</strong>
+                    <pre><code class="language-bash">
+aws s3api put-bucket-notification-configuration \
+    --bucket your-unique-upload-bucket-name \
+    --notification-configuration '{ \
+        "LambdaFunctionConfigurations": [ \
+            {
+                "LambdaFunctionArn": "arn:aws:lambda:us-east-1:&lt;YOUR_AWS_ACCOUNT_ID&gt;:function:S3FileProcessor", \
+                "Events": ["s3:ObjectCreated:*"], \
+                "Filter": { \
+                    "Key": { \
+                        "FilterRules": [ \
+                            { \
+                                "Name": "suffix", \
+                                "Value": ".txt" \
+                            } \
+                        ] \
+                    } \
+                } \
+            } \
+        ] \
+    }'
+                    </code></pre>
+                    <p>This example triggers for <code>.txt</code> files. Adjust <code>FilterRules</code> as needed.</p>
+                </li>
+            </ol>
+
+            <h3>Step 5: Create an API Gateway Endpoint</h3>
+            <p>Expose the Lambda function via a RESTful API.</p>
+            <ol>
+                <li><strong>Create REST API:</strong>
+                    <pre><code class="language-bash">
+aws apigateway create-rest-api --name ServerlessAppAPI --description "API for serverless application"
+                    </code></pre>
+                    <p>Note the <code>id</code> (RestApiId).</p>
+                </li>
+                <li><strong>Get Root Resource ID:</strong>
+                    <pre><code class="language-bash">
+aws apigateway get-resources --rest-api-id &lt;RestApiId&gt; --query 'items[?path==`/`].id' --output text
+                    </code></pre>
+                    <p>Note the <code>RootResourceId</code>.</p>
+                </li>
+                <li><strong>Create Resource (e.g., <code>/hello</code>):</strong>
+                    <pre><code class="language-bash">
+aws apigateway create-resource --rest-api-id &lt;RestApiId&gt; --parent-id &lt;RootResourceId&gt; --path-part hello
+                    </code></pre>
+                    <p>Note the <code>id</code> (HelloResourceId).</p>
+                </li>
+                <li><strong>Create GET Method:</strong>
+                    <pre><code class="language-bash">
+aws apigateway put-method --rest-api-id &lt;RestApiId&gt; --resource-id &lt;HelloResourceId&gt; --http-method GET --authorization-type NONE
+                    </code></pre>
+                </li>
+                <li><strong>Integrate with Lambda:</strong>
+                    <pre><code class="language-bash">
+aws apigateway put-integration \
+    --rest-api-id &lt;RestApiId&gt; \
+    --resource-id &lt;HelloResourceId&gt; \
+    --http-method GET \
+    --type AWS_PROXY \
+    --integration-http-method POST \
+    --uri arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:&lt;YOUR_AWS_ACCOUNT_ID&gt;:function:S3FileProcessor/invocations
+                    </code></pre>
+                </li>
+                <li><strong>Add API Gateway Permissions to Lambda:</strong>
+                    <pre><code class="language-bash">
+aws lambda add-permission \
+    --function-name S3FileProcessor \
+    --statement-id ApiGatewayInvokePermission \
+    --action lambda:InvokeFunction \
+    --principal apigateway.amazonaws.com \
+    --source-arn "arn:aws:execute-api:us-east-1:&lt;YOUR_AWS_ACCOUNT_ID&gt;:&lt;RestApiId&gt;/*/*/*"
+                    </code></pre>
+                </li>
+                <li><strong>Deploy API:</strong>
+                    <pre><code class="language-bash">
+aws apigateway create-deployment --rest-api-id &lt;RestApiId&gt; --stage-name prod
+                    </code></pre>
+                    <p>The output will include the <code>invokeUrl</code> for your API (e.g., <code>https://&lt;RestApiId&gt;.execute-api.us-east-1.amazonaws.com/prod/hello</code>).</p>
+                </li>
+            </ol>
+
+            <h2>Testing and Cleanup</h2>
+            <ol>
+                <li><strong>Test S3 Trigger:</strong> Upload a <code>.txt</code> file to your S3 bucket. Check CloudWatch logs for the Lambda function to see the processing event.</li>
+                <li><strong>Test API Gateway:</strong> Open the <code>invokeUrl</code> (e.g., <code>https://&lt;RestApiId&gt;.execute-api.us-east-1.amazonaws.com/prod/hello</code>) in your browser. You should see "Hello from Serverless Lambda!".</li>
+                <li><strong>Cleanup:</strong> Remember to delete all resources created to avoid incurring charges:
+                    <ul>
+                        <li>Delete API Gateway REST API.</li>
+                        <li>Delete Lambda function.</li>
+                        <li>Delete IAM role and policies.</li>
+                        <li>Delete S3 bucket (ensure it's empty first).</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
