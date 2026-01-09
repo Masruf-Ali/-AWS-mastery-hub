@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 11: S3 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 11: Amazon Simple Storage Service (S3)</h1>
+
+        <section>
+            <h2>11.1 What is S3?</h2>
+            <p>Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance. Customers of all sizes and industries can use S3 to store and protect any amount of data for a range of use cases, such as websites, mobile applications, backup and restore, archive, enterprise applications, IoT devices, and big data analytics.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>Object Storage:</strong> Stores data as objects within buckets. Objects consist of data, metadata, and a key.</li>
+                <li><strong>Highly Durable:</strong> Designed for 99.999999999% (11 nines) of durability, meaning your data is highly protected against loss.</li>
+                <li><strong>Highly Available:</strong> Designed for high availability.</li>
+                <li><strong>Scalable:</strong> Virtually unlimited storage capacity.</li>
+                <li><strong>Secure:</strong> Robust security features, including encryption and access control.</li>
+                <li><strong>Cost-Effective:</strong> Pay-as-you-go pricing with various storage classes.</li>
+            </ul>
+            <p><img src="../assets/diagrams/s3-overview.svg" alt="S3 Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>11.2 S3 Buckets</h2>
+            <p>An S3 bucket is a container for objects stored in Amazon S3. Every object is stored in a bucket. Buckets are associated with an AWS account and a specific AWS Region.</p>
+            <h3>Bucket Naming Rules:</h3>
+            <ul>
+                <li>Must be globally unique across all AWS accounts.</li>
+                <li>Can contain lowercase letters, numbers, and hyphens.</li>
+                <li>Must be between 3 and 63 characters long.</li>
+                <li>Cannot be formatted as an IP address.</li>
+            </ul>
+            <h3>Bucket Properties:</h3>
+            <ul>
+                <li><strong>Versioning:</strong> Keeps multiple versions of an object.</li>
+                <li><strong>Logging:</strong> Records access requests to your bucket.</li>
+                <li><strong>Static Website Hosting:</strong> Can host static websites directly from an S3 bucket.</li>
+                <li><strong>Encryption:</strong> Configure default encryption for objects.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>11.3 S3 Policies (Bucket Policies & ACLs)</h2>
+            <p>S3 provides several mechanisms to control access to your buckets and objects.</p>
+            <h3>Bucket Policies:</h3>
+            <p>JSON-based policies attached to a bucket that specify who can access the bucket and its objects, and what actions they can perform. They are powerful and recommended for most access control scenarios.</p>
+            <pre><code class="language-json">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }
+  ]
+}
+            </code></pre>
+            <p>This example grants public read access to all objects in <code>your-bucket-name</code>.</p>
+            <h3>Access Control Lists (ACLs):</h3>
+            <p>A legacy access control mechanism for S3. ACLs define which AWS accounts or groups are granted access and the type of access. While still supported, bucket policies are generally preferred for their flexibility and centralized management.</p>
+            <p><strong>Best Practice:</strong> Use IAM policies for user/role access and bucket policies for broader, resource-based access control. Disable public access to S3 buckets unless absolutely necessary and explicitly configured.</p>
+        </section>
+
+        <section>
+            <h2>11.4 S3 Encryption</h2>
+            <p>S3 offers various options to encrypt your data at rest and in transit.</p>
+            <h3>Encryption at Rest:</h3>
+            <ul>
+                <li><strong>SSE-S3 (Server-Side Encryption with S3-managed keys):</strong> AWS manages the encryption keys. Simplest option.</li>
+                <li><strong>SSE-KMS (Server-Side Encryption with KMS-managed keys):</strong> AWS Key Management Service (KMS) manages the encryption keys. Provides more control and auditability.</li>
+                <li><strong>SSE-C (Server-Side Encryption with Customer-provided keys):</strong> You provide and manage the encryption keys.</li>
+                <li><strong>Client-Side Encryption:</strong> You encrypt the data before uploading it to S3.</li>
+            </ul>
+            <h3>Encryption in Transit:</h3>
+            <p>Use HTTPS (SSL/TLS) endpoints to encrypt data in transit between your application and S3.</p>
+        </section>
+
+        <section>
+            <h2>11.5 S3 Versioning</h2>
+            <p>S3 Versioning allows you to keep multiple versions of an object in the same bucket. This protects against accidental deletions, overwrites, and can be used for data retention and compliance.</p>
+            <ul>
+                <li>When versioning is enabled, every time an object is uploaded or modified, a new version is created.</li>
+                <li>Each version has a unique version ID.</li>
+                <li>Deleting an object with versioning enabled creates a delete marker, but the object versions remain.</li>
+                <li>You can suspend versioning, but it cannot be disabled once enabled.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>11.6 S3 Lifecycle Management</h2>
+            <p>S3 Lifecycle Management allows you to define rules to automatically transition objects to different storage classes or expire them after a certain period. This helps optimize storage costs and manage data retention.</p>
+            <h3>Common Lifecycle Actions:</h3>
+            <ul>
+                <li><strong>Transition:</strong> Move objects from one S3 storage class to another (e.g., from S3 Standard to S3 Standard-IA, then to S3 Glacier).</li>
+                <li><strong>Expiration:</strong> Permanently delete objects after a specified time.</li>
+            </ul>
+            <p><img src="../assets/diagrams/s3-lifecycle-management.svg" alt="S3 Lifecycle Management Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>11.7 S3 Static Website Hosting</h2>
+            <p>You can host a static website directly from an S3 bucket. This is a cost-effective and highly available way to host static content (HTML, CSS, JavaScript, images).</p>
+            <h3>Steps:</h3>
+            <ol>
+                <li>Create an S3 bucket with the same name as your domain (e.g., <code>www.example.com</code>).</li>
+                <li>Enable static website hosting on the bucket.</li>
+                <li>Configure a bucket policy to allow public read access to your objects.</li>
+                <li>Upload your website files (<code>index.html</code>, <code>error.html</code>, CSS, JS, images).</li>
+                <li>Configure your domain's DNS (e.g., using Route 53) to point to your S3 website endpoint.</li>
+            </ol>
+            <p><strong>Note:</strong> S3 static website hosting does not support server-side scripting (e.g., PHP, ASP.NET) or database connections. For dynamic websites, you would typically use EC2, Lambda, or other compute services.</p>
+        </section>
+
+        <section>
+            <h2>11.8 S3 Pre-Signed URLs</h2>
+            <p>An S3 pre-signed URL is a URL that you can generate to grant temporary access to a specific S3 object. This allows users who do not have AWS credentials or permissions to access a private object for a limited time.</p>
+            <h3>Use Cases:</h3>
+            <ul>
+                <li>Allowing a user to upload a file to a private S3 bucket without giving them AWS credentials.</li>
+                <li>Allowing a user to download a private file from S3 without making the bucket public.</li>
+                <li>Distributing temporary access links for sensitive documents.</li>
+            </ul>
+            <p>Pre-signed URLs are generated using your AWS credentials and specify the object key, HTTP method (GET, PUT), and an expiration time.</p>
+        </section>
+
+        <p><a href="snow-family.html" class="next-module-link">Next Module: Snow Family &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

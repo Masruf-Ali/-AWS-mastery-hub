@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 21: Messaging - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 21: Messaging Services</h1>
+
+        <section>
+            <h2>21.1 What are Messaging Services?</h2>
+            <p>Messaging services enable communication between different components of a distributed application. They help decouple services, improve scalability, and enhance fault tolerance by allowing components to communicate asynchronously.</p>
+            <h3>Key Benefits:</h3>
+            <ul>
+                <li><strong>Decoupling:</strong> Services don't need to know about each other's availability or implementation details.</li>
+                <li><strong>Scalability:</strong> Components can scale independently.</li>
+                <li><strong>Resilience:</strong> Messages can be stored and retried, preventing data loss during outages.</li>
+                <li><strong>Asynchronous Communication:</strong> Senders don't have to wait for receivers to process messages.</li>
+            </ul>
+            <p>AWS offers several messaging services, each designed for different use cases.</p>
+        </section>
+
+        <section>
+            <h2>21.2 Amazon Simple Queue Service (SQS)</h2>
+            <p>Amazon SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity of managing and operating message-oriented middleware, and lets you focus on differentiating your applications.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Decoupling:</strong> Separates message producers from consumers.</li>
+                <li><strong>Scalability:</strong> Scales automatically to handle any volume of messages.</li>
+                <li><strong>Durability:</strong> Messages are redundantly stored across multiple Availability Zones.</li>
+                <li><strong>Types of Queues:</strong>
+                    <ul>
+                        <li><strong>Standard Queues:</strong> Offer maximum throughput, best-effort ordering, and at-least-once delivery.</li>
+                        <li><strong>FIFO (First-In, First-Out) Queues:</strong> Guarantee message ordering and exactly-once processing. Ideal for scenarios where the order of operations and uniqueness of messages are critical.</li>
+                    </ul>
+                </li>
+                <li><strong>Visibility Timeout:</strong> Prevents multiple consumers from processing the same message simultaneously.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Decoupling microservices, distributed transaction processing, batch processing, task queues.</p>
+            <p><img src="../assets/diagrams/sqs-overview.svg" alt="SQS Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>21.3 Amazon Simple Notification Service (SNS)</h2>
+            <p>Amazon SNS is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications. SNS allows you to send messages to a large number of subscribers simultaneously.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Pub/Sub Model:</strong> Publishers send messages to a topic, and subscribers receive messages from the topic.</li>
+                <li><strong>Fanout:</strong> A single message published to an SNS topic can be delivered to multiple types of subscribers (e.g., SQS queues, Lambda functions, HTTP endpoints, email, SMS).</li>
+                <li><strong>Scalability:</strong> Scales automatically to handle high message throughput.</li>
+                <li><strong>Durability:</strong> Messages are stored redundantly.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Application-to-application messaging, user notifications (SMS, email), monitoring alerts, event-driven architectures.</p>
+            <p><img src="../assets/diagrams/sns-overview.svg" alt="SNS Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>21.4 Amazon Kinesis</h2>
+            <p>Amazon Kinesis is a streaming data service that makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information. It offers several services for different streaming data needs.</p>
+            <h3>Kinesis Services:</h3>
+            <ul>
+                <li><strong>Kinesis Data Streams:</strong> A highly scalable and durable real-time data streaming service. Used for custom applications that need to process data records in real time.</li>
+                <li><strong>Kinesis Data Firehose:</strong> An ETL service that reliably loads streaming data into data lakes, data stores, and analytics services. Automatically scales to match the throughput of your data and requires no ongoing administration.</li>
+                <li><strong>Kinesis Data Analytics:</strong> An easy way to analyze streaming data in real time with SQL or Apache Flink.</li>
+                <li><strong>Kinesis Video Streams:</strong> Securely streams video from connected devices to AWS for analytics, machine learning (ML), and other processing.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Real-time analytics, log and event data collection, IoT data processing, clickstream analysis.</p>
+            <p><img src="../assets/diagrams/kinesis-overview.svg" alt="Kinesis Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>21.5 Amazon MQ</h2>
+            <p>Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that makes it easy to set up and operate message brokers in the cloud. It supports industry-standard APIs and protocols, so you can migrate applications that use message brokers to AWS without rewriting code.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Managed Service:</strong> AWS manages the provisioning, patching, and maintenance of the message brokers.</li>
+                <li><strong>Open-Source Compatibility:</strong> Supports ActiveMQ and RabbitMQ, allowing easy migration of existing applications.</li>
+                <li><strong>Standard Protocols:</strong> Supports AMQP, MQTT, OpenWire, STOMP, and more.</li>
+                <li><strong>High Availability:</strong> Can be deployed in a Multi-AZ configuration.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Migrating existing applications that rely on traditional message brokers, enterprise messaging, integrating disparate systems.</p>
+        </section>
+
+        <p><a href="advanced-vpc.html" class="next-module-link">Next Module: Advanced VPC &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

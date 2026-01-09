@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 23: AI/ML - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 23: Artificial Intelligence & Machine Learning (AI/ML)</h1>
+
+        <section>
+            <h2>23.1 What is AI/ML on AWS?</h2>
+            <p>AWS offers a comprehensive suite of Artificial Intelligence (AI) and Machine Learning (ML) services, catering to developers and data scientists of all skill levels. These services allow you to integrate intelligent capabilities into your applications, build, train, and deploy custom ML models, and analyze vast amounts of data for insights.</p>
+            <h3>AWS AI/ML Stack:</h3>
+            <ul>
+                <li><strong>AI Services (Top Layer):</strong> Pre-trained, ready-to-use services that provide AI capabilities without requiring ML expertise (e.g., Rekognition, Polly, Lex, Translate).</li>
+                <li><strong>ML Services (Middle Layer):</strong> Services for building, training, and deploying custom ML models (e.g., Amazon SageMaker).</li>
+                <li><strong>ML Frameworks & Infrastructure (Bottom Layer):</strong> Provides the underlying infrastructure and frameworks for advanced ML practitioners (e.g., EC2 instances with GPUs, TensorFlow, PyTorch).</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-ai-ml-stack.svg" alt="AWS AI/ML Stack Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>23.2 Amazon Rekognition</h2>
+            <p>Amazon Rekognition is a service that makes it easy to add image and video analysis to your applications. You can detect objects, scenes, and faces; search and compare faces; and identify inappropriate content.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Object and Scene Detection:</strong> Identify thousands of objects and scenes in images and videos.</li>
+                <li><strong>Face Analysis:</strong> Detect faces, analyze facial attributes (emotions, age range), and compare faces.</li>
+                <li><strong>Celebrity Recognition:</strong> Identify celebrities in images and videos.</li>
+                <li><strong>Content Moderation:</strong> Detect explicit or suggestive content.</li>
+                <li><strong>Text in Image:</strong> Extract text from images.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Photo and video management, security and public safety, content moderation, identity verification.</p>
+        </section>
+
+        <section>
+            <h2>23.3 Amazon Polly</h2>
+            <p>Amazon Polly is a service that turns text into lifelike speech, allowing you to create applications that talk. Polly uses advanced deep learning technologies to synthesize speech that sounds like a human voice.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Text-to-Speech (TTS):</strong> Convert text into natural-sounding speech.</li>
+                <li><strong>Multiple Languages and Voices:</strong> Supports many languages and a variety of male and female voices.</li>
+                <li><strong>SSML Support:</strong> Use Speech Synthesis Markup Language (SSML) to control speech aspects like pronunciation, volume, and speaking rate.</li>
+                <li><strong>Custom Lexicons:</strong> Define how certain words are pronounced.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Voice-enabled applications, audio content creation, e-learning, telephony systems.</p>
+        </section>
+
+        <section>
+            <h2>23.4 Amazon Lex</h2>
+            <p>Amazon Lex is a service for building conversational interfaces into any application using voice and text. Lex provides the advanced deep learning functionalities of automatic speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to recognize the intent of the text, to enable you to build applications with highly engaging user experiences and lifelike conversational interactions.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>ASR and NLU:</strong> Automatic Speech Recognition and Natural Language Understanding.</li>
+                <li><strong>Bots:</strong> Build chatbots and virtual assistants.</li>
+                <li><strong>Integration:</strong> Integrates with AWS Lambda for backend logic, and various messaging platforms.</li>
+                <li><strong>Scalability:</strong> Automatically scales to meet demand.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Chatbots, virtual assistants, interactive voice response (IVR) systems, application control.</p>
+        </section>
+
+        <section>
+            <h2>23.5 Amazon Translate</h2>
+            <p>Amazon Translate is a neural machine translation service that delivers fast, high-quality, affordable, and customizable language translation. It uses deep learning models to provide more accurate and natural-sounding translations than traditional statistical and rule-based translation algorithms.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Neural Machine Translation:</strong> High-quality, natural-sounding translations.</li>
+                <li><strong>Multiple Languages:</strong> Supports a wide range of languages.</li>
+                <li><strong>Custom Terminology:</strong> Define custom translations for specific terms.</li>
+                <li><strong>Real-time and Batch Translation:</strong> Translate text in real-time or process large documents in batch.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Multilingual content, real-time communication, localization, customer support.</p>
+        </section>
+
+        <section>
+            <h2>23.6 Amazon SageMaker</h2>
+            <p>Amazon SageMaker is a fully managed service that provides every developer and data scientist with the ability to build, train, and deploy machine learning (ML) models quickly. SageMaker removes the heavy lifting from each step of the machine learning process to make it easier to develop high-quality models.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Notebook Instances:</strong> Jupyter notebooks for data exploration and model development.</li>
+                <li><strong>Built-in Algorithms:</strong> Provides a wide range of optimized ML algorithms.</li>
+                <li><strong>Managed Training:</strong> Manages the infrastructure for training ML models, including distributed training.</li>
+                <li><strong>Model Hosting:</strong> Easily deploy models to production for real-time inference or batch transformations.</li>
+                <li><strong>Ground Truth:</strong> Helps build high-quality training datasets.</li>
+                <li><strong>Feature Store:</strong> A centralized repository for ML features.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Predictive analytics, fraud detection, recommendation engines, computer vision, natural language processing.</p>
+            <p><img src="../assets/diagrams/sagemaker-workflow.svg" alt="SageMaker Workflow Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="security-governance.html" class="next-module-link">Next Module: Security & Governance &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

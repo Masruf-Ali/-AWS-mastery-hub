@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 13: Databases & Analytics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 13: Databases & Analytics</h1>
+
+        <section>
+            <h2>13.1 Amazon Relational Database Service (RDS)</h2>
+            <p>Amazon RDS makes it easy to set up, operate, and scale a relational database in the cloud. It provides cost-efficient and resizable capacity while automating time-consuming administration tasks such as hardware provisioning, database setup, patching, and backups. It supports several popular database engines.</p>
+            <h3>Supported Database Engines:</h3>
+            <ul>
+                <li>Amazon Aurora (AWS proprietary)</li>
+                <li>PostgreSQL</li>
+                <li>MySQL</li>
+                <li>MariaDB</li>
+                <li>Oracle Database</li>
+                <li>Microsoft SQL Server</li>
+            </ul>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Managed Service:</strong> AWS handles patching, backups, and replication.</li>
+                <li><strong>Scalability:</strong> Easily scale compute and storage resources up or down.</li>
+                <li><strong>High Availability:</strong> Multi-AZ deployments for automatic failover.</li>
+                <li><strong>Read Replicas:</strong> Improve read performance and offload read traffic from the primary instance.</li>
+                <li><strong>Automated Backups:</strong> Point-in-time recovery.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-rds-overview.svg" alt="AWS RDS Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>13.2 Amazon Aurora</h2>
+            <p>Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud, combining the performance and availability of traditional enterprise databases with the simplicity and cost-effectiveness of open-source databases. It is a fully managed service that is part of Amazon RDS.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>High Performance:</strong> Up to 5x faster than standard MySQL and 3x faster than standard PostgreSQL.</li>
+                <li><strong>High Availability:</strong> Designed for 99.99% availability, automatically replicates data across 3 Availability Zones.</li>
+                <li><strong>Scalability:</strong> Storage scales automatically up to 128 TB. Compute can be scaled up or down.</li>
+                <li><strong>Cost-Effective:</strong> Pay-as-you-go, often more cost-effective than commercial databases.</li>
+                <li><strong>Serverless Option:</strong> Aurora Serverless automatically starts up, shuts down, and scales capacity up or down based on your application's needs.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>13.3 Amazon DynamoDB</h2>
+            <p>Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit-millisecond latency at any scale. It is a fully managed, multi-Region, multi-master, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>NoSQL:</strong> Supports document and key-value data models.</li>
+                <li><strong>Serverless:</strong> No servers to provision, patch, or manage.</li>
+                <li><strong>Scalability:</strong> Scales automatically to handle any amount of traffic.</li>
+                <li><strong>High Performance:</strong> Consistent single-digit-millisecond latency.</li>
+                <li><strong>Global Tables:</strong> Multi-Region, multi-master replication.</li>
+                <li><strong>On-demand or Provisioned Capacity:</strong> Choose your billing model based on predictability of workload.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Web, mobile, gaming, ad tech, IoT, and many other applications that need low-latency data access.</p>
+        </section>
+
+        <section>
+            <h2>13.4 Amazon Redshift</h2>
+            <p>Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. It is optimized for data warehousing workloads, enabling you to run complex analytical queries against large datasets.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Columnar Storage:</strong> Stores data in a columnar format, which is highly optimized for analytical queries.</li>
+                <li><strong>Massively Parallel Processing (MPP):</strong> Distributes and parallelizes queries across multiple nodes for fast performance.</li>
+                <li><strong>Scalability:</strong> Easily scale your data warehouse capacity.</li>
+                <li><strong>Cost-Effective:</strong> Significantly lower cost than traditional data warehouses.</li>
+                <li><strong>Integration:</strong> Integrates with other AWS services like S3, Kinesis, and Glue.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Business intelligence, operational analytics, big data analytics.</p>
+        </section>
+
+        <section>
+            <h2>13.5 Amazon Athena</h2>
+            <p>Amazon Athena is an interactive query service that makes it easy to analyze data directly in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to set up or manage, and you pay only for the queries you run.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Serverless:</strong> No servers to manage.</li>
+                <li><strong>Pay-per-query:</strong> You pay for the amount of data scanned per query.</li>
+                <li><strong>Standard SQL:</strong> Use familiar SQL to query data.</li>
+                <li><strong>Data in S3:</strong> Queries data directly from S3, supporting various formats (CSV, JSON, ORC, Parquet).</li>
+                <li><strong>Use Cases:</strong> Ad-hoc querying, log analysis, reporting.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-athena-s3.svg" alt="AWS Athena S3 Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>13.6 AWS Glue</h2>
+            <p>AWS Glue is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. It discovers your data, transforms it, and makes it available for search and analysis.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Serverless ETL:</strong> No infrastructure to manage.</li>
+                <li><strong>Data Catalog:</strong> A central metadata repository for all your data assets.</li>
+                <li><strong>Crawlers:</strong> Automatically discover data and infer schemas.</li>
+                <li><strong>ETL Jobs:</strong> Generate, modify, and run ETL scripts (Python or Scala).</li>
+                <li><strong>Integration:</strong> Works with S3, RDS, Redshift, and other data stores.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Data integration, data preparation for analytics, building data lakes.</p>
+        </section>
+
+        <section>
+            <h2>13.7 Amazon EMR (Elastic MapReduce)</h2>
+            <p>Amazon EMR is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process vast amounts of data. It makes it easy to set up, operate, and scale your big data environments.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Managed Hadoop/Spark:</strong> Simplifies deployment and management of big data frameworks.</li>
+                <li><strong>Scalability:</strong> Easily scale clusters up or down.</li>
+                <li><strong>Cost-Effective:</strong> Integrates with EC2 Spot Instances for cost savings.</li>
+                <li><strong>Integration:</strong> Works with S3, DynamoDB, and other AWS data stores.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Big data processing, machine learning, ETL, scientific simulation.</p>
+        </section>
+
+        <p><a href="caching.html" class="next-module-link">Next Module: Caching &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

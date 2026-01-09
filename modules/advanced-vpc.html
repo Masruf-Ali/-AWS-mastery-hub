@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 22: Advanced VPC - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 22: Advanced VPC Concepts</h1>
+
+        <section>
+            <h2>22.1 CIDR Blocks in VPC</h2>
+            <p>As introduced in Networking Basics, CIDR (Classless Inter-Domain Routing) is fundamental to defining IP address ranges in your Amazon Virtual Private Cloud (VPC). When you create a VPC, you specify a CIDR block, which is a range of private IP addresses for your network (e.g., <code>10.0.0.0/16</code>).</p>
+            <h3>VPC CIDR Block Considerations:</h3>
+            <ul>
+                <li><strong>Size:</strong> A VPC CIDR block can be between <code>/16</code> and <code>/28</code> in size. A <code>/16</code> provides 65,536 IP addresses, while a <code>/28</code> provides 16.</li>
+                <li><strong>Private IP Ranges:</strong> It's best practice to use private IP address ranges (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>) to avoid conflicts with other networks.</li>
+                <li><strong>Non-overlapping:</strong> If you plan to connect your VPC to other networks (e.g., on-premises, other VPCs via peering), ensure their CIDR blocks do not overlap.</li>
+                <li><strong>Secondary CIDR Blocks:</strong> You can associate additional CIDR blocks with your VPC after creation, allowing you to expand your network.</li>
+            </ul>
+            <p>Each subnet within your VPC must have a CIDR block that is a subset of the VPC's CIDR block.</p>
+        </section>
+
+        <section>
+            <h2>22.2 Public and Private Subnets with Routing</h2>
+            <p>Subnets allow you to segment your VPC into smaller networks. In AWS, subnets are tied to a single Availability Zone. The routing configuration determines whether a subnet is public or private.</p>
+            <h3>Public Subnet:</h3>
+            <ul>
+                <li>Has a route to an <strong>Internet Gateway (IGW)</strong> in its route table.</li>
+                <li>Instances in a public subnet can have public IP addresses and communicate directly with the internet.</li>
+                <li>Typically used for web servers, load balancers, and other internet-facing resources.</li>
+            </ul>
+            <h3>Private Subnet:</h3>
+            <ul>
+                <li>Does NOT have a route to an Internet Gateway in its route table.</li>
+                <li>Instances in a private subnet cannot be directly accessed from the internet.</li>
+                <li>To allow outbound internet access from a private subnet, you use a <strong>NAT Gateway</strong> or <strong>NAT Instance</strong>.</li>
+                <li>Typically used for application servers, database servers, and other backend resources that should not be directly exposed to the internet.</li>
+            </ul>
+            <p><img src="../assets/diagrams/advanced-vpc-subnets.svg" alt="Advanced VPC Subnets Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>22.3 NAT Gateway vs. NAT Instance</h2>
+            <p>Network Address Translation (NAT) allows instances in a private subnet to connect to the internet or other AWS services, but prevents the internet from initiating a connection with those instances.</p>
+            <h3>NAT Gateway:</h3>
+            <ul>
+                <li><strong>Managed Service:</strong> AWS manages the NAT Gateway, providing high availability and automatic scaling.</li>
+                <li><strong>Highly Available:</strong> Automatically redundant within an Availability Zone. For cross-AZ redundancy, deploy a NAT Gateway in each AZ.</li>
+                <li><strong>High Bandwidth:</strong> Supports high bandwidth, up to 100 Gbps.</li>
+                <li><strong>Cost:</strong> Charged per hour and per GB processed.</li>
+                <li><strong>Recommended:</strong> Generally the preferred choice for production environments.</li>
+            </ul>
+            <h3>NAT Instance:</h3>
+            <ul>
+                <li><strong>EC2 Instance:</strong> A regular EC2 instance configured to perform NAT.</li>
+                <li><strong>Manual Management:</strong> You are responsible for managing, patching, and scaling the instance.</li>
+                <li><strong>Single Point of Failure:</strong> Can be a single point of failure unless configured with Auto Scaling and custom scripts.</li>
+                <li><strong>Cost:</strong> Charged for EC2 instance usage and data transfer.</li>
+                <li><strong>Legacy:</strong> Mostly superseded by NAT Gateway.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>22.4 Bastion Host (Jump Box)</h2>
+            <p>A Bastion Host (also known as a Jump Box) is a server whose purpose is to provide secure access to private instances located in private subnets from an external network, such as the Internet or your on-premises network.</p>
+            <h3>How it Works:</h3>
+            <ol>
+                <li>The Bastion Host is placed in a public subnet.</li>
+                <li>It has a public IP address and a security group that allows SSH (port 22) or RDP (port 3389) access from a restricted set of IP addresses (e.g., your office IP).</li>
+                <li>From the Bastion Host, you can then SSH or RDP into your private instances.</li>
+            </ol>
+            <p>This creates a single, hardened entry point, reducing the attack surface of your private network.</p>
+            <p><img src="../assets/diagrams/bastion-host.svg" alt="Bastion Host Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>22.5 VPC Peering</h2>
+            <p>VPC Peering is a networking connection between two VPCs that enables you to route traffic between them privately using IPv4 or IPv6 addresses. Instances in either VPC can communicate with each other as if they are within the same network.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>Private Connection:</strong> Uses AWS's private network, not the public internet.</li>
+                <li><strong>Non-transitive:</strong> If VPC A is peered with VPC B, and VPC B is peered with VPC C, VPC A and VPC C cannot communicate directly unless explicitly peered.</li>
+                <li><strong>Same or Different Accounts:</strong> Can peer VPCs within the same AWS account or across different AWS accounts.</li>
+                <li><strong>Same or Different Regions:</strong> Can peer VPCs within the same Region or across different Regions (inter-region VPC peering).</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Connecting applications in different VPCs, sharing resources between different accounts, creating a centralized network hub.</p>
+            <p><img src="../assets/diagrams/vpc-peering.svg" alt="VPC Peering Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>22.6 VPC Flow Logs</h2>
+            <p>VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC. Flow log data can be published to Amazon CloudWatch Logs or Amazon S3.</p>
+            <h3>What Flow Logs Capture:</h3>
+            <ul>
+                <li>Source and destination IP addresses.</li>
+                <li>Source and destination ports.</li>
+                <li>Protocol.</li>
+                <li>Number of packets and bytes transferred.</li>
+                <li>Start and end time of the flow.</li>
+                <li>Action (ACCEPT or REJECT).</li>
+            </ul>
+            <h3>Use Cases:</h3>
+            <ul>
+                <li><strong>Network Monitoring:</strong> Monitor network traffic for anomalies.</li>
+                <li><strong>Security Analysis:</strong> Identify unauthorized access attempts or suspicious traffic patterns.</li>
+                <li><strong>Troubleshooting:</strong> Diagnose connectivity issues.</li>
+                <li><strong>Compliance:</strong> Provide audit trails for network activity.</li>
+            </ul>
+            <p>Flow logs can be created at the VPC, subnet, or network interface level.</p>
+        </section>
+
+        <p><a href="ai-ml.html" class="next-module-link">Next Module: AI/ML &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

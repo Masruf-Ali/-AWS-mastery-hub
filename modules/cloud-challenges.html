@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Cloud Challenges - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 3: Cloud Challenges</h1>
+        <section>
+            <h2>3.1 Cloud Security Concerns</h2>
+            <p>While cloud providers like AWS invest heavily in security, it's crucial to understand the shared responsibility model and common security challenges.</p>
+            <h3>The Shared Responsibility Model</h3>
+            <p>AWS operates under a Shared Responsibility Model, which dictates what AWS is responsible for and what the customer is responsible for.</p>
+            <ul>
+                <li><strong>AWS is responsible for security OF the Cloud:</strong> This includes protecting the infrastructure that runs all of the services offered in the AWS Cloud. This infrastructure is composed of the hardware, software, networking, and facilities that run AWS Cloud services.</li>
+                <li><strong>Customer is responsible for security IN the Cloud:</strong> This includes your data, applications, operating systems, network configuration, and firewalls. The exact responsibilities vary depending on the cloud service model (IaaS, PaaS, SaaS).</li>
+            </ul>
+            <p><strong>Common Security Challenges:</strong></p>
+            <ul>
+                <li><strong>Misconfigurations:</strong> Incorrectly configured security groups, S3 buckets, or IAM policies can expose resources.</li>
+                <li><strong>Identity and Access Management (IAM):</strong> Weak IAM practices, such as overly permissive policies or lack of MFA, can lead to unauthorized access.</li>
+                <li><strong>Data Protection:</strong> Ensuring data encryption at rest and in transit, and proper access controls.</li>
+                <li><strong>Vulnerability Management:</strong> Keeping operating systems and applications patched and secure.</li>
+            </ul>
+            <p><img src="../assets/diagrams/shared-responsibility-model.svg" alt="AWS Shared Responsibility Model Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>3.2 Compliance and Governance</h2>
+            <p>Organizations operating in regulated industries must ensure their cloud environments comply with various standards and regulations.</p>
+            <h3>Key Compliance Standards:</h3>
+            <ul>
+                <li><strong>GDPR (General Data Protection Regulation):</strong> European data privacy law.</li>
+                <li><strong>HIPAA (Health Insurance Portability and Accountability Act):</strong> US healthcare data privacy and security.</li>
+                <li><strong>PCI DSS (Payment Card Industry Data Security Standard):</strong> For organizations handling credit card information.</li>
+                <li><strong>SOC 1, 2, 3 (Service Organization Control):</strong> Reports on internal controls related to financial reporting, security, availability, processing integrity, confidentiality, and privacy.</li>
+            </ul>
+            <p>AWS provides a wide range of services and certifications to help customers meet compliance requirements, but ultimately, the customer is responsible for ensuring their applications and data processing comply.</p>
+        </section>
+
+        <section>
+            <h2>3.3 Vendor Lock-In</h2>
+            <p>Vendor lock-in is a concern where a customer becomes dependent on a vendor for products and services, unable to move to another vendor without substantial costs, effort, or even business disruption.</p>
+            <h3>Mitigating Vendor Lock-In:</h3>
+            <ul>
+                <li><strong>Multi-Cloud Strategy:</strong> Utilizing services from multiple cloud providers.</li>
+                <li><strong>Hybrid Cloud:</strong> Running some workloads on-premises and some in the cloud.</li>
+                <li><strong>Open Standards:</strong> Using open-source technologies and standards that are transferable.</li>
+                <li><strong>Containerization:</strong> Technologies like Docker and Kubernetes create portable application packages.</li>
+                <li><strong>Serverless/Function-as-a-Service:</strong> While specific implementations differ, the underlying principles of serverless functions can be portable with some refactoring.</li>
+                <li><strong>Abstraction Layers:</strong> Using tools that abstract infrastructure, allowing easier migration.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3.4 Monitoring and Logging</h2>
+            <p>Effective monitoring and logging are essential for the health, performance, and security of cloud applications.</p>
+            <h3>Importance:</h3>
+            <ul>
+                <li><strong>Performance:</strong> Identify bottlenecks and optimize resource utilization.</li>
+                <li><strong>Availability:</strong> Detect outages and ensure services are running.</li>
+                <li><strong>Security:</strong> Identify suspicious activities and potential breaches.</li>
+                <li><strong>Cost Optimization:</strong> Track resource consumption to manage spending.</li>
+                <li><strong>Compliance:</strong> Maintain audit trails for regulatory requirements.</li>
+            </ul>
+            <p>AWS offers services like CloudWatch for monitoring metrics and logs, and CloudTrail for auditing API calls.</p>
+        </section>
+
+        <section>
+            <h2>3.5 Disaster Recovery (DR) and Business Continuity</h2>
+            <p>Disaster Recovery (DR) involves strategies to quickly recover from disruptive events, while Business Continuity (BC) ensures essential business functions continue during and after a disaster.</p>
+            <h3>Key DR Strategies in AWS:</h3>
+            <ul>
+                <li><strong>Backup and Restore:</strong> Backing up data to AWS and restoring it when needed. Simple, but higher RTO (Recovery Time Objective) and RPO (Recovery Point Objective).</li>
+                <li><strong>Pilot Light:</strong> A minimal version of the environment is always running in the DR region, ready to be scaled up.</li>
+                <li><strong>Warm Standby:</strong> A fully functional, but scaled-down, version of the environment is always running in the DR region.</li>
+                <li><strong>Multi-Site Active/Active:</strong> Full replication and load balancing across multiple active regions. Highest availability, lowest RTO/RPO, but most complex and costly.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-disaster-recovery-strategies.svg" alt="AWS Disaster Recovery Strategies Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>3.6 Cloud Migration Strategies</h2>
+            <p>Migrating existing on-premises applications to the cloud requires careful planning and a suitable strategy.</p>
+            <h3>The 6 R's of Migration (AWS Perspective):</h3>
+            <ol>
+                <li><strong>Rehost (Lift and Shift):</strong> Moving applications without changes. Quickest, but may not optimize for cloud benefits.</li>
+                <li><strong>Replatform (Lift, Tinker, and Shift):</strong> Moving applications with minor modifications to take advantage of cloud features.</li>
+                <li><strong>Refactor/Re-architect:</strong> Reworking the application's architecture to fully utilize cloud-native capabilities. Most expensive and time-consuming, but yields the most benefits.</li>
+                <li><strong>Repurchase (Drop and Shop):</strong> Moving to a different product, typically SaaS.</li>
+                <li><strong>Retire:</strong> Decommissioning applications that are no longer needed.</li>
+                <li><strong>Retain:</strong> Keeping some applications on-premises if cloud migration isn't feasible or beneficial.</li>
+            </ol>
+            <p>The choice of strategy depends on factors like application complexity, business criticality, and desired cloud benefits.</p>
+        </section>
+
+        <p><a href="networking-basics.html" class="next-module-link">Next Module: Networking Basics &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Cloud Basics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 2: Cloud Basics</h1>
+        <section>
+            <h2>2.1 Evolution of Computing</h2>
+            <p>To understand cloud computing, it's helpful to look at how computing infrastructure has evolved over time.</p>
+            <h3>On-Premises (Traditional IT)</h3>
+            <p>Historically, organizations hosted their applications and data in their own data centers. This involved significant upfront investment in hardware, software, networking, and facilities. Companies were responsible for everything from physical security to application maintenance.</p>
+            <ul>
+                <li><strong>Pros:</strong> Full control, high customization.</li>
+                <li><strong>Cons:</strong> High cost, slow provisioning, maintenance burden, scalability challenges, disaster recovery complexity.</li>
+            </ul>
+            <h3>Virtualization</h3>
+            <p>Virtualization emerged as a key technology to improve efficiency in on-premises environments. It allows a single physical server to run multiple isolated virtual machines (VMs), each with its own operating system and applications. This led to better hardware utilization and easier resource management.</p>
+            <ul>
+                <li><strong>Pros:</strong> Better resource utilization, easier server provisioning, reduced hardware costs.</li>
+                <li><strong>Cons:</strong> Still requires significant upfront investment and management of physical infrastructure.</li>
+            </ul>
+            <h3>Cloud Computing</h3>
+            <p>Cloud computing takes virtualization a step further by abstracting away the underlying physical infrastructure entirely. Resources are provided as a service over the internet, managed by a third-party provider (like AWS). Users only pay for what they consume.</p>
+            <ul>
+                <li><strong>Pros:</strong> Scalability, elasticity, cost-effectiveness, agility, global reach, reduced operational burden.</li>
+                <li><strong>Cons:</strong> Requires internet connectivity, potential vendor lock-in, security concerns (though often exaggerated).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2.2 Virtualization Deep Dive</h2>
+            <p>Virtualization is the creation of a virtual (rather than actual) version of something, such as a server, desktop, storage device, network, or even an operating system. It's the fundamental technology that underpins cloud computing.</p>
+            <h3>How Virtualization Works: Hypervisors</h3>
+            <p>At the core of virtualization is the <strong>hypervisor</strong> (also known as a Virtual Machine Monitor or VMM). A hypervisor is a piece of software, firmware, or hardware that creates and runs virtual machines (VMs).</p>
+            <ul>
+                <li><strong>Type 1 Hypervisor (Bare-Metal):</strong> Runs directly on the host hardware to control the hardware and to manage guest operating systems. Examples include VMware ESXi, Microsoft Hyper-V, and Citrix XenServer. These are commonly used in data centers and cloud environments.</li>
+                <li><strong>Type 2 Hypervisor (Hosted):</strong> Runs on a conventional operating system (OS) just like other computer programs. Guest OSs run as a process on the host OS. Examples include VMware Workstation, Oracle VirtualBox. These are typically used for end-user virtualization on personal computers.</li>
+            </ul>
+            <p>AWS primarily uses a modified Xen hypervisor and more recently, the KVM-based Nitro hypervisor for its EC2 instances.</p>
+            <p><img src="../assets/diagrams/virtualization-hypervisor.svg" alt="Virtualization Hypervisor Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>2.3 IT vs. Cloud: A Comparison</h2>
+            <p>Let's compare the traditional IT model with cloud computing across several dimensions:</p>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Traditional IT (On-Premises)</th>
+                        <th>Cloud Computing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cost Model</strong></td>
+                        <td>Capital Expenditure (CapEx) - large upfront investment</td>
+                        <td>Operational Expenditure (OpEx) - pay-as-you-go</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scalability</strong></td>
+                        <td>Limited, requires manual provisioning, slow</td>
+                        <td>Highly elastic, scales on demand, fast</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maintenance</strong></td>
+                        <td>Full responsibility for hardware, software, facilities</td>
+                        <td>Managed by cloud provider (shared responsibility)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agility/Speed</strong></td>
+                        <td>Slow provisioning of resources (weeks/months)</td>
+                        <td>Rapid provisioning of resources (minutes)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Global Reach</strong></td>
+                        <td>Requires building data centers in each region</td>
+                        <td>Global infrastructure available instantly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Disaster Recovery</strong></td>
+                        <td>Complex and expensive to implement</td>
+                        <td>Easier and more cost-effective to implement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td>Full control and responsibility</td>
+                        <td>Shared responsibility model</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2.4 Cloud Service Models: IaaS, PaaS, SaaS</h2>
+            <p>Cloud computing services are broadly categorized into three main service models, each offering different levels of management and flexibility.</p>
+            <h3>Infrastructure as a Service (IaaS)</h3>
+            <p>IaaS provides the fundamental building blocks of cloud IT. It gives you the highest level of flexibility and management control over your IT resources. You manage the operating system, applications, and data, while the cloud provider manages the underlying infrastructure (virtualization, servers, storage, networking).</p>
+            <ul>
+                <li><strong>Examples:</strong> Amazon EC2, Amazon S3, Amazon VPC.</li>
+                <li><strong>You Manage:</strong> Applications, Data, Runtime, OS.</li>
+                <li><strong>Provider Manages:</strong> Virtualization, Servers, Storage, Networking.</li>
+            </ul>
+
+            <h3>Platform as a Service (PaaS)</h3>
+            <p>PaaS removes the need for you to manage the underlying infrastructure (hardware and operating systems) and allows you to focus on the deployment and management of your applications. The cloud provider manages the operating system, database, and web servers.</p>
+            <ul>
+                <li><strong>Examples:</strong> AWS Elastic Beanstalk, AWS Lambda (partially), Heroku.</li>
+                <li><strong>You Manage:</strong> Applications, Data.</li>
+                <li><strong>Provider Manages:</strong> Runtime, OS, Virtualization, Servers, Storage, Networking.</li>
+            </ul>
+
+            <h3>Software as a Service (SaaS)</h3>
+            <p>SaaS provides you with a complete product that is run and managed by the service provider. You simply use the software as an end-user. You don't worry about how the service is maintained or how the underlying infrastructure is managed.</p>
+            <ul>
+                <li><strong>Examples:</strong> Gmail, Salesforce, Dropbox, AWS S3 (as a storage service for end-users).</li>
+                <li><strong>You Manage:</strong> Nothing (just use the application).</li>
+                <li><strong>Provider Manages:</strong> Applications, Data, Runtime, OS, Virtualization, Servers, Storage, Networking.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloud-service-models.svg" alt="Cloud Service Models IaaS PaaS SaaS Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>2.5 Cloud Deployment Models</h2>
+            <p>Cloud computing offers various deployment models to suit different organizational needs and strategies.</p>
+            <h3>Public Cloud</h3>
+            <p>In a public cloud model, computing services are delivered over the public internet and are available to anyone who wants to purchase them. Resources are shared among multiple tenants, but logically isolated.</p>
+            <ul>
+                <li><strong>Characteristics:</strong> Shared infrastructure, pay-as-you-go, high scalability, managed by provider.</li>
+                <li><strong>Examples:</strong> AWS, Microsoft Azure, Google Cloud Platform.</li>
+            </ul>
+
+            <h3>Private Cloud</h3>
+            <p>A private cloud refers to cloud computing resources used exclusively by a single business or organization. A private cloud can be physically located on the company's on-site data center, or it can be hosted by a third-party service provider.</p>
+            <ul>
+                <li><strong>Characteristics:</strong> Dedicated resources, higher control, enhanced security, higher cost.</li>
+                <li><strong>Examples:</strong> VMware Cloud on AWS, AWS Outposts (extends AWS infrastructure to on-premises).</li>
+            </ul>
+
+            <h3>Hybrid Cloud</h3>
+            <p>A hybrid cloud combines a public cloud with a private cloud, allowing data and applications to be shared between them. This model offers greater flexibility and more deployment options.</p>
+            <ul>
+                <li><strong>Characteristics:</strong> Mix of public and private, flexibility, data portability, cost optimization.</li>
+                <li><strong>Examples:</strong> Using AWS for burst capacity while keeping sensitive data on-premises.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloud-deployment-models.svg" alt="Cloud Deployment Models Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="cloud-challenges.html" class="next-module-link">Next Module: Cloud Challenges &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

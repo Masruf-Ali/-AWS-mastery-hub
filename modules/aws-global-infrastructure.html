@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: AWS Global Infrastructure - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 6: AWS Global Infrastructure</h1>
+
+        <section>
+            <h2>6.1 Regions</h2>
+            <p>An AWS Region is a physical location in the world where AWS has multiple Availability Zones. Each Region is a separate geographic area, designed to be completely isolated from other Regions. This isolation achieves the greatest possible fault tolerance and stability.</p>
+            <ul>
+                <li><strong>Global Presence:</strong> AWS has dozens of Regions around the world (e.g., <code>us-east-1</code> for N. Virginia, <code>eu-west-1</code> for Ireland, <code>ap-southeast-2</code> for Sydney).</li>
+                <li><strong>Data Residency:</strong> You choose a Region to host your services, and your data will reside within that Region. This is crucial for data governance and regulatory compliance.</li>
+                <li><strong>Latency:</strong> Deploying resources closer to your users reduces network latency.</li>
+                <li><strong>Cost:</strong> Pricing for AWS services can vary by Region.</li>
+            </ul>
+            <p>When you launch an instance, you select an AWS Region. All resources within that Region are then provisioned there.</p>
+        </section>
+
+        <section>
+            <h2>6.2 Availability Zones (AZs)</h2>
+            <p>An Availability Zone (AZ) is one or more discrete data centers with redundant power, networking, and connectivity in an AWS Region. AZs are physically separated by a meaningful distance (typically many kilometers) from other AZs, though all are within 100 km (60 miles) of each other. This physical separation helps ensure that events like fires, floods, or power outages in one AZ do not affect other AZs.</p>
+            <ul>
+                <li><strong>High Availability:</strong> By distributing your applications across multiple AZs within a Region, you can achieve high availability and fault tolerance. If one AZ goes down, your application can continue to run in another AZ.</li>
+                <li><strong>Low Latency:</strong> AZs in a Region are connected to each other with high-bandwidth, low-latency networking over fully redundant, dedicated metro fiber.</li>
+                <li><strong>Minimum per Region:</strong> Each AWS Region has at least two Availability Zones, and many have three or more.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-regions-azs.svg" alt="AWS Regions and Availability Zones Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>6.3 Edge Locations and Regional Edge Caches</h2>
+            <p>Edge Locations are sites that Amazon CloudFront (AWS's Content Delivery Network) uses to cache copies of your content closer to your customers. This reduces latency for end-users accessing your content.</p>
+            <ul>
+                <li><strong>Global Distribution:</strong> There are significantly more Edge Locations than Regions.</li>
+                <li><strong>Content Delivery:</strong> Primarily used for services like CloudFront, Route 53, and AWS Shield.</li>
+                <li><strong>Regional Edge Caches:</strong> Located between your origin servers and the global Edge Locations. They have larger cache sizes than individual Edge Locations and serve as a second tier of caching, further improving performance for less frequently accessed content.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-edge-locations.svg" alt="AWS Edge Locations Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>6.4 Shared Responsibility Model (Recap)</h2>
+            <p>As discussed in Module 3, the Shared Responsibility Model is fundamental to understanding security in AWS. AWS is responsible for the security <strong>OF</strong> the cloud, while the customer is responsible for security <strong>IN</strong> the cloud.</p>
+            <ul>
+                <li><strong>AWS Responsibilities:</strong> Global infrastructure (Regions, AZs, Edge Locations), physical security of data centers, hardware, software, networking that runs AWS services.</li>
+                <li><strong>Customer Responsibilities:</strong> Customer data, operating systems, applications, network and firewall configurations, platform management, identity and access management.</li>
+            </ul>
+            <p>This model ensures that both parties contribute to the overall security posture of cloud deployments.</p>
+        </section>
+
+        <section>
+            <h2>6.5 AWS Pricing Fundamentals</h2>
+            <p>AWS pricing is based on a pay-as-you-go model, meaning you only pay for the services you consume. There are no upfront costs or long-term contracts required (unless you opt for them for discounts).</p>
+            <h3>Key Principles:</h3>
+            <ul>
+                <li><strong>Pay for what you use:</strong> You are charged for the compute, storage, and other resources you consume.</li>
+                <li><strong>Pay less when you reserve:</strong> For predictable workloads, reserving capacity (e.g., Reserved Instances for EC2) can significantly reduce costs.</li>
+                <li><strong>Pay less with volume discounts:</strong> As your usage increases, the per-unit cost often decreases.</li>
+                <li><strong>Pay less as AWS grows:</strong> AWS continuously reduces prices as it achieves greater economies of scale.</li>
+                <li><strong>Custom pricing:</strong> For very large enterprises, custom pricing agreements may be available.</li>
+            </ul>
+            <h3>Factors Influencing Cost:</h3>
+            <ul>
+                <li><strong>Compute:</strong> Instance type, operating system, software, Region, purchase model (On-Demand, Reserved, Spot).</li>
+                <li><strong>Storage:</strong> Storage class, amount of storage, data transfer out, number of requests.</li>
+                <li><strong>Data Transfer:</strong> Data transferred out of AWS Regions is generally charged; data transferred in is usually free. Data transfer between AWS services within the same Region is often free or very low cost.</li>
+            </ul>
+            <p>Always use the AWS Pricing Calculator and set up billing alerts (as discussed in Module 1) to manage and monitor your costs effectively.</p>
+        </section>
+
+        <p><a href="iam.html" class="next-module-link">Next Module: IAM &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

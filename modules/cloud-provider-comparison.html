@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Cloud Provider Comparison - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 5: Cloud Provider Comparison</h1>
+
+        <section>
+            <h2>5.1 The Major Players: AWS, Azure, GCP</h2>
+            <p>The cloud computing market is dominated by a few major players, each with its strengths and weaknesses. Understanding these differences is crucial for making informed decisions about where to deploy your applications.</p>
+
+            <h3>Amazon Web Services (AWS)</h3>
+            <ul>
+                <li><strong>Market Share Leader:</strong> The oldest and most mature cloud provider, with the largest market share.</li>
+                <li><strong>Breadth and Depth of Services:</strong> Offers the widest range of services, from compute and storage to AI/ML, IoT, and quantum computing.</li>
+                <li><strong>Global Reach:</strong> Extensive global infrastructure with many regions and Availability Zones.</li>
+                <li><strong>Ecosystem:</strong> Large partner network, vibrant community, and extensive documentation.</li>
+                <li><strong>Pricing:</strong> Complex pricing model, but generally competitive with significant discounts for long-term commitments.</li>
+                <li><strong>Strengths:</strong> Enterprise-ready, highly scalable, innovative, strong focus on developer tools.</li>
+                <li><strong>Weaknesses:</strong> Can be complex to navigate for beginners, cost management requires diligence.</li>
+            </ul>
+
+            <h3>Microsoft Azure</h3>
+            <ul>
+                <li><strong>Enterprise Focus:</strong> Strong appeal to enterprises already invested in Microsoft technologies (Windows Server, SQL Server, .NET, Active Directory).</li>
+                <li><strong>Hybrid Cloud Capabilities:</strong> Excellent hybrid cloud offerings, seamlessly integrating on-premises environments with Azure.</li>
+                <li><strong>Developer Tools:</strong> Strong integration with Microsoft developer tools and Visual Studio.</li>
+                <li><strong>Compliance:</strong> Extensive compliance certifications, appealing to regulated industries.</li>
+                <li><strong>Strengths:</strong> Hybrid cloud, enterprise integration, PaaS offerings, strong sales force.</li>
+                <li><strong>Weaknesses:</strong> Can be less flexible than AWS for non-Microsoft stacks, some services less mature than AWS.</li>
+            </ul>
+
+            <h3>Google Cloud Platform (GCP)</h3>
+            <ul>
+                <li><strong>Innovation and Open Source:</strong> Known for its innovation, particularly in areas like AI/ML, big data, and Kubernetes (which originated at Google). Strong commitment to open-source technologies.</li>
+                <li><strong>Data Analytics and Machine Learning:</strong> Offers powerful and highly scalable services for data processing and machine learning (e.g., BigQuery, TensorFlow, AI Platform).</li>
+                <li><strong>Networking:</strong> Google's global network infrastructure is a significant advantage, offering low latency and high bandwidth.</li>
+                <li><strong>Pricing:</strong> Often simpler pricing models than AWS, with per-second billing for some services.</li>
+                <li><strong>Strengths:</strong> AI/ML, big data, Kubernetes, global network, competitive pricing.</li>
+                <li><strong>Weaknesses:</strong> Smaller market share, fewer services than AWS, less mature enterprise support.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloud-provider-comparison-major.svg" alt="Major Cloud Providers Comparison Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>5.2 Other Notable Cloud Providers</h2>
+            <p>While AWS, Azure, and GCP dominate, several other cloud providers offer compelling services, often specializing in particular niches or offering competitive pricing.</p>
+
+            <h3>IBM Cloud</h3>
+            <ul>
+                <li><strong>Enterprise and Hybrid Cloud:</strong> Strong focus on enterprise clients, particularly those with existing IBM investments. Offers robust hybrid cloud solutions, often leveraging Red Hat OpenShift.</li>
+                <li><strong>AI and Blockchain:</strong> Known for its Watson AI services and strong offerings in blockchain.</li>
+                <li><strong>Strengths:</strong> Enterprise solutions, hybrid cloud, AI, industry-specific solutions.</li>
+            </ul>
+
+            <h3>Oracle Cloud Infrastructure (OCI)</h3>
+            <ul>
+                <li><strong>Performance and Database:</strong> Designed for high-performance computing and enterprise databases, particularly Oracle Database workloads. Offers strong SLAs and competitive pricing for database services.</li>
+                <li><strong>Enterprise Workloads:</strong> Aims to provide a more cost-effective and performant environment for traditional enterprise applications.</li>
+                <li><strong>Strengths:</strong> Database performance, enterprise workloads, competitive pricing.</li>
+            </ul>
+
+            <h3>Alibaba Cloud</h3>
+            <ul>
+                <li><strong>Asia-Pacific Focus:</strong> The largest cloud provider in China and a significant player in the Asia-Pacific region.</li>
+                <li><strong>E-commerce and AI:</strong> Leverages Alibaba Group's expertise in e-commerce, payments, and AI.</li>
+                <li><strong>Strengths:</strong> Asia-Pacific market, e-commerce solutions, AI.</li>
+            </ul>
+
+            <h3>DigitalOcean</h3>
+            <ul>
+                <li><strong>Developer-Friendly:</strong> Known for its simplicity, ease of use, and developer-centric approach.</li>
+                <li><strong>VPS (Droplets):</strong> Popular for its virtual private servers (called "Droplets") and straightforward pricing.</li>
+                <li><strong>Strengths:</strong> Simplicity, affordability, developer experience, good for small to medium-sized projects.</li>
+            </ul>
+        </section>
+
+        <p><a href="aws-global-infrastructure.html" class="next-module-link">Next Module: AWS Global Infrastructure &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

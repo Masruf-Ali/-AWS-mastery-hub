@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 18: DevOps & IaC - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 18: DevOps & Infrastructure as Code (IaC)</h1>
+
+        <section>
+            <h2>18.1 What is DevOps?</h2>
+            <p>DevOps is a set of practices that combines software development (Dev) and IT operations (Ops) to shorten the systems development life cycle and provide continuous delivery with high software quality. It aims to unify software development and software operation.</p>
+            <h3>Key Principles of DevOps:</h3>
+            <ul>
+                <li><strong>Culture:</strong> Collaboration, communication, and shared responsibility.</li>
+                <li><strong>Automation:</strong> Automate repetitive tasks (build, test, deploy).</li>
+                <li><strong>Continuous Integration (CI):</strong> Developers frequently merge code changes into a central repository, where automated builds and tests are run.</li>
+                <li><strong>Continuous Delivery (CD):</strong> Code changes are automatically built, tested, and prepared for a release to production.</li>
+                <li><strong>Continuous Deployment:</strong> Code changes are automatically deployed to production after passing all tests.</li>
+                <li><strong>Monitoring and Logging:</strong> Continuous monitoring of application performance and infrastructure health.</li>
+            </ul>
+            <p><img src="../assets/diagrams/devops-pipeline.svg" alt="DevOps Pipeline Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>18.2 Infrastructure as Code (IaC)</h2>
+            <p>Infrastructure as Code (IaC) is the management of infrastructure (networks, virtual machines, load balancers, etc.) in a descriptive model, using the same versioning as DevOps team uses for source code. Like the principle that the same source code generates the same binary, an IaC model generates the same environment every time it is applied.</p>
+            <h3>Benefits of IaC:</h3>
+            <ul>
+                <li><strong>Consistency:</strong> Ensures environments are identical across development, testing, and production.</li>
+                <li><strong>Automation:</strong> Eliminates manual configuration and human error.</li>
+                <li><strong>Version Control:</strong> Infrastructure configurations are versioned and auditable.</li>
+                <li><strong>Speed:</strong> Rapid provisioning of infrastructure.</li>
+                <li><strong>Cost Reduction:</strong> Reduces operational overhead.</li>
+            </ul>
+            <p>AWS offers several services to implement IaC and DevOps practices.</p>
+        </section>
+
+        <section>
+            <h2>18.3 AWS CloudFormation</h2>
+            <p>AWS CloudFormation is a service that helps you model and set up your Amazon Web Services resources so that you can spend less time managing those resources and more time focusing on your applications that run in AWS. You create a template that describes all the AWS resources that you want (e.g., EC2 instances, RDS databases, S3 buckets), and CloudFormation provisions and configures those resources for you.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Declarative Language:</strong> Define your infrastructure in JSON or YAML templates.</li>
+                <li><strong>Automated Provisioning:</strong> CloudFormation handles the order of provisioning and dependencies.</li>
+                <li><strong>Version Control:</strong> Templates can be stored in version control systems.</li>
+                <li><strong>Drift Detection:</strong> Detects if your stack's resources have been manually modified outside of CloudFormation.</li>
+                <li><strong>Rollback Capabilities:</strong> Automatically rolls back changes if an error occurs during deployment.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Deploying entire application stacks, creating consistent environments, disaster recovery setup.</p>
+        </section>
+
+        <section>
+            <h2>18.4 AWS Elastic Beanstalk</h2>
+            <p>AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications and services developed with Java, .NET, PHP, Node.js, Python, Ruby, Go, and Docker on familiar servers such as Apache, Nginx, Passenger, and IIS. You simply upload your code, and Elastic Beanstalk automatically handles the deployment, from capacity provisioning, load balancing, auto-scaling to application health monitoring.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Platform as a Service (PaaS):</strong> Abstract away infrastructure management.</li>
+                <li><strong>Supports Multiple Languages/Platforms:</strong> Wide range of supported environments.</li>
+                <li><strong>Automated Deployment:</strong> Handles provisioning and configuration of underlying resources (EC2, S3, ELB, RDS).</li>
+                <li><strong>Health Monitoring:</strong> Provides dashboards and metrics for application health.</li>
+                <li><strong>Customizable:</strong> You can still access and customize the underlying resources if needed.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Rapid deployment of web applications, development and test environments, small to medium-sized applications.</p>
+        </section>
+
+        <section>
+            <h2>18.5 AWS CodePipeline</h2>
+            <p>AWS CodePipeline is a continuous delivery service that helps you automate your release pipelines for fast and reliable application and infrastructure updates. It automates the build, test, and deploy phases of your release process every time there is a code change, based on the release model you define.</p>
+            <h3>Key Stages:</h3>
+            <ul>
+                <li><strong>Source:</strong> Retrieves source code from repositories (e.g., CodeCommit, GitHub, S3).</li>
+                <li><strong>Build:</strong> Compiles code, runs unit tests (e.g., CodeBuild).</li>
+                <li><strong>Test:</strong> Runs integration or system tests (e.g., CodeBuild, CodeDeploy).</li>
+                <li><strong>Deploy:</strong> Deploys the application to target environments (e.g., CodeDeploy, Elastic Beanstalk, CloudFormation).</li>
+            </ul>
+            <p><img src="../assets/diagrams/codepipeline-flow.svg" alt="CodePipeline Flow Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>18.6 AWS CodeDeploy</h2>
+            <p>AWS CodeDeploy is a service that automates code deployments to any instance, including Amazon EC2 instances, on-premises servers, serverless Lambda functions, and Amazon ECS services. It makes it easier to rapidly release new features, helps avoid downtime during application deployment, and handles the complexity of updating your applications.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Automated Deployments:</strong> Automates application deployments.</li>
+                <li><strong>In-place and Blue/Green Deployments:</strong> Supports various deployment strategies to minimize downtime.</li>
+                <li><strong>Rollbacks:</strong> Automatically rolls back deployments on failure.</li>
+                <li><strong>Integration:</strong> Works with CodePipeline, GitHub, Bitbucket, and S3.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Deploying applications to EC2, Lambda, or ECS, automating software releases.</p>
+        </section>
+
+        <p><a href="enterprise-storage.html" class="next-module-link">Next Module: Enterprise Storage &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

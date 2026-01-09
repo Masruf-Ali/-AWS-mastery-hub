@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 22: Amazon CloudWatch - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 22: Amazon CloudWatch</h1>
+
+        <section>
+            <h2>22.1 What is Amazon CloudWatch?</h2>
+            <p>Amazon CloudWatch is a monitoring and observability service from AWS that provides you with data and actionable insights to monitor your applications, respond to system-wide performance changes, and optimize resource utilization. CloudWatch collects monitoring and operational data in the form of logs, metrics, and events.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Collect Metrics:</strong> Collect and track key metrics from AWS resources and applications.</li>
+                <li><strong>Monitor Logs:</strong> Centralize, monitor, and analyze logs from all your systems, applications, and AWS services.</li>
+                <li><strong>Set Alarms:</strong> Create alarms that watch a single metric over a specified time period and perform one or more specified actions.</li>
+                <li><strong>Create Dashboards:</strong> Create reusable dashboards to visualize your metrics and logs.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloudwatch-overview.svg" alt="CloudWatch Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>22.2 Core CloudWatch Concepts</h2>
+            <p>CloudWatch is composed of several key components that work together to provide a comprehensive monitoring solution.</p>
+            <ul>
+                <li><strong>Metrics:</strong> A time-ordered set of data points. Think of a metric as a variable to monitor, and the data points as the values of that variable over time.</li>
+                <li><strong>Namespaces:</strong> A container for CloudWatch metrics. Metrics in different namespaces are isolated from each other.</li>
+                <li><strong>Dimensions:</strong> A name/value pair that is part of the identity of a metric. You can use dimensions to filter the results that CloudWatch returns.</li>
+                <li><strong>Alarms:</strong> An alarm watches a single metric over a time period you specify, and performs one or more actions based on the value of the metric relative to a threshold over a number of time periods.</li>
+                <li><strong>Logs:</strong> CloudWatch Logs enables you to centralize the logs from all of your systems, applications, and AWS services that you use, in a single, highly scalable service.</li>
+                <li><strong>Dashboards:</strong> Customizable home pages in the CloudWatch console that you can use to monitor your resources in a single view, even those resources that are spread across different Regions.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>22.3 How to Set Up CloudWatch</h2>
+            <p>CloudWatch is automatically enabled for many AWS services, but you can also create custom metrics and configure alarms and dashboards.</p>
+            <h3>Basic Setup Steps:</h3>
+            <ol>
+                <li><strong>Explore Metrics:</strong> Navigate to the CloudWatch console and explore the metrics that are already being collected from your AWS services.</li>
+                <li><strong>Create an Alarm:</strong> Choose a metric and create an alarm. Specify the threshold, the period, and the action to take when the alarm is triggered (e.g., send a notification to an SNS topic).</li>
+                <li><strong>Create a Dashboard:</strong> Create a new dashboard and add widgets to visualize your key metrics.</li>
+                <li><strong>Configure Log Collection:</strong> Install the CloudWatch Logs agent on your EC2 instances to send application and system logs to CloudWatch Logs.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>22.4 Uses of Amazon CloudWatch</h2>
+            <p>CloudWatch is an essential tool for any application running on AWS.</p>
+            <h3>Common Use Cases:</h3>
+            <ul>
+                <li><strong>Application Monitoring:</strong> Monitor the performance and health of your applications, and get notified of any issues.</li>
+                <li><strong>Resource Optimization:</strong> Analyze your resource utilization and identify opportunities for cost savings.</li>
+                <li><strong>Troubleshooting:</strong> Use logs and metrics to troubleshoot issues and identify the root cause of problems.</li>
+                <li><strong>Security Monitoring:</strong> Monitor for suspicious activity and get alerted of potential security threats.</li>
+            </ul>
+        </section>
+
+        <p><a href="messaging.html" class="next-module-link">Next Module: Messaging &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

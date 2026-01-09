@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Amazon VPC - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 5: Amazon Virtual Private Cloud (VPC)</h1>
+
+        <section>
+            <h2>5.1 What is a VPC?</h2>
+            <p>Amazon Virtual Private Cloud (VPC) lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address range, creation of subnets, and configuration of route tables and network gateways.</p>
+            <h3>Key Concepts:</h3>
+            <ul>
+                <li><strong>Logically Isolated:</strong> Your VPC is completely separate from other virtual networks in the AWS Cloud.</li>
+                <li><strong>Customizable:</strong> You can choose your own IP address range (using CIDR notation), create subnets, and control traffic flow.</li>
+                <li><strong>Secure:</strong> VPC provides a secure environment for your resources, with features like security groups and network access control lists (NACLs).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5.2 Core VPC Components</h2>
+            <p>A VPC is made up of several key components that work together to create a functional virtual network.</p>
+            <p><img src="../assets/diagrams/aws-vpc-subnets.svg" alt="VPC with Subnets Diagram" style="max-width:100%; height:auto;"></p>
+            <h3>Components:</h3>
+            <ul>
+                <li><strong>Subnets:</strong> A range of IP addresses in your VPC. Subnets are used to partition the network inside a VPC. They can be public (with access to the internet) or private (without direct access to the internet).</li>
+                <li><strong>Route Tables:</strong> A set of rules, called routes, that are used to determine where network traffic is directed. Each subnet in your VPC must be associated with a route table.</li>
+                <li><strong>Internet Gateway (IGW):</strong> A horizontally scaled, redundant, and highly available VPC component that allows communication between instances in your VPC and the internet.</li>
+                <li><strong>NAT Gateway (Network Address Translation):</strong> Enables instances in a private subnet to connect to the internet or other AWS services, but prevents the internet from initiating a connection with those instances.</li>
+                <li><strong>Security Groups:</strong> Act as a virtual firewall for your instances to control inbound and outbound traffic. They are stateful.</li>
+                <li><strong>Network Access Control Lists (NACLs):</strong> An optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. They are stateless.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5.3 How to Set Up a VPC</h2>
+            <p>Setting up a VPC involves several steps, from creating the VPC itself to configuring its components.</p>
+            <h3>Basic Setup Steps:</h3>
+            <ol>
+                <li><strong>Create the VPC:</strong> In the AWS Management Console, navigate to the VPC service and start the VPC wizard or create a VPC manually. You'll need to specify a name and an IPv4 CIDR block for your VPC.</li>
+                <li><strong>Create Subnets:</strong> Once the VPC is created, you can create one or more subnets within it. Each subnet must have its own CIDR block, which is a subset of the VPC's CIDR block.</li>
+                <li><strong>Create an Internet Gateway:</strong> If you need to connect your VPC to the internet, create an Internet Gateway and attach it to your VPC.</li>
+                <li><strong>Configure Route Tables:</strong> Create a custom route table or modify the main route table. To provide internet access to a subnet, add a route to the Internet Gateway (0.0.0.0/0 for IPv4).</li>
+                <li><strong>Launch Instances:</strong> You can now launch EC2 instances and other AWS resources into your subnets.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>5.4 Uses of a VPC</h2>
+            <p>VPCs are a fundamental building block for a wide range of applications and services on AWS.</p>
+            <h3>Common Use Cases:</h3>
+            <ul>
+                <li><strong>Hosting a Public-Facing Website:</strong> You can create a VPC with a public subnet to host a web server that is accessible from the internet.</li>
+                <li><strong>Hosting a Multi-Tier Web Application:</strong> For a typical three-tier application, you can have a public subnet for your web servers and private subnets for your application servers and databases.</li>
+                <li><strong>Extending Your Corporate Network to the Cloud:</strong> You can connect your on-premises data center to your VPC using a VPN connection or AWS Direct Connect, creating a hybrid cloud environment.</li>
+                <li><strong>Disaster Recovery:</strong> You can use a VPC as a disaster recovery site for your on-premises infrastructure.</li>
+            </ul>
+        </section>
+
+        <p><a href="cloud-provider-comparison.html" class="next-module-link">Next Module: Cloud Provider Comparison &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

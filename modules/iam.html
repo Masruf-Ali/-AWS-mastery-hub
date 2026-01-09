@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7: IAM - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 7: Identity and Access Management (IAM)</h1>
+
+        <section>
+            <h2>7.1 What is IAM?</h2>
+            <p>AWS Identity and Access Management (IAM) is a web service that helps you securely control access to AWS resources. With IAM, you can manage who is authenticated (signed in) and authorized (has permissions) to use resources.</p>
+            <h3>Key Concepts:</h3>
+            <ul>
+                <li><strong>Authentication:</strong> Verifying who you are (e.g., username and password).</li>
+                <li><strong>Authorization:</strong> Determining what you are allowed to do (e.g., read from S3, launch EC2 instances).</li>
+                <li><strong>Granular Control:</strong> IAM allows you to control access at a very fine-grained level.</li>
+                <li><strong>Global Service:</strong> IAM is a global service, meaning its configurations are applied across all AWS Regions.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7.2 IAM Users</h2>
+            <p>An IAM user is an entity that you create in AWS to represent the person or application that interacts with AWS. An IAM user consists of a name, a password for console access, and access keys for programmatic access.</p>
+            <ul>
+                <li><strong>Root User:</strong> The account owner, created when you first set up your AWS account. It has full administrative access. <strong>Best practice:</strong> Do not use the root user for daily tasks. Secure it with MFA and use IAM users for everything else.</li>
+                <li><strong>IAM User:</strong> Represents a person or service. Each IAM user has unique security credentials.</li>
+                <li><strong>Access Keys:</strong> Consist of an Access Key ID and a Secret Access Key. Used for programmatic access (CLI, SDK, API). <strong>Best practice:</strong> Rotate access keys regularly and never embed them directly in code.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7.3 IAM Groups</h2>
+            <p>An IAM group is a collection of IAM users. You can attach policies to a group, and all users in the group inherit those permissions. This simplifies managing permissions for multiple users.</p>
+            <ul>
+                <li><strong>Simplifies Management:</strong> Instead of attaching policies to individual users, you attach them to groups.</li>
+                <li><strong>No Credentials:</strong> Groups do not have their own credentials.</li>
+                <li><strong>Users can be in multiple groups:</strong> A user can belong to more than one group, inheriting permissions from all groups they are a member of.</li>
+            </ul>
+            <p><strong>Example:</strong> You might have an `Administrators` group, a `Developers` group, and a `Read-Only` group, each with different permissions.</p>
+        </section>
+
+        <section>
+            <h2>7.4 IAM Roles</h2>
+            <p>An IAM role is an IAM identity that you can create in your account that has specific permissions. An IAM role is similar to an IAM user in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. However, instead of being uniquely associated with one person, a role is intended to be assumable by anyone who needs it.</p>
+            <ul>
+                <li><strong>Temporary Credentials:</strong> Roles provide temporary security credentials, which are more secure than long-lived access keys.</li>
+                <li><strong>Delegation:</strong> Used to delegate access to users, applications, or services that don't normally have access to your AWS resources.</li>
+                <li><strong>Use Cases:</strong>
+                    <ul>
+                        <li>Granting permissions to EC2 instances to access S3 buckets.</li>
+                        <li>Allowing users from another AWS account to access resources in your account.</li>
+                        <li>Granting permissions to federated users (e.g., from your corporate directory).</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><img src="../assets/diagrams/iam-roles.svg" alt="IAM Roles Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>7.5 IAM Policies</h2>
+            <p>An IAM policy is an object in AWS that, when associated with an identity or resource, defines their permissions. AWS evaluates these policies when a principal (user, role) makes a request.</p>
+            <h3>Policy Structure (JSON):</h3>
+            <pre><code class="language-json">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-example-bucket",
+        "arn:aws:s3:::my-example-bucket/*"
+      ]
+    },
+    {
+      "Effect": "Deny",
+      "Action": "s3:DeleteObject",
+      "Resource": "arn:aws:s3:::my-example-bucket/*"
+    }
+  ]
+}
+            </code></pre>
+            <ul>
+                <li><strong>Version:</strong> The policy language version (always <code>2012-10-17</code> for current policies).</li>
+                <li><strong>Statement:</strong> An array of individual permission statements.</li>
+                <li><strong>Effect:</strong> <code>Allow</code> or <code>Deny</code>. <code>Deny</code> statements always override <code>Allow</code> statements.</li>
+                <li><strong>Action:</strong> The specific API actions that are allowed or denied (e.g., <code>s3:GetObject</code>, <code>ec2:RunInstances</code>).</li>
+                <li><strong>Resource:</strong> The AWS resources to which the action applies (specified by ARN - Amazon Resource Name).</li>
+                <li><strong>Principal:</strong> (Used in resource-based policies, not identity-based policies) The user, account, service, or other entity that is allowed or denied access to a resource.</li>
+                <li><strong>Condition:</strong> (Optional) Specifies conditions for when a policy is in effect (e.g., source IP, time of day).</li>
+            </ul>
+            <h3>Types of Policies:</h3>
+            <ul>
+                <li><strong>Identity-based policies:</strong> Attached to an IAM user, group, or role.</li>
+                <li><strong>Resource-based policies:</strong> Attached to a resource (e.g., S3 bucket policy, SQS queue policy).</li>
+                <li><strong>Managed policies:</strong> Created and managed by AWS (e.g., <code>AmazonS3ReadOnlyAccess</code>).</li>
+                <li><strong>Customer managed policies:</strong> Created and managed by you.</li>
+                <li><strong>Inline policies:</strong> Embedded directly into a user, group, or role.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7.6 Multi-Factor Authentication (MFA)</h2>
+            <p>Multi-Factor Authentication (MFA) adds an extra layer of security to your AWS account by requiring more than just a password to sign in. It significantly enhances security by making it harder for an unauthorized user to access your AWS account.</p>
+            <h3>How MFA Works:</h3>
+            <p>When you enable MFA, you need to provide two factors:</p>
+            <ol>
+                <li>Your password (something you know).</li>
+                <li>A code from your MFA device (something you have).</li>
+            </ol>
+            <h3>Types of MFA Devices:</h3>
+            <ul>
+                <li><strong>Virtual MFA Device:</strong> A software application that runs on a phone or computer and generates a six-digit code (e.g., Google Authenticator, Authy). This is the most common and recommended type.</li>
+                <li><strong>Hardware MFA Device:</strong> A physical device that generates a code.</li>
+                <li><strong>SMS MFA:</strong> (Not recommended for root user) Uses SMS text messages to deliver codes.</li>
+            </ul>
+            <p><strong>Best Practice:</strong> Always enable MFA for your AWS root account and for all IAM users with elevated privileges.</p>
+        </section>
+
+        <section>
+            <h2>7.7 Hands-On Lab: Creating an IAM User and Attaching a Policy</h2>
+            <p>Let's create a new IAM user and grant them read-only access to S3.</p>
+            <ol>
+                <li><strong>Log in to the AWS Management Console</strong> as the root user or an IAM user with administrative privileges.</li>
+                <li><strong>Navigate to the IAM Dashboard:</strong> Search for "IAM" in the services search bar.</li>
+                <li><strong>Create a New User:</strong>
+                    <ul>
+                        <li>In the left navigation pane, click <strong>Users</strong>, then click <strong>Add users</strong>.</li>
+                        <li>For <strong>User name</strong>, enter <code>s3-read-only-user</code>.</li>
+                        <li>For <strong>AWS access type</strong>, select <strong>Password</strong> and choose <strong>Custom password</strong>. Enter a strong password.</li>
+                        <li>Uncheck <strong>User must create a new password at next sign-in</strong> for this lab (in a real scenario, you'd usually leave this checked).</li>
+                        <li>Click <strong>Next: Permissions</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Attach Policies:</strong>
+                    <ul>
+                        <li>Select <strong>Attach existing policies directly</strong>.</li>
+                        <li>In the search bar, type <code>AmazonS3ReadOnlyAccess</code> and select the checkbox next to it.</li>
+                        <li>Click <strong>Next: Tags</strong> (optional, skip for this lab).</li>
+                        <li>Click <strong>Next: Review</strong>.</li>
+                        <li>Review the details and click <strong>Create user</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Save Credentials:</strong> On the success page, you will see the user's access key ID and secret access key (if you chose programmatic access). <strong>Download the .csv file</strong> or copy the credentials. <strong>You will not be able to retrieve the secret access key again.</strong></li>
+                <li><strong>Test the User:</strong>
+                    <ul>
+                        <li>Log out of your current AWS console session.</li>
+                        <li>Go to the AWS sign-in page and select "IAM user".</li>
+                        <li>Enter your AWS Account ID (or alias), the IAM user name (<code>s3-read-only-user</code>), and the password you set.</li>
+                        <li>Once logged in, try to navigate to the S3 service. You should be able to view buckets and objects.</li>
+                        <li>Try to create a new S3 bucket or delete an object. You should receive an "Access Denied" error.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>This demonstrates the principle of least privilege: granting only the permissions necessary to perform a task.</p>
+        </section>
+
+        <p><a href="ec2.html" class="next-module-link">Next Module: EC2 &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

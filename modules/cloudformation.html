@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 21: AWS CloudFormation - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 21: AWS CloudFormation</h1>
+
+        <section>
+            <h2>21.1 What is AWS CloudFormation?</h2>
+            <p>AWS CloudFormation is a service that helps you model and set up your Amazon Web Services resources so that you can spend less time managing those resources and more time focusing on your applications that run in AWS. You create a template that describes all the AWS resources that you want (like Amazon EC2 instances or Amazon RDS DB instances), and CloudFormation takes care of provisioning and configuring those resources for you.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Infrastructure as Code:</strong> Treat your infrastructure as code, allowing you to version, review, and automate your infrastructure deployments.</li>
+                <li><strong>Automated Deployments:</strong> CloudFormation automates the process of provisioning and updating your infrastructure in a safe and predictable way.</li>
+                <li><strong>Declarative Language:</strong> Use a declarative language (JSON or YAML) to describe your desired infrastructure.</li>
+                <li><strong>Change Management:</strong> Use change sets to preview how proposed changes to a stack might impact your running resources before you implement them.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>21.2 Core CloudFormation Concepts</h2>
+            <p>To use CloudFormation, you need to understand its core components.</p>
+            <ul>
+                <li><strong>Template:</strong> A JSON or YAML file that defines your AWS infrastructure. The template is the blueprint for your stack.</li>
+                <li><strong>Stack:</strong> A collection of AWS resources that you can manage as a single unit. All the resources in a stack are defined by the stack's CloudFormation template.</li>
+                <li><strong>Change Set:</strong> A summary of proposed changes to your stack that allows you to see how those changes will affect your running resources before you implement them.</li>
+                <li><strong>StackSet:</strong> A way to create, update, or delete stacks across multiple AWS accounts and regions with a single operation.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>21.3 How to Set Up a CloudFormation Stack</h2>
+            <p>Creating a CloudFormation stack involves creating a template and then using it to launch a stack.</p>
+            <h3>Basic Setup Steps:</h3>
+            <ol>
+                <li><strong>Create a Template:</strong> Create a JSON or YAML file that defines the AWS resources you want to create.</li>
+                <li><strong>Navigate to CloudFormation:</strong> In the AWS Management Console, go to the CloudFormation service.</li>
+                <li><strong>Create Stack:</strong> Click the "Create stack" button.</li>
+                <li><strong>Specify Template:</strong> Upload your template file or specify the S3 URL where it is located.</li>
+                <li><strong>Specify Stack Details:</strong> Provide a name for your stack and any required parameters.</li>
+                <li><strong>Review and Create:</strong> Review your stack configuration and click "Create stack".</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>21.4 Uses of AWS CloudFormation</h2>
+            <p>CloudFormation is a powerful tool for automating your infrastructure deployments.</p>
+            <h3>Common Use Cases:</h3>
+            <ul>
+                <li><strong>Automating infrastructure deployment:</strong> Deploy a complete, multi-tier web application with a single CloudFormation template.</li>
+                <li><strong>Creating reproducible environments:</strong> Create identical development, testing, and production environments.</li>
+                <li><strong>Managing infrastructure changes:</strong> Use change sets to safely update your infrastructure.</li>
+                <li><strong>Implementing disaster recovery:</strong> Quickly recreate your infrastructure in a different region in the event of a disaster.</li>
+            </ul>
+        </section>
+
+        <p><a href="enterprise-storage.html" class="next-module-link">Next Module: Enterprise Storage &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

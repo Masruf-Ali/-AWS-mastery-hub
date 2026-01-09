@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Course Overview - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 1: Course Overview</h1>
+        <section>
+            <h2>1.1 What is AWS?</h2>
+            <p><strong>Amazon Web Services (AWS)</strong> is the world's most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centers globally. Millions of customers—including the fastest-growing startups, largest enterprises, and leading government agencies—are using AWS to lower costs, become more agile, and innovate faster.</p>
+            <h3>Key Characteristics of AWS:</h3>
+            <ul>
+                <li><strong>Elasticity:</strong> Ability to quickly scale resources up or down based on demand.</li>
+                <li><strong>Agility:</strong> Rapidly deploy and iterate new applications and features.</li>
+                <li><strong>Cost-effectiveness:</strong> Pay-as-you-go model, eliminating upfront infrastructure costs.</li>
+                <li><strong>Global Reach:</strong> Services available in many regions and Availability Zones worldwide.</li>
+                <li><strong>Security:</strong> Robust security features and a shared responsibility model.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>1.2 Why Cloud Computing?</h2>
+            <p>Cloud computing is the on-demand delivery of IT resources over the Internet with pay-as-you-go pricing. Instead of buying, owning, and maintaining your own compute data centers and servers, you can access technology services, such as computing power, storage, and databases, from a cloud provider like Amazon Web Services (AWS).</p>
+            <h3>Benefits of Cloud Computing:</h3>
+            <ul>
+                <li><strong>Trade capital expense for variable expense:</strong> Instead of investing heavily in data centers and servers before you even know how you'll use them, you can pay only when you consume computing resources, and pay only for how much you consume.</li>
+                <li><strong>Benefit from massive economies of scale:</strong> By using cloud computing, you can achieve a lower variable cost than you can get on your own. Because hundreds of thousands of customers are aggregating their usage on the cloud, providers like AWS can achieve higher economies of scale, which translates into lower pay-as-you-go prices.</li>
+                <li><strong>Stop guessing capacity:</strong> Eliminate guessing on your infrastructure capacity needs. You can access as much or as little as you need, and scale up or down to meet demand.</li>
+                <li><strong>Increase speed and agility:</strong> In a cloud environment, new IT resources are only a click away, which means you reduce the time to make those resources available to your developers from weeks to just minutes.</li>
+                <li><strong>Stop spending money running and maintaining data centers:</strong> Focus on your applications and customers, not the heavy lifting of racking, stacking, and powering servers.</li>
+                <li><strong>Go global in minutes:</strong> Easily deploy your application in multiple geographic regions around the world.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>1.3 AWS Career Paths</h2>
+            <p>The demand for skilled AWS professionals is continuously growing. Here are some popular career paths:</p>
+            <ul>
+                <li><strong>Cloud Architect:</strong> Designs and builds cloud environments.</li>
+                <li><strong>Cloud Engineer:</strong> Implements and maintains cloud infrastructure.</li>
+                <li><strong>DevOps Engineer:</strong> Automates software delivery and infrastructure management.</li>
+                <li><strong>Solutions Architect:</strong> Helps customers design solutions on AWS.</li>
+                <li><strong>Cloud Security Engineer:</strong> Focuses on securing cloud environments.</li>
+                <li><strong>Cloud Developer:</strong> Builds and deploys applications on cloud platforms.</li>
+                <li><strong>Data Engineer/Scientist:</strong> Works with data storage, processing, and analysis in the cloud.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>1.4 AWS Certifications</h2>
+            <p>AWS offers several certifications to validate cloud expertise. These are valuable for career advancement.</p>
+            <h3>Levels of Certification:</h3>
+            <ul>
+                <li><strong>Foundational:</strong> AWS Certified Cloud Practitioner (Entry-level)</li>
+                <li><strong>Associate:</strong>
+                    <ul>
+                        <li>Solutions Architect – Associate</li>
+                        <li>Developer – Associate</li>
+                        <li>SysOps Administrator – Associate</li>
+                    </ul>
+                </li>
+                <li><strong>Professional:</strong>
+                    <ul>
+                        <li>Solutions Architect – Professional</li>
+                        <li>DevOps Engineer – Professional</li>
+                    </ul>
+                </li>
+                <li><strong>Specialty:</strong> (e.g., Security, Networking, Database, Machine Learning, Data Analytics)</li>
+            </ul>
+            <p>It's recommended to start with the Cloud Practitioner or an Associate-level certification.</p>
+        </section>
+
+        <section>
+            <h2>1.5 AWS Free Tier</h2>
+            <p>The AWS Free Tier allows you to explore and try out AWS services free of charge up to certain limits. It's an excellent way to gain hands-on experience without incurring costs.</p>
+            <h3>Free Tier Offerings:</h3>
+            <ul>
+                <li><strong>12 Months Free:</strong> Access to a limited amount of specific services for 12 months following your AWS sign-up date (e.g., Amazon EC2, Amazon S3, Amazon RDS).</li>
+                <li><strong>Always Free:</strong> Offers that do not expire and are available to all AWS customers (e.g., AWS Lambda, Amazon DynamoDB).</li>
+                <li><strong>Trials:</strong> Short-term free trials of certain services.</li>
+            </ul>
+            <p><strong>Important:</strong> Always monitor your usage to stay within the Free Tier limits. Exceeding these limits will result in charges.</p>
+        </section>
+
+        <section>
+            <h2>1.6 Setting up Billing Alerts</h2>
+            <p>To avoid unexpected charges, especially when using the Free Tier or new to AWS, it's crucial to set up billing alerts.</p>
+            <h3>Step-by-Step Lab: Setting up a Billing Alert</h3>
+            <ol>
+                <li><strong>Log in to the AWS Management Console.</strong></li>
+                <li><strong>Navigate to the Billing Dashboard:</strong> Search for "Billing" in the services search bar.</li>
+                <li><strong>Go to "CloudWatch alarms" under "Billing preferences"</strong> (or search for CloudWatch directly).</li>
+                <li><strong>Create Alarm:</strong> Click "Create alarm".</li>
+                <li><strong>Select Metric:</strong>
+                    <ul>
+                        <li>Choose "Billing Metrics".</li>
+                        <li>Select "Total Estimated Charge" (Currency: USD, Statistic: Maximum, Period: 6 hours).</li>
+                        <li>Click "Select metric".</li>
+                    </ul>
+                </li>
+                <li><strong>Define Threshold:</strong>
+                    <ul>
+                        <li>Set "Threshold type" to "Static".</li>
+                        <li>"Whenever Total Estimated Charge is" "Greater" "than".</li>
+                        <li>Enter your desired threshold amount (e.g., <code>5</code> USD for a cautious start).</li>
+                        <li>Click "Next".</li>
+                    </ul>
+                </li>
+                <li><strong>Configure Notification (SNS Topic):</strong>
+                    <ul>
+                        <li>Select "In alarm" state.</li>
+                        <li>Choose "Create new topic".</li>
+                        <li>Enter a "Topic name" (e.g., <code>aws-billing-alerts</code>) and your email address.</li>
+                        <li>Click "Create topic".</li>
+                        <li><strong>Important:</strong> Check your email and confirm the SNS subscription.</li>
+                        <li>You can add more SNS topics or choose existing ones.</li>
+                        <li>Click "Next".</li>
+                    </ul>
+                </li>
+                <li><strong>Add name and description:</strong> Give your alarm a descriptive name (e.g., <code>Total Estimated Charge > $5</code>) and description.</li>
+                <li><strong>Preview and Create:</strong> Review the alarm configuration and click "Create alarm".</li>
+            </ol>
+            <p>You will now receive an email notification if your estimated AWS charges exceed the threshold you set.</p>
+        </section>
+
+        <section>
+            <h2>1.7 AWS Account Setup</h2>
+            <p>Creating an AWS account is straightforward and your first step into the cloud.</p>
+            <p><strong>Note:</strong> You will need a valid email address, a credit/debit card, and a phone number.</p>
+            <h3>Step-by-Step Lab: Creating an AWS Account</h3>
+            <ol>
+                <li><strong>Go to the AWS website:</strong> Open your web browser and navigate to <a href="https://aws.amazon.com/free/" target="_blank">aws.amazon.com/free/</a>.</li>
+                <li><strong>Click "Create a Free Account".</strong></li>
+                <li><strong>Enter your email address, password, and AWS account name.</strong></li>
+                <li><strong>Contact Information:</strong> Provide your contact details (personal or professional).</li>
+                <li><strong>Payment Information:</strong> Enter your credit/debit card details. AWS uses this for identity verification and billing for any services used outside the Free Tier.</li>
+                <li><strong>Phone Verification:</strong> Verify your identity using a phone number.</li>
+                <li><strong>Support Plan:</strong> Choose a support plan (Basic is free and usually sufficient for new users).</li>
+                <li><strong>Complete Sign Up.</strong></li>
+                <li><strong>Log in to the AWS Management Console:</strong> Once your account is set up, you can log in as the root user with the email and password you provided.</li>
+            </ol>
+            <p><strong>Best Practice:</strong> After creating your root user, create an IAM user for daily tasks and enable MFA for both the root user and your IAM user for enhanced security.</p>
+            <p><img src="../assets/diagrams/aws-account-setup-flow.svg" alt="AWS Account Setup Flow" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="cloud-basics.html" class="next-module-link">Next Module: Cloud Basics &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

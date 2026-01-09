@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Networking Basics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 4: Networking Basics</h1>
+
+        <section>
+            <h2>4.1 The OSI Model</h2>
+            <p>The Open Systems Interconnection (OSI) model is a conceptual framework that describes functions of a networking or telecommunication system in terms of seven layers. It helps standardize communication protocols and understand how data travels across networks.</p>
+            <figure>
+                <img src="../assets/diagrams/osi-model.svg" alt="OSI Model Layers Diagram" style="max-width:100%; height:auto;">
+                <figcaption>The 7 Layers of the OSI Model</figcaption>
+            </figure>
+            <ol>
+                <li><strong>Physical Layer (Layer 1):</strong> Deals with the physical connection between devices, including cables, connectors, and electrical signals. (e.g., Ethernet cables, Wi-Fi).
+                    <ul>
+                        <li><strong>Units:</strong> Bits</li>
+                    </ul>
+                </li>
+                <li><strong>Data Link Layer (Layer 2):</strong> Provides node-to-node data transfer and handles error correction from the physical layer. This layer has two sub-layers: Media Access Control (MAC) and Logical Link Control (LLC). (e.g., MAC addresses, Switches).
+                    <ul>
+                        <li><strong>Units:</strong> Frames</li>
+                    </ul>
+                </li>
+                <li><strong>Network Layer (Layer 3):</strong> Responsible for logical addressing (IP addresses) and routing of packets across different networks. (e.g., IP, Routers, ARP).
+                    <ul>
+                        <li><strong>Units:</strong> Packets</li>
+                    </ul>
+                </li>
+                <li><strong>Transport Layer (Layer 4):</strong> Provides reliable or unreliable data transfer between end systems, including segmentation, flow control, and error recovery. (e.g., TCP, UDP, Ports).
+                    <ul>
+                        <li><strong>Units:</strong> Segments (TCP), Datagrams (UDP)</li>
+                    </ul>
+                </li>
+                <li><strong>Session Layer (Layer 5):</strong> Establishes, manages, and terminates connections (sessions) between applications. (e.g., NetBIOS, RPC).
+                    <ul>
+                        <li><strong>Units:</strong> Data</li>
+                    </ul>
+                </li>
+                <li><strong>Presentation Layer (Layer 6):</strong> Translates data between the application layer and the network format, handling data encryption, compression, and format conversion. (e.g., JPEG, MPEG, SSL/TLS).
+                    <ul>
+                        <li><strong>Units:</strong> Data</li>
+                    </ul>
+                </li>
+                <li><strong>Application Layer (Layer 7):</strong> Provides network services directly to end-user applications. (e.g., HTTP, FTP, SMTP, DNS).
+                    <ul>
+                        <li><strong>Units:</strong> Data</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>In AWS, you'll primarily interact with components that operate at Layer 3 (Network) and Layer 4 (Transport) for services like EC2, VPC, Load Balancers, and Security Groups, but understanding all layers helps diagnose issues.</p>
+        </section>
+
+        <section>
+            <h2>4.2 IP Addressing</h2>
+            <p>An Internet Protocol (IP) address is a numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication. It serves two main functions: host or network interface identification and location addressing.</p>
+            <h3>IPv4 vs. IPv6</h3>
+            <ul>
+                <li><strong>IPv4:</strong> Uses 32-bit addresses (e.g., <code>192.168.1.1</code>), providing approximately 4.3 billion unique addresses. Due to scarcity, IPv4 addresses are typically managed with Network Address Translation (NAT).</li>
+                <li><strong>IPv6:</strong> Uses 128-bit addresses (e.g., <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>), providing a virtually unlimited number of unique addresses.</li>
+            </ul>
+            <h3>Public vs. Private IP Addresses</h3>
+            <ul>
+                <li><strong>Public IP:</strong> Routable over the internet. Devices with public IPs can communicate directly with other devices on the internet.</li>
+                <li><strong>Private IP:</strong> Used within a private network (like your home network or an AWS VPC). Not routable over the internet and can be reused in different private networks. Common private IP ranges include:
+                    <ul>
+                        <li></li>
+                        <li><code>10.0.0.0</code> - <code>10.255.255.255</code> (Class A)</li>
+                        <li><code>172.16.0.0</code> - <code>172.31.255.255</code> (Class B)</li>
+                        <li><code>192.168.0.0</code> - <code>192.168.255.255</code> (Class C)</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>CIDR (Classless Inter-Domain Routing)</h3>
+            <p>CIDR is a method for allocating IP addresses and for IP routing. It adds flexibility to address allocation compared to the old classful addressing system. A CIDR block is represented by an IP address followed by a slash and a number (e.g., <code>192.168.1.0/24</code>).</p>
+            <ul>
+                <li>The number after the slash (e.g., <code>/24</code>) represents the number of bits in the network portion of the address (i.e., the network mask).</li>
+                <li>A <code>/24</code> means the first 24 bits are for the network, and the remaining 8 bits are for host addresses (2^8 = 256 addresses).</li>
+                <li>In AWS VPCs, you define your VPC and subnet IP ranges using CIDR blocks.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4.3 Subnets</h2>
+            <p>A subnet (subnetwork) is a logical subdivision of an IP network. Subnetting divides a larger network into smaller, more manageable subnetworks. This helps improve network performance and security.</p>
+            <h3>Why Use Subnets?</h3>
+            <ul>
+                <li><strong>Organization:</strong> Group resources logically (e.g., web servers in one subnet, database servers in another).</li>
+                <li><strong>Security:</strong> Apply different security policies (e.g., Network ACLs, Security Groups) to different subnets.</li>
+                <li><strong>Performance:</strong> Reduce broadcast traffic within each segment.</li>
+                <li><strong>Availability Zones:</strong> In AWS, subnets are always deployed within a single Availability Zone to ensure high availability across zones.</li>
+            </ul>
+            <h3>Public vs. Private Subnets (in AWS VPC)</h3>
+            <ul>
+                <li><strong>Public Subnet:</strong> Contains instances that need to be directly accessible from the internet. They have a route to an Internet Gateway.</li>
+                <li><strong>Private Subnet:</strong> Contains instances that are isolated from the internet. They can access the internet via a NAT Gateway (for outbound connections), but cannot be directly accessed from the internet. Databases and application servers are typically placed in private subnets.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-vpc-subnets.svg" alt="AWS VPC Subnets Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>4.4 DNS (Domain Name System)</h2>
+            <p>DNS is a hierarchical and decentralized naming system for computers, services, or any resource connected to the Internet or a private network. It translates human-readable domain names (e.g., <code>www.example.com</code>) into machine-readable IP addresses (e.g., <code>192.0.2.1</code>).</p>
+            <h3>How DNS Works (Simplified):</h3>
+            <ol>
+                <li>User types a domain name into a web browser.</li>
+                <li>The local DNS resolver (often provided by your ISP) receives the request.</li>
+                <li>If the resolver doesn't have the IP, it queries a Root DNS server.</li>
+                <li>The Root DNS server refers to the Top-Level Domain (TLD) DNS server (e.g., <code>.com</code>).</li>
+                <li>The TLD DNS server refers to the authoritative DNS server for the domain (e.g., <code>example.com</code>).</li>
+                <li>The authoritative DNS server provides the IP address for <code>www.example.com</code>.</li>
+                <li>The IP address is returned to the user's browser, which then connects to the web server at that IP.</li>
+            </ol>
+            <p>AWS offers Route 53, a highly available and scalable cloud DNS web service.</p>
+        </section>
+
+        <section>
+            <h2>4.5 Firewalls and Security Groups</h2>
+            <p>Firewalls are network security systems that monitor and control incoming and outgoing network traffic based on predetermined security rules. They act as a barrier between trusted and untrusted networks.</p>
+            <h3>In AWS:</h3>
+            <ul>
+                <li><strong>Security Groups:</strong> Act as virtual firewalls for your EC2 instances. They operate at the instance level and control inbound and outbound traffic based on rules (protocol, port range, source/destination IP). Security groups are <em>stateful</em> (meaning if you allow outbound traffic, the return inbound traffic is automatically allowed).</li>
+                <li><strong>Network ACLs (Access Control Lists):</strong> Act as optional stateless firewalls for your subnets. They control traffic at the subnet level and have separate inbound and outbound rules that must be explicitly defined for both directions.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-security-groups-nacl.svg" alt="AWS Security Groups and Network ACLs Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>4.6 VPN (Virtual Private Network)</h2>
+            <p>A VPN extends a private network across a public network and enables users to send and receive data across shared or public networks as if their computing devices were directly connected to the private network.</p>
+            <h3>Uses of VPN in AWS:</h3>
+            <ul>
+                <li><strong>Site-to-Site VPN:</strong> Connects your on-premises network (data center or office) to your Amazon VPC. This allows resources in your VPC and on-premises network to communicate as if they were in the same private network.</li>
+                <li><strong>Client VPN:</strong> Allows individual users to securely connect from their device to their AWS resources and on-premises networks.</li>
+                <li><strong>AWS Client VPN:</strong> A managed client-based VPN service that enables you to securely access your AWS resources and resources in your on-premises network from any location.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-site-to-site-vpn.svg" alt="AWS Site-to-Site VPN Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="cloud-provider-comparison.html" class="next-module-link">Next Module: Cloud Provider Comparison &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

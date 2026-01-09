@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 15: Containers & Serverless - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 15: Containers & Serverless</h1>
+
+        <section>
+            <h2>15.1 Containers Overview</h2>
+            <p>Containers provide a way to package an application with all its dependencies (code, runtime, system tools, libraries, settings) into a single, isolated unit. This ensures that the application runs consistently across different environments, from development to production.</p>
+            <h3>Key Benefits:</h3>
+            <ul>
+                <li><strong>Portability:</strong> Run consistently anywhere.</li>
+                <li><strong>Efficiency:</strong> Share the host OS kernel, making them lightweight and fast to start.</li>
+                <li><strong>Isolation:</strong> Applications are isolated from each other and the host system.</li>
+                <li><strong>Scalability:</strong> Easy to scale up and down.</li>
+            </ul>
+            <p>Docker is the most popular containerization technology.</p>
+        </section>
+
+        <section>
+            <h2>15.2 Amazon Elastic Container Service (ECS)</h2>
+            <p>Amazon ECS is a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications. ECS integrates deeply with the rest of the AWS platform to provide a secure and easy-to-use solution for running container workloads.</p>
+            <h3>Key Concepts:</h3>
+            <ul>
+                <li><strong>Cluster:</strong> A logical grouping of EC2 instances (or Fargate launch type) where tasks are run.</li>
+                <li><strong>Task Definition:</strong> A blueprint for your application, specifying the Docker image, CPU, memory, networking, and other parameters.</li>
+                <li><strong>Task:</strong> An instance of a task definition running on a container instance.</li>
+                <li><strong>Service:</strong> Maintains a desired number of tasks and can integrate with an Elastic Load Balancer.</li>
+            </ul>
+            <p><img src="../assets/diagrams/ecs-architecture.svg" alt="ECS Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>15.3 Amazon Elastic Kubernetes Service (EKS)</h2>
+            <p>Amazon EKS is a fully managed Kubernetes service. Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications. EKS makes it easy to run Kubernetes on AWS without needing to install, operate, and maintain your own Kubernetes control plane.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Managed Control Plane:</strong> AWS manages the Kubernetes control plane (master nodes), ensuring high availability and patching.</li>
+                <li><strong>Worker Nodes:</strong> You provision and manage the worker nodes (EC2 instances) or use Fargate.</li>
+                <li><strong>Open Source:</strong> Compatible with standard Kubernetes tools and plugins.</li>
+                <li><strong>Integration:</strong> Integrates with other AWS services like IAM, VPC, and Load Balancers.</li>
+            </ul>
+            <p>EKS is ideal for organizations that want to leverage the power and flexibility of Kubernetes while offloading the operational burden of managing the control plane to AWS.</p>
+            <p><img src="../assets/diagrams/eks-architecture.svg" alt="EKS Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>15.4 AWS Fargate</h2>
+            <p>AWS Fargate is a serverless compute engine for containers that works with both Amazon ECS and Amazon EKS. Fargate removes the need to provision and manage servers, letting you focus on building your applications.</p>
+            <h3>Key Benefits:</h3>
+            <ul>
+                <li><strong>Serverless:</strong> No EC2 instances to manage. You only pay for the resources your containers consume.</li>
+                <li><strong>Simplified Operations:</strong> AWS handles server provisioning, patching, scaling, and infrastructure management.</li>
+                <li><strong>Cost-Effective:</strong> Pay only for the vCPU and memory resources your application requests.</li>
+                <li><strong>Security:</strong> Each task or pod runs in its own isolated compute environment.</li>
+            </ul>
+            <p>Fargate is an excellent choice for applications that need to run containers without the operational overhead of managing EC2 instances.</p>
+        </section>
+
+        <section>
+            <h2>15.5 AWS Lambda</h2>
+            <p>AWS Lambda is a serverless, event-driven compute service that lets you run code without provisioning or managing servers. You pay only for the compute time you consume.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Serverless:</strong> No servers to manage.</li>
+                <li><strong>Event-Driven:</strong> Code runs in response to events (e.g., S3 object upload, DynamoDB stream, API Gateway request).</li>
+                <li><strong>Scalability:</strong> Automatically scales to meet demand.</li>
+                <li><strong>Cost-Effective:</strong> Pay only for the actual compute time consumed (per millisecond) and the number of requests.</li>
+                <li><strong>Polyglot:</strong> Supports multiple programming languages (Node.js, Python, Java, C#, Go, Ruby, PowerShell).</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Backend for web/mobile apps, data processing, real-time file processing, chatbots, IoT backends.</p>
+            <p><img src="../assets/diagrams/lambda-architecture.svg" alt="Lambda Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>15.6 Amazon API Gateway</h2>
+            <p>Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. It acts as a "front door" for applications to access data, business logic, or functionality from your backend services.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>API Creation:</strong> Build RESTful APIs and WebSocket APIs.</li>
+                <li><strong>Traffic Management:</strong> Handle traffic management, authorization, and access control.</li>
+                <li><strong>Security:</strong> Integrates with IAM, Cognito, and custom authorizers.</li>
+                <li><strong>Scalability:</strong> Handles millions of API calls.</li>
+                <li><strong>Integration:</strong> Can integrate with AWS Lambda, EC2, HTTP endpoints, and other AWS services.</li>
+            </ul>
+            <p>API Gateway is commonly used to expose Lambda functions as HTTP endpoints, creating serverless APIs.</p>
+            <p><img src="../assets/diagrams/api-gateway-lambda.svg" alt="API Gateway Lambda Integration Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="route-53.html" class="next-module-link">Next Module: Route 53 &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

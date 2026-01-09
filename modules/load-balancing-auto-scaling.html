@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 10: Load Balancing & Auto Scaling - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 10: Load Balancing & Auto Scaling</h1>
+
+        <section>
+            <h2>10.1 What is Load Balancing?</h2>
+            <p>Load balancing is the process of distributing network traffic across multiple servers. This ensures that no single server is overloaded, improving application responsiveness and availability. An Elastic Load Balancer (ELB) automatically distributes incoming application traffic across multiple targets, such as EC2 instances, containers, IP addresses, and Lambda functions.</p>
+            <h3>Benefits of Load Balancing:</h3>
+            <ul>
+                <li><strong>High Availability:</strong> Distributes traffic across healthy targets, routing away from unhealthy ones.</li>
+                <li><strong>Fault Tolerance:</strong> If one server fails, traffic is automatically redirected to other healthy servers.</li>
+                <li><strong>Scalability:</strong> Allows you to add or remove servers to handle changes in traffic.</li>
+                <li><strong>Security:</strong> Can integrate with AWS WAF and SSL/TLS termination.</li>
+            </ul>
+            <p>AWS offers three types of Elastic Load Balancers:</p>
+            <ul>
+                <li>Classic Load Balancer (CLB) - legacy, not recommended for new applications.</li>
+                <li>Application Load Balancer (ALB) - best for HTTP/HTTPS traffic.</li>
+                <li>Network Load Balancer (NLB) - best for extreme performance and static IP addresses.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10.2 Application Load Balancer (ALB)</h2>
+            <p>Application Load Balancer (ALB) operates at the application layer (Layer 7) of the OSI model. It is ideal for HTTP and HTTPS traffic, providing advanced request routing targeted at the delivery of modern application architectures, including microservices and containers.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Path-based routing:</strong> Routes requests based on the URL path (e.g., <code>/users</code> to one target group, <code>/products</code> to another).</li>
+                <li><strong>Host-based routing:</strong> Routes requests based on the host header (e.g., <code>api.example.com</code> to one target group, <code>web.example.com</code> to another).</li>
+                <li><strong>Query string parameter routing:</strong> Routes based on query parameters.</li>
+                <li><strong>HTTP header routing:</strong> Routes based on specific HTTP headers.</li>
+                <li><strong>Support for containers and microservices:</strong> Can route to multiple ports on the same EC2 instance.</li>
+                <li><strong>SSL/TLS termination:</strong> Offloads encryption/decryption from your instances.</li>
+                <li><strong>Integration with AWS WAF:</strong> Provides web application firewall capabilities.</li>
+            </ul>
+            <p><img src="../assets/diagrams/alb-architecture.svg" alt="Application Load Balancer Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>10.3 Network Load Balancer (NLB)</h2>
+            <p>Network Load Balancer (NLB) operates at the connection level (Layer 4) of the OSI model. It is designed to handle millions of requests per second with ultra-low latency, making it ideal for extreme performance and static IP addresses.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>High performance:</strong> Capable of handling volatile workloads and millions of requests per second.</li>
+                <li><strong>Static IP addresses:</strong> Provides a static IP address per Availability Zone.</li>
+                <li><strong>Preserves client IP:</strong> The client's IP address is preserved, allowing backend applications to see the original client IP.</li>
+                <li><strong>TCP, UDP, and TLS traffic:</strong> Supports a wide range of protocols.</li>
+                <li><strong>Ideal for:</strong> Gaming, IoT, high-performance computing, and applications that require static IP addresses.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10.4 Classic Load Balancer (CLB)</h2>
+            <p>Classic Load Balancer (CLB) is the oldest generation of Elastic Load Balancers. It operates at both the request level (Layer 7) and connection level (Layer 4). While still supported, AWS recommends using ALB or NLB for new applications due to their advanced features and better performance.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Basic load balancing:</strong> Distributes traffic based on round-robin or least outstanding requests.</li>
+                <li><strong>Supports HTTP, HTTPS, TCP, SSL.</strong></li>
+                <li><strong>Not recommended for new applications.</strong></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10.5 Auto Scaling</h2>
+            <p>AWS Auto Scaling monitors your applications and automatically adjusts capacity to maintain steady, predictable performance at the lowest possible cost. It helps ensure that you have the correct number of EC2 instances available to handle the load for your application.</p>
+            <h3>Key Components:</h3>
+            <ul>
+                <li><strong>Launch Configuration/Template:</strong> A template that an Auto Scaling group uses to launch EC2 instances. It specifies the AMI ID, instance type, key pair, security groups, and other parameters.</li>
+                <li><strong>Auto Scaling Group (ASG):</strong> A collection of EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management. An ASG defines the minimum, maximum, and desired number of instances.</li>
+                <li><strong>Scaling Policies:</strong> Define when and how the ASG should scale.</li>
+                    <ul>
+                        <li><strong>Simple Scaling:</strong> Adjusts capacity based on a single CloudWatch alarm.</li>
+                        <li><strong>Step Scaling:</strong> Adjusts capacity based on a set of scaling adjustments, in response to a CloudWatch alarm.</li>
+                        <li><strong>Target Tracking Scaling:</strong> Most common and recommended. Adjusts capacity to maintain a specified target utilization level for a metric (e.g., keep CPU utilization at 50%).</li>
+                        <li><strong>Scheduled Scaling:</strong> Scales based on a schedule (e.g., increase capacity every weekday morning).</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>Benefits of Auto Scaling:</h3>
+            <ul>
+                <li><strong>Fault Tolerance:</strong> Replaces unhealthy instances automatically.</li>
+                <li><strong>High Availability:</strong> Ensures your application has enough capacity.</li>
+                <li><strong>Cost Management:</strong> Scales down during low demand, saving costs.</li>
+                <li><strong>Improved Performance:</strong> Scales up during high demand to maintain performance.</li>
+            </ul>
+            <p><img src="../assets/diagrams/auto-scaling-architecture.svg" alt="Auto Scaling Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>10.6 High Availability (HA) Design with ELB and Auto Scaling</h2>
+            <p>Combining Elastic Load Balancing with Auto Scaling is a fundamental pattern for building highly available and scalable applications on AWS.</p>
+            <h3>Architecture:</h3>
+            <ol>
+                <li><strong>Users access your application through a DNS record</strong> (e.g., <code>myapp.example.com</code>) that points to your ELB.</li>
+                <li><strong>The ELB distributes incoming traffic</strong> across multiple EC2 instances in different Availability Zones.</li>
+                <li><strong>An Auto Scaling Group manages the EC2 instances,</strong> ensuring that a healthy number of instances are always running.</li>
+                <li><strong>CloudWatch alarms trigger scaling policies</strong> to add or remove instances based on metrics like CPU utilization or network I/O.</li>
+                <li><strong>Instances are launched in different AZs</strong> to protect against single points of failure.</li>
+            </ol>
+            <p>This setup provides a robust, self-healing, and cost-effective architecture for web applications and other scalable workloads.</p>
+            <p><img src="../assets/diagrams/ha-elb-asg.svg" alt="High Availability with ELB and Auto Scaling Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="s3.html" class="next-module-link">Next Module: S3 &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

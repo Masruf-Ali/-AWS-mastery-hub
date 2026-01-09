@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: EC2 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 8: Elastic Compute Cloud (EC2)</h1>
+
+        <section>
+            <h2>8.1 What is EC2?</h2>
+            <p>Amazon Elastic Compute Cloud (Amazon EC2) provides resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. EC2's simple web service interface allows you to obtain and configure capacity with minimal friction. It provides you with complete control of your computing resources and lets you run on Amazon's proven computing environment.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Virtual Servers (Instances):</strong> You can launch virtual servers, known as instances, with various operating systems.</li>
+                <li><strong>Configurable:</strong> Choose CPU, memory, storage, and networking capacity.</li>
+                <li><strong>Scalable:</strong> Easily scale up or down based on demand.</li>
+                <li><strong>Secure:</strong> Integrated with AWS IAM and VPC for network security.</li>
+                <li><strong>Cost-Effective:</strong> Pay-as-you-go pricing with various purchasing options.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8.2 EC2 Instance Types</h2>
+            <p>AWS offers a wide variety of instance types optimized for different use cases. Instance types comprise varying combinations of CPU, memory, storage, and networking capacity and give you the flexibility to choose the appropriate mix of resources for your applications.</p>
+            <h3>Common Instance Families:</h3>
+            <ul>
+                <li><strong>General Purpose (M, T):</strong> Balance of compute, memory, and networking resources. Good for web servers, small databases, development environments.
+                    <ul>
+                        <li><code>T2/T3/T4g</code>: Burstable performance instances, ideal for workloads with moderate CPU usage that occasionally spike.</li>
+                        <li><code>M5/M6g</code>: General-purpose instances, good for a wide range of applications.</li>
+                    </ul>
+                </li>
+                <li><strong>Compute Optimized (C):</strong> Ideal for compute-bound applications that benefit from high-performance processors. Good for batch processing, high-performance computing (HPC), gaming servers, video encoding.
+                    <ul>
+                        <li><code>C5/C6g</code>: High-performance processors, good for compute-intensive tasks.</li>
+                    </ul>
+                </li>
+                <li><strong>Memory Optimized (R, X, Z):</strong> Designed for workloads that process large datasets in memory. Good for high-performance databases, distributed web scale in-memory caches, analytics.
+                    <ul>
+                        <li><code>R5/R6g</code>: High memory-to-CPU ratio.</li>
+                        <li><code>X2gd</code>: Very high memory instances.</li>
+                    </ul>
+                </li>
+                <li><strong>Storage Optimized (I, D, H):</strong> Designed for workloads that require high, sequential read and write access to very large datasets on local storage. Good for NoSQL databases, data warehousing, distributed file systems.
+                    <ul>
+                        <li><code>I3/I3en</code>: NVMe SSD-backed instances.</li>
+                        <li><code>D2/D3</code>: Dense storage instances.</li>
+                    </ul>
+                </li>
+                <li><strong>Accelerated Computing (P, G, F):</strong> Use hardware accelerators, or co-processors, to perform functions, such as floating-point number calculations, graphics processing, or data pattern matching, more efficiently than is possible in software on CPUs.
+                    <ul>
+                        <li><code>P3/P4</code>: GPU instances for machine learning, HPC.</li>
+                        <li><code>G4/G5</code>: Graphics-intensive applications.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>The choice of instance type depends on your application's specific requirements for CPU, memory, storage, and network performance.</p>
+        </section>
+
+        <section>
+            <h2>8.3 EC2 Pricing Models</h2>
+            <p>AWS offers several pricing models for EC2 instances, allowing you to optimize costs based on your workload's predictability and flexibility requirements.</p>
+            <ul>
+                <li><strong>On-Demand Instances:</strong>
+                    <ul>
+                        <li>Pay for compute capacity by the hour or second, with no long-term commitments.</li>
+                        <li>Ideal for irregular workloads, development/testing, or applications with unpredictable usage.</li>
+                        <li>Highest cost per hour, but maximum flexibility.</li>
+                    </ul>
+                </li>
+                <li><strong>Reserved Instances (RIs):</strong>
+                    <ul>
+                        <li>Commit to a specific instance type and Region for a 1-year or 3-year term.</li>
+                        <li>Significant discount (up to 75%) compared to On-Demand.</li>
+                        <li>Best for steady-state, predictable workloads.</li>
+                        <li>Can be Standard (fixed instance type) or Convertible (can change instance family, OS, tenancy).</li>
+                    </ul>
+                </li>
+                <li><strong>Savings Plans:</strong>
+                    <ul>
+                        <li>Flexible pricing model offering lower prices on EC2, Fargate, and Lambda usage in exchange for a commitment to a consistent amount of usage (measured in $/hour) for a 1-year or 3-year term.</li>
+                        <li>Offers similar discounts to RIs but with more flexibility across instance family, size, OS, and Region.</li>
+                    </ul>
+                </li>
+                <li><strong>Spot Instances:</strong>
+                    <ul>
+                        <li>Request unused EC2 capacity at steep discounts (up to 90% off On-Demand prices).</li>
+                        <li>Instances can be interrupted by AWS with a 2-minute warning if AWS needs the capacity back.</li>
+                        <li>Ideal for fault-tolerant, flexible, and stateless workloads like batch processing, data analysis, and containerized applications.</li>
+                    </ul>
+                </li>
+                <li><strong>Dedicated Hosts:</strong>
+                    <ul>
+                        <li>Physical EC2 servers dedicated for your use.</li>
+                        <li>Provides visibility into the underlying sockets and physical cores.</li>
+                        <li>Useful for licensing requirements (e.g., Windows Server, Oracle Database) or strict compliance needs.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8.4 EC2 Security Groups</h2>
+            <p>As discussed in Module 4, Security Groups act as virtual firewalls for your EC2 instances, controlling inbound and outbound traffic. They are stateful, meaning if you allow an outbound request, the return inbound traffic is automatically allowed.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>Instance Level:</strong> Attached to an EC2 instance.</li>
+                <li><strong>Allow Rules Only:</strong> You can only specify allow rules; implicit deny for everything else.</li>
+                <li><strong>Stateful:</strong> Return traffic is automatically allowed.</li>
+                <li><strong>Default Behavior:</strong> All inbound traffic is denied by default; all outbound traffic is allowed by default.</li>
+                <li><strong>Multiple Security Groups:</strong> An instance can have multiple security groups attached.</li>
+            </ul>
+            <p><strong>Example:</strong> To allow web traffic (HTTP on port 80, HTTPS on port 443) to your web server, you would create inbound rules in its security group allowing these ports from <code>0.0.0.0/0</code> (all IP addresses).</p>
+        </section>
+
+        <section>
+            <h2>8.5 EC2 Key Pairs</h2>
+            <p>An EC2 Key Pair consists of a public key and a private key. They are used to securely connect to your Linux EC2 instances using SSH (Secure Shell).</p>
+            <ul>
+                <li><strong>Public Key:</strong> Stored on AWS and associated with your EC2 instance.</li>
+                <li><strong>Private Key:</strong> Stored securely on your local machine. You use this to authenticate when connecting to the instance.</li>
+                <li><strong>Security:</strong> The private key is essential for accessing your instance. If you lose it, you cannot connect to the instance.</li>
+                <li><strong>Windows Instances:</strong> For Windows instances, you typically use a password generated by AWS and retrieved using your key pair, or connect via Remote Desktop Protocol (RDP) with a username/password.</li>
+            </ul>
+            <p><strong>Best Practice:</strong> Store your private key file (<code>.pem</code>) securely and never share it.</p>
+        </section>
+
+        <section>
+            <h2>8.6 Hands-On Lab: Launching an EC2 Instance (Console & CLI)</h2>
+            <p>Let's launch a basic Linux EC2 instance.</p>
+            <h3>Using the AWS Management Console:</h3>
+            <ol>
+                <li><strong>Log in to the AWS Management Console.</strong></li>
+                <li><strong>Navigate to EC2:</strong> Search for "EC2" in the services search bar.</li>
+                <li><strong>Launch Instance:</strong> Click "Launch instances".</li>
+                <li><strong>Name and Tags:</strong> Give your instance a name (e.g., <code>MyWebServer</code>).</li>
+                <li><strong>Application and OS Images (Amazon Machine Image - AMI):</strong> Choose an AMI. For this lab, select "Amazon Linux 2023 AMI" (Free tier eligible).</li>
+                <li><strong>Instance Type:</strong> Select an instance type. For this lab, choose <code>t2.micro</code> (Free tier eligible).</li>
+                <li><strong>Key pair (login):</strong> Choose an existing key pair or create a new one. If creating new, give it a name (e.g., <code>my-ec2-key</code>) and download the <code>.pem</code> file. <strong>Store it securely!</strong></li>
+                <li><strong>Network settings:</strong>
+                    <ul>
+                        <li><strong>VPC:</strong> Use the default VPC.</li>
+                        <li><strong>Subnet:</strong> Choose a public subnet (e.g., <code>us-east-1a</code>).</li>
+                        <li><strong>Auto-assign public IP:</strong> Enable.</li>
+                        <li><strong>Firewall (security groups):</strong> Create a new security group. Name it <code>web-sg</code>. Add an inbound rule: Type: <code>SSH</code>, Source: <code>My IP</code> (or <code>0.0.0.0/0</code> for anywhere, but less secure). Add another inbound rule: Type: <code>HTTP</code>, Source: <code>0.0.0.0/0</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Configure storage:</strong> Keep default (8 GiB gp2).</li>
+                <li><strong>Advanced details:</strong> (Optional) You can add user data scripts here to run commands when the instance starts.</li>
+                <li><strong>Summary:</strong> Review your configuration and click "Launch instance".</li>
+                <li><strong>Connect to your instance:</strong> Once the instance state is "Running", select it, click "Connect", and follow the instructions for SSH (using your <code>.pem</code> file).</li>
+            </ol>
+
+            <h3>Using the AWS CLI:</h3>
+            <p>First, ensure you have the AWS CLI installed and configured with your credentials.</p>
+            <ol>
+                <li><strong>Create a Key Pair (if you don't have one):</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-key-pair --key-name MyCLIKey --query 'KeyMaterial' --output text > MyCLIKey.pem
+chmod 400 MyCLIKey.pem
+                    </code></pre>
+                </li>
+                <li><strong>Find an AMI ID:</strong> You'll need the AMI ID for Amazon Linux 2023 in your desired Region. You can find this in the console or using the CLI:
+                    <pre><code class="language-bash">
+aws ec2 describe-images \
+    --owners amazon \
+    --filters "Name=name,Values=amzn2023-ami-*-x86_64-gp2" "Name=state,Values=available" \
+    --query 'sort_by(Images, &CreationDate)[-1].ImageId' --output text
+                    </code></pre>
+                    <p>Let's assume the AMI ID is <code>ami-0abcdef1234567890</code> for this example.</p>
+                </li>
+                <li><strong>Create a Security Group:</strong>
+                    <pre><code class="language-bash">
+aws ec2 create-security-group --group-name MyCLISecurityGroup --description "My security group for CLI instance"
+                    </code></pre>
+                    <p>Note the <code>GroupId</code> from the output (e.g., <code>sg-0123456789abcdef0</code>).</p>
+                </li>
+                <li><strong>Add Inbound Rules to Security Group:</strong>
+                    <pre><code class="language-bash">
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-0123456789abcdef0 \
+    --protocol tcp \
+    --port 22 \
+    --cidr 0.0.0.0/0
+
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-0123456789abcdef0 \
+    --protocol tcp \
+    --port 80 \
+    --cidr 0.0.0.0/0
+                    </code></pre>
+                </li>
+                <li><strong>Launch the Instance:</strong>
+                    <pre><code class="language-bash">
+aws ec2 run-instances \
+    --image-id ami-0abcdef1234567890 \
+    --instance-type t2.micro \
+    --key-name MyCLIKey \
+    --security-group-ids sg-0123456789abcdef0 \
+    --count 1 \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=MyCLIInstance}]'
+                    </code></pre>
+                </li>
+                <li><strong>Get Public IP and Connect:</strong>
+                    <pre><code class="language-bash">
+aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=MyCLIInstance" "Name=instance-state-name,Values=running" \
+    --query 'Reservations[0].Instances[0].PublicIpAddress' --output text
+                    </code></pre>
+                    <p>Once you have the Public IP, connect via SSH:</p>
+                    <pre><code class="language-bash">
+ssh -i MyCLIKey.pem ec2-user=&lt;Public-IP-Address&gt;
+                    </code></pre>
+                </li>
+            </ol>
+        </section>
+
+        <p><a href="ec2-storage.html" class="next-module-link">Next Module: EC2 Storage &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 14: Caching - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 14: Caching</h1>
+
+        <section>
+            <h2>14.1 What is Caching?</h2>
+            <p>Caching is a technique that stores copies of frequently accessed data in a temporary storage location (a cache) so that future requests for that data can be served faster. This reduces the load on primary data sources (like databases) and improves application performance and responsiveness.</p>
+            <h3>Benefits of Caching:</h3>
+            <ul>
+                <li><strong>Improved Performance:</strong> Faster data retrieval as data is served from memory or fast storage.</li>
+                <li><strong>Reduced Database Load:</strong> Less traffic hits the database, freeing up resources.</li>
+                <li><strong>Lower Latency:</strong> Data is closer to the application.</li>
+                <li><strong>Cost Savings:</strong> Can reduce the need for expensive database scaling.</li>
+            </ul>
+            <p><img src="../assets/diagrams/caching-overview.svg" alt="Caching Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>14.2 Amazon ElastiCache</h2>
+            <p>Amazon ElastiCache is a fully managed in-memory caching service that supports two open-source in-memory engines: Redis and Memcached. It simplifies the deployment, operation, and scaling of popular open-source compatible in-memory data stores.</p>
+            <h3>Amazon ElastiCache for Redis:</h3>
+            <ul>
+                <li><strong>Features:</strong> Supports advanced data structures (lists, sets, hashes), persistence, replication, high availability (Multi-AZ), clustering, and pub/sub messaging.</li>
+                <li><strong>Use Cases:</strong> Caching, session management, real-time analytics, gaming leaderboards, geospatial applications.</li>
+                <li><strong>Performance:</strong> Sub-millisecond latency.</li>
+            </ul>
+            <h3>Amazon ElastiCache for Memcached:</h3>
+            <ul>
+                <li><strong>Features:</strong> Simpler, high-performance object caching system. Multi-threaded architecture.</li>
+                <li><strong>Use Cases:</strong> Simple key-value caching for web applications.</li>
+                <li><strong>Performance:</strong> Sub-millisecond latency.</li>
+            </ul>
+            <p>ElastiCache handles the heavy lifting of setting up, patching, backing up, and scaling your cache clusters, allowing you to focus on application development.</p>
+            <p><img src="../assets/diagrams/elasticache-architecture.svg" alt="ElastiCache Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>14.3 Amazon RDS Proxy</h2>
+            <p>Amazon RDS Proxy is a fully managed, highly available database proxy for Amazon RDS and Amazon Aurora. It makes applications more resilient to database failures and more secure by handling connection pooling and managing credentials.</p>
+            <h3>Key Benefits:</h3>
+            <ul>
+                <li><strong>Connection Pooling:</strong> Reduces the overhead of establishing new database connections, especially for serverless applications (like AWS Lambda) that frequently open and close connections.</li>
+                <li><strong>Improved Application Resiliency:</strong> Automatically routes traffic to a healthy database instance during failovers, reducing failover times by up to 66%.</li>
+                <li><strong>Enhanced Security:</strong> Integrates with AWS Secrets Manager and IAM to manage database credentials, eliminating the need to embed them in application code.</li>
+                <li><strong>Scalability:</strong> Allows applications to scale without exhausting database connections.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Serverless applications, applications with many open connections, applications requiring enhanced security for database access.</p>
+            <p><img src="../assets/diagrams/rds-proxy-architecture.svg" alt="RDS Proxy Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="containers-serverless.html" class="next-module-link">Next Module: Containers & Serverless &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

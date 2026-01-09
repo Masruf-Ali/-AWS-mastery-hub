@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 9: EC2 Storage - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 9: EC2 Storage Options</h1>
+
+        <section>
+            <h2>9.1 Amazon Elastic Block Store (EBS)</h2>
+            <p>Amazon EBS provides persistent block storage volumes for use with Amazon EC2 instances. EBS volumes are highly available and reliable storage volumes that can be attached to any running instance in the same Availability Zone.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>Persistent:</strong> Data persists independently of the life of the EC2 instance.</li>
+                <li><strong>Block Storage:</strong> Functions like a raw, unformatted hard drive. You can format it with a file system and mount it to your EC2 instance.</li>
+                <li><strong>Network-Attached:</strong> EBS volumes are network-attached storage, not physically part of the instance.</li>
+                <li><strong>Availability Zone Specific:</strong> An EBS volume can only be attached to an EC2 instance in the same Availability Zone.</li>
+                <li><strong>Encryption:</strong> EBS volumes can be encrypted at rest and in transit.</li>
+            </ul>
+            <h3>EBS Volume Types:</h3>
+            <ul>
+                <li><strong>General Purpose SSD (gp2/gp3):</strong> Balances price and performance for a wide variety of transactional workloads. Recommended for most workloads.</li>
+                <li><strong>Provisioned IOPS SSD (io1/io2):</strong> Designed for I/O-intensive applications like large relational or NoSQL databases that require sustained IOPS performance.</li>
+                <li><strong>Throughput Optimized HDD (st1):</strong> Low-cost HDD volume designed for frequently accessed, throughput-intensive workloads such as big data, data warehouses, and log processing.</li>
+                <li><strong>Cold HDD (sc1):</strong> Lowest cost HDD volume designed for less frequently accessed workloads.</li>
+                <li><strong>Magnetic (Standard):</strong> Previous generation, generally not recommended for new use cases.</li>
+            </ul>
+            <p><img src="../assets/diagrams/ebs-volume-types.svg" alt="EBS Volume Types Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>9.2 Amazon Elastic File System (EFS)</h2>
+            <p>Amazon EFS provides simple, scalable, elastic file storage for use with AWS Cloud services and on-premises resources. It is a fully managed service that can be accessed by multiple EC2 instances concurrently.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>File Storage:</strong> Provides a file system interface (NFSv4.1 and NFSv4.0 protocol).</li>
+                <li><strong>Shared Access:</strong> Multiple EC2 instances can access the same EFS file system simultaneously.</li>
+                <li><strong>Scalable:</strong> Automatically scales storage capacity up or down as you add or remove files.</li>
+                <li><strong>Regional Service:</strong> EFS is a regional service, meaning it can be accessed from instances across multiple Availability Zones within the same Region.</li>
+                <li><strong>Use Cases:</strong> Content management, web serving, data sharing, development environments, home directories.</li>
+            </ul>
+            <p><img src="../assets/diagrams/efs-shared-access.svg" alt="EFS Shared Access Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>9.3 EBS Snapshots</h2>
+            <p>An EBS snapshot is a point-in-time backup of your EBS volume. Snapshots are incremental backups, meaning only the blocks that have changed since the last snapshot are saved. This makes them cost-effective and efficient.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Incremental:</strong> Only changed blocks are stored.</li>
+                <li><strong>Stored in S3:</strong> Snapshots are stored in Amazon S3, providing high durability.</li>
+                <li><strong>Cross-AZ/Region Copy:</strong> Snapshots can be copied across Availability Zones and Regions.</li>
+                <li><strong>Restore:</strong> You can restore an EBS volume from a snapshot, creating a new volume.</li>
+                <li><strong>AMI Creation:</strong> Snapshots are used in the process of creating Amazon Machine Images (AMIs).</li>
+            </ul>
+            <p><strong>Best Practice:</strong> Regularly take snapshots of your EBS volumes for disaster recovery and data protection.</p>
+        </section>
+
+        <section>
+            <h2>9.4 Amazon Machine Images (AMIs)</h2>
+            <p>An Amazon Machine Image (AMI) provides the information required to launch an instance. You must specify an AMI when you launch an instance.</p>
+            <h3>An AMI includes:</h3>
+            <ul>
+                <li>A template for the root volume for the instance (e.g., an operating system, application server, and applications).</li>
+                <li>Launch permissions that control which AWS accounts can use the AMI to launch instances.</li>
+                <li>A block device mapping that specifies the volumes to attach to the instance when it's launched.</li>
+            </ul>
+            <h3>Types of AMIs:</h3>
+            <ul>
+                <li><strong>Community AMIs:</strong> Publicly available AMIs provided by AWS or other users.</li>
+                <li><strong>AWS Marketplace AMIs:</strong> AMIs with pre-installed software, often with associated costs.</li>
+                <li><strong>My AMIs:</strong> AMIs you create from your own EC2 instances or snapshots.</li>
+            </ul>
+            <p>Creating your own AMIs allows you to pre-configure instances with your applications and settings, speeding up deployment and ensuring consistency.</p>
+        </section>
+
+        <section>
+            <h2>9.5 Instance Store</h2>
+            <p>An instance store provides temporary block-level storage for your instance. This storage is located on disks that are physically attached to the host computer. Instance store is ideal for temporary storage of information that changes frequently, such as buffers, caches, scratch data, and other temporary content, or for data that is replicated across a fleet of instances, such as a load-balanced pool of web servers.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>Temporary:</strong> Data on instance store volumes persists only during the life of the instance. If the instance stops, hibernates, or terminates, the data is lost.</li>
+                <li><strong>High Performance:</strong> Provides very high I/O performance, often using NVMe SSDs.</li>
+                <li><strong>Physically Attached:</strong> Storage is physically attached to the host server.</li>
+                <li><strong>Use Cases:</strong> Caching, scratch data, temporary storage for databases, buffers.</li>
+            </ul>
+            <p><strong>Important:</strong> Do not use instance store for data that needs to persist beyond the life of the instance.</p>
+        </section>
+
+        <p><a href="load-balancing-auto-scaling.html" class="next-module-link">Next Module: Load Balancing & Auto Scaling &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

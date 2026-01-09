@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 17: Global Networking - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 17: Global Networking</h1>
+
+        <section>
+            <h2>17.1 Amazon CloudFront</h2>
+            <p>Amazon CloudFront is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency, high transfer speeds, all within a developer-friendly environment. CloudFront uses a global network of Edge Locations (Points of Presence) to cache content closer to your users.</p>
+            <h3>How CloudFront Works:</h3>
+            <ol>
+                <li>A user requests content (e.g., an image, a web page).</li>
+                <li>The DNS query is routed to the nearest CloudFront Edge Location.</li>
+                <li>If the content is cached at the Edge Location, it's delivered directly to the user (low latency).</li>
+                <li>If not cached, CloudFront retrieves the content from your origin server (e.g., S3 bucket, EC2 instance, ELB), caches it, and then delivers it to the user.</li>
+            </ol>
+            <h3>Key Benefits:</h3>
+            <ul>
+                <li><strong>Low Latency:</strong> Content delivered from Edge Locations closer to users.</li>
+                <li><strong>High Transfer Speeds:</strong> Optimized network paths.</li>
+                <li><strong>Security:</strong> Integrates with AWS WAF, Shield, and SSL/TLS.</li>
+                <li><strong>Cost Optimization:</strong> Reduces load on origin servers and can lower data transfer costs.</li>
+                <li><strong>Global Reach:</strong> Extensive network of Edge Locations worldwide.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloudfront-architecture.svg" alt="CloudFront Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>17.2 AWS Global Accelerator</h2>
+            <p>AWS Global Accelerator is a networking service that improves the availability and performance of your applications with local or global users. It uses the AWS global network to route user traffic to the optimal application endpoint, regardless of where your users are located.</p>
+            <h3>How Global Accelerator Works:</h3>
+            <ol>
+                <li>Global Accelerator provides you with two static Anycast IP addresses that act as a fixed entry point to your application.</li>
+                <li>User traffic enters the AWS global network at the Edge Location closest to the user.</li>
+                <li>Global Accelerator then routes the traffic over the highly optimized AWS global network to your application endpoints (e.g., ELBs, EC2 instances) in the nearest healthy AWS Region.</li>
+            </ol>
+            <h3>Key Benefits:</h3>
+            <ul>
+                <li><strong>Improved Performance:</strong> Uses the AWS global network for faster routing, bypassing congested public internet paths.</li>
+                <li><strong>Increased Availability:</strong> Automatically reroutes traffic to the next healthy endpoint if an endpoint becomes unhealthy.</li>
+                <li><strong>Static IP Addresses:</strong> Provides fixed entry points for your application, simplifying DNS management.</li>
+                <li><strong>Traffic Dialing:</strong> Allows you to control the percentage of traffic directed to different endpoints, useful for A/B testing or blue/green deployments.</li>
+            </ul>
+            <p><strong>CloudFront vs. Global Accelerator:</strong></p>
+            <ul>
+                <li><strong>CloudFront:</strong> Best for caching static content (images, videos, web files) at Edge Locations to reduce latency for content delivery.</li>
+                <li><strong>Global Accelerator:</strong> Best for improving the performance and availability of dynamic content and applications by routing traffic over the AWS global network to the optimal application endpoint.</li>
+            </ul>
+            <p><img src="../assets/diagrams/global-accelerator-architecture.svg" alt="Global Accelerator Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <p><a href="devops-iac.html" class="next-module-link">Next Module: DevOps & IaC &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

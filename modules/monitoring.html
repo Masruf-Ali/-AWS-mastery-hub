@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 20: Monitoring - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 20: Monitoring</h1>
+
+        <section>
+            <h2>20.1 What is Monitoring in AWS?</h2>
+            <p>Monitoring in AWS involves collecting and analyzing data from your applications and infrastructure to understand their health, performance, and resource utilization. Effective monitoring is crucial for identifying issues, optimizing costs, and ensuring the reliability and availability of your services.</p>
+            <h3>Key Aspects of Monitoring:</h3>
+            <ul>
+                <li><strong>Metrics:</strong> Numerical data points that represent the performance or health of a resource (e.g., CPU utilization, network I/O, request count).</li>
+                <li><strong>Logs:</strong> Records of events that occur within your applications and infrastructure.</li>
+                <li><strong>Traces:</strong> End-to-end views of requests as they flow through distributed systems.</li>
+                <li><strong>Alarms:</strong> Notifications triggered when a metric crosses a predefined threshold.</li>
+            </ul>
+            <p>AWS provides several services to help you monitor your cloud environment.</p>
+        </section>
+
+        <section>
+            <h2>20.2 Amazon CloudWatch</h2>
+            <p>Amazon CloudWatch is a monitoring and observability service that provides you with data and actionable insights to monitor your applications, respond to system-wide performance changes, and optimize resource utilization. CloudWatch collects monitoring and operational data in the form of logs, metrics, and events, providing you with a unified view of AWS resources, applications, and services that run on AWS and on-premises servers.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Metrics:</strong> Collects metrics from AWS services (EC2, RDS, S3, etc.) and custom metrics from your applications.</li>
+                <li><strong>Logs:</strong> Centralizes logs from various sources (EC2 instances, Lambda functions, CloudTrail).</li>
+                <li><strong>Alarms:</strong> Create alarms based on metric thresholds to trigger notifications (SNS) or actions (Auto Scaling, EC2 actions).</li>
+                <li><strong>Dashboards:</strong> Create custom dashboards to visualize your metrics and logs.</li>
+                <li><strong>Events:</strong> CloudWatch Events (now EventBridge) delivers a near real-time stream of system events that describe changes in AWS resources.</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloudwatch-overview.svg" alt="CloudWatch Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>20.3 AWS CloudTrail</h2>
+            <p>AWS CloudTrail is a service that enables governance, compliance, operational auditing, and risk auditing of your AWS account. CloudTrail records API calls and related events made by or on behalf of your AWS account and delivers log files to an Amazon S3 bucket.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>API Call Logging:</strong> Records all API calls made to your AWS account.</li>
+                <li><strong>Event History:</strong> Provides a 90-day event history of management events.</li>
+                <li><strong>Trails:</strong> Create trails to deliver events to an S3 bucket for long-term storage and analysis.</li>
+                <li><strong>Security Analysis:</strong> Helps identify who did what, when, and from where in your AWS account.</li>
+                <li><strong>Compliance:</strong> Essential for meeting various compliance requirements.</li>
+            </ul>
+            <p><strong>CloudWatch vs. CloudTrail:</strong></p>
+            <ul>
+                <li><strong>CloudWatch:</strong> Monitors performance and operational health of resources. Answers "How is my application performing?"</li>
+                <li><strong>CloudTrail:</strong> Records API activity and changes to your AWS resources. Answers "Who made this change?" or "What happened to this resource?"</li>
+            </ul>
+            <p><img src="../assets/diagrams/cloudtrail-overview.svg" alt="CloudTrail Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>20.4 Amazon EventBridge</h2>
+            <p>Amazon EventBridge (formerly CloudWatch Events) is a serverless event bus that makes it easier to connect applications together using data from your own applications, integrated SaaS applications, and AWS services. It delivers a near real-time stream of system events that describe changes in AWS resources.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Event Bus:</strong> A central hub for routing events.</li>
+                <li><strong>Event Sources:</strong> AWS services, custom applications, SaaS partners.</li>
+                <li><strong>Rules:</strong> Define patterns to match events and route them to targets.</li>
+                <li><strong>Targets:</strong> AWS Lambda, SNS, SQS, Step Functions, EC2 instances, etc.</li>
+                <li><strong>Schema Registry:</strong> Helps manage event schemas.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Building event-driven architectures, reacting to changes in AWS resources, integrating applications.</p>
+        </section>
+
+        <section>
+            <h2>20.5 AWS X-Ray</h2>
+            <p>AWS X-Ray helps developers analyze and debug distributed applications, such as those built using a microservices architecture. With X-Ray, you can understand how your application and its underlying services are performing to identify and troubleshoot the root cause of performance issues and errors.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Service Map:</strong> Visualizes the components of your application and their connections.</li>
+                <li><strong>Traces:</strong> Provides end-to-end views of requests as they travel through your application.</li>
+                <li><strong>Segments:</strong> Detailed information about each component in a trace (e.g., compute, database calls, HTTP requests).</li>
+                <li><strong>Annotations & Metadata:</strong> Add custom information to traces for easier filtering and analysis.</li>
+                <li><strong>Integration:</strong> Works with EC2, Lambda, ECS, Elastic Beanstalk, and other AWS services.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Performance analysis, debugging, identifying bottlenecks in distributed applications.</p>
+        </section>
+
+        <p><a href="messaging.html" class="next-module-link">Next Module: Messaging &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

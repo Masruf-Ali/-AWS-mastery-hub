@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 24: Security & Governance - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 24: Security & Governance</h1>
+
+        <section>
+            <h2>24.1 AWS WAF (Web Application Firewall)</h2>
+            <p>AWS WAF is a web application firewall that helps protect your web applications or APIs from common web exploits that may affect availability, compromise security, or consume excessive resources. WAF gives you control over how traffic reaches your applications by enabling you to create security rules that block common attack patterns, such as SQL injection or cross-site scripting, and filter traffic based on conditions that you specify, such as IP addresses, HTTP headers, and HTTP body or URI strings.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Protects Web Applications:</strong> Filters malicious traffic before it reaches your application.</li>
+                <li><strong>Customizable Rules:</strong> Create your own rules based on IP addresses, HTTP headers, HTTP body, URI strings, SQL injection, XSS.</li>
+                <li><strong>Managed Rules:</strong> Use AWS Managed Rules for common threats.</li>
+                <li><strong>Integration:</strong> Integrates with CloudFront, Application Load Balancer (ALB), and API Gateway.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-waf-architecture.svg" alt="AWS WAF Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>24.2 AWS Shield</h2>
+            <p>AWS Shield is a managed Distributed Denial of Service (DDoS) protection service that safeguards applications running on AWS. AWS Shield provides always-on detection and automatic inline mitigations that minimize application downtime and latency.</p>
+            <h3>Types of AWS Shield:</h3>
+            <ul>
+                <li><strong>AWS Shield Standard:</strong> Automatically included with all AWS accounts at no additional cost. Provides protection against common, most frequent DDoS attacks.</li>
+                <li><strong>AWS Shield Advanced:</strong> A paid service that provides enhanced protections for applications running on EC2, Elastic Load Balancing (ELB), Amazon CloudFront, AWS Global Accelerator, and Route 53. Includes DDoS cost protection, 24/7 access to the AWS DDoS Response Team (DRT), and advanced metrics and reports.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Protecting web applications and APIs from DDoS attacks.</p>
+        </section>
+
+        <section>
+            <h2>24.3 AWS Key Management Service (KMS)</h2>
+            <p>AWS Key Management Service (KMS) makes it easy for you to create and manage cryptographic keys and control their use across a wide range of AWS services and in your applications. KMS is a secure and resilient service that uses hardware security modules (HSMs) to protect your keys.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Centralized Key Management:</strong> Create, store, and manage encryption keys.</li>
+                <li><strong>Integration with AWS Services:</strong> Seamlessly integrates with S3, EBS, RDS, Lambda, and many other services for encryption.</li>
+                <li><strong>Auditability:</strong> All API calls to KMS are logged in CloudTrail.</li>
+                <li><strong>Customer Master Keys (CMKs):</strong> You can create and manage your own CMKs, or use AWS-managed CMKs.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Encrypting data at rest and in transit, managing secrets, digital signatures.</p>
+        </section>
+
+        <section>
+            <h2>24.4 Amazon GuardDuty</h2>
+            <p>Amazon GuardDuty is a threat detection service that continuously monitors your AWS accounts and workloads for malicious activity and unauthorized behavior. GuardDuty uses machine learning, anomaly detection, and integrated threat intelligence to identify and prioritize potential threats.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Continuous Monitoring:</strong> Monitors AWS CloudTrail event logs, VPC Flow Logs, and DNS logs.</li>
+                <li><strong>Threat Intelligence:</strong> Uses continuously updated threat intelligence feeds.</li>
+                <li><strong>Machine Learning:</strong> Detects anomalies and suspicious behavior.</li>
+                <li><strong>Findings:</strong> Generates detailed security findings that can be integrated with other security services.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Detecting compromised EC2 instances, unauthorized API activity, port scanning, crypto-mining.</p>
+        </section>
+
+        <section>
+            <h2>24.5 Amazon Macie</h2>
+            <p>Amazon Macie is a data security and data privacy service that uses machine learning and pattern matching to discover and protect your sensitive data in AWS. Macie automatically discovers, classifies, and reports on sensitive data stored in Amazon S3.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Sensitive Data Discovery:</strong> Identifies personally identifiable information (PII) and other sensitive data in S3 buckets.</li>
+                <li><strong>Data Classification:</strong> Classifies data based on its content and sensitivity.</li>
+                <li><strong>Security Alerts:</strong> Generates alerts for potential data security risks.</li>
+                <li><strong>Visibility:</strong> Provides a dashboard to visualize your S3 data security posture.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Data privacy compliance (GDPR, HIPAA), sensitive data protection, security auditing.</p>
+        </section>
+
+        <section>
+            <h2>24.6 Amazon Inspector</h2>
+            <p>Amazon Inspector is an automated security assessment service that helps improve the security and compliance of applications deployed on AWS. Inspector automatically assesses applications for vulnerabilities and deviations from best practices.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Automated Security Assessments:</strong> Scans EC2 instances and container images for vulnerabilities.</li>
+                <li><strong>Vulnerability Management:</strong> Identifies software vulnerabilities and unintended network exposure.</li>
+                <li><strong>Compliance Checks:</strong> Assesses compliance with security best practices and standards.</li>
+                <li><strong>Detailed Reports:</strong> Provides prioritized lists of security findings with remediation steps.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Vulnerability scanning, compliance auditing, security posture management.</p>
+        </section>
+
+        <section>
+            <h2>24.7 AWS Secrets Manager</h2>
+            <p>AWS Secrets Manager helps you protect access to your applications, services, and IT resources by enabling you to easily rotate, manage, and retrieve database credentials, API keys, and other secrets throughout their lifecycle.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Automated Rotation:</strong> Automatically rotates secrets (e.g., database credentials) without interrupting applications.</li>
+                <li><strong>Centralized Management:</strong> Store and manage all your secrets in one place.</li>
+                <li><strong>Fine-grained Access Control:</strong> Control access to secrets using IAM policies.</li>
+                <li><strong>Auditability:</strong> All access to secrets is logged in CloudTrail.</li>
+                <li><strong>Integration:</strong> Integrates with RDS, Redshift, DocumentDB, and other services.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Managing database credentials, API keys, OAuth tokens, and other sensitive information.</p>
+        </section>
+
+        <p><a href="../index.html" class="next-module-link">Back to Home &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

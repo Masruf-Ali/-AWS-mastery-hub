@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 12: Snow Family - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 12: AWS Snow Family</h1>
+
+        <section>
+            <h2>12.1 What is the AWS Snow Family?</h2>
+            <p>The AWS Snow Family is a collection of physical devices that help you transfer large amounts of data into and out of AWS, and perform compute operations in rugged, disconnected, or mobile environments. These services are designed for situations where network connectivity is limited, unreliable, or non-existent, making traditional internet-based data transfer impractical.</p>
+            <h3>Key Use Cases:</h3>
+            <ul>
+                <li><strong>Large-scale data migration:</strong> Moving petabytes or exabytes of data to AWS.</li>
+                <li><strong>Edge computing:</strong> Running applications in remote or harsh environments.</li>
+                <li><strong>Disconnected operations:</strong> Performing compute and storage tasks without continuous internet access.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-snow-family-overview.svg" alt="AWS Snow Family Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>12.2 AWS Snowball</h2>
+            <p>AWS Snowball is a petabyte-scale data transport solution that uses secure appliances to transfer large amounts of data into and out of AWS. It comes in two main options:</p>
+            <ul>
+                <li><strong>Snowball Edge Storage Optimized:</strong> Provides up to 80 TB of usable storage capacity for block volumes and Amazon S3 compatible object storage, and 40 vCPUs. Ideal for large-scale data migrations and recurring transfer workflows, as well as local storage and compute needs.</li>
+                <li><strong>Snowball Edge Compute Optimized:</strong> Provides 42 TB of usable storage capacity for block volumes and Amazon S3 compatible object storage, and 52 vCPUs with an optional GPU. Ideal for advanced use cases like machine learning, full-motion video analysis, analytics, and local compute.</li>
+            </ul>
+            <h3>How it Works:</h3>
+            <ol>
+                <li>You request a Snowball device from the AWS console.</li>
+                <li>AWS ships the device to you.</li>
+                <li>You connect the device to your local network and transfer data using a client or S3-compatible interface.</li>
+                <li>You ship the device back to AWS.</li>
+                <li>AWS uploads the data to your S3 bucket.</li>
+            </ol>
+            <p><img src="../assets/diagrams/aws-snowball-process.svg" alt="AWS Snowball Data Transfer Process Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>12.3 AWS Snowcone</h2>
+            <p>AWS Snowcone is the smallest member of the AWS Snow Family, designed for edge computing, data migration, and content distribution. It's a portable, rugged, and secure device that can be used in harsh environments.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Small and Portable:</strong> Weighs about 4.5 pounds (2.1 kg).</li>
+                <li><strong>Storage:</strong> 8 TB of usable storage.</li>
+                <li><strong>Compute:</strong> 2 vCPUs and 4 GB of memory.</li>
+                <li><strong>Connectivity:</strong> Can connect via Wi-Fi or wired network.</li>
+                <li><strong>Use Cases:</strong> Data collection from remote sites, IoT data aggregation, content distribution to mobile environments.</li>
+            </ul>
+            <p>Snowcone can be shipped back to AWS, or you can use AWS DataSync to transfer data online if network connectivity becomes available.</p>
+        </section>
+
+        <section>
+            <h2>12.4 AWS Snowmobile</h2>
+            <p>AWS Snowmobile is an exabyte-scale data transfer service used to move extremely large amounts of data (up to 100 petabytes per Snowmobile) to AWS. It comes in a 45-foot ruggedized shipping container, pulled by a semi-trailer truck.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Exabyte Scale:</strong> Designed for transferring massive datasets (e.g., entire data centers).</li>
+                <li><strong>High Capacity:</strong> Up to 100 PB per Snowmobile.</li>
+                <li><strong>Secure:</strong> Physically secure, temperature-controlled, water-resistant, and includes GPS tracking and video surveillance.</li>
+                <li><strong>Use Cases:</strong> Migrating entire data centers, shutting down large on-premises storage arrays.</li>
+            </ul>
+            <p>Snowmobile is used for one-time, massive data transfers where network bandwidth is insufficient or too costly.</p>
+        </section>
+
+        <p><a href="databases-analytics.html" class="next-module-link">Next Module: Databases & Analytics &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

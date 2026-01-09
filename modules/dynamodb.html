@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 14: Amazon DynamoDB - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 14: Amazon DynamoDB</h1>
+
+        <section>
+            <h2>14.1 What is DynamoDB?</h2>
+            <p>Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. DynamoDB offers built-in security, continuous backups, automated multi-region replication, in-memory caching, and data export tools.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>NoSQL Database:</strong> DynamoDB is a non-relational database, storing data in key-value pairs or as documents.</li>
+                <li><strong>Fully Managed:</strong> AWS handles all the operational overhead, including hardware provisioning, setup, configuration, replication, software patching, and cluster scaling.</li>
+                <li><strong>Scalable:</strong> Provides seamless scalability with consistent, single-digit millisecond latency.</li>
+                <li><strong>Flexible Data Model:</strong> Supports both key-value and document data models.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>14.2 Core DynamoDB Concepts</h2>
+            <p>DynamoDB has a few core components that you need to understand to use it effectively.</p>
+            <ul>
+                <li><strong>Tables:</strong> A collection of data.</li>
+                <li><strong>Items:</strong> A collection of attributes. Each item is uniquely identifiable by a primary key. This is similar to a row or a record in other database systems.</li>
+                <li><strong>Attributes:</strong> A fundamental data element, something that does not need to be broken down any further. This is similar to a column or a field in other database systems.</li>
+                <li><strong>Primary Key:</strong> Uniquely identifies each item in a table. The primary key can be a simple primary key (partition key only) or a composite primary key (partition key and sort key).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>14.3 How to Set Up a DynamoDB Table</h2>
+            <p>Setting up a DynamoDB table is straightforward using the AWS Management Console, CLI, or SDKs.</p>
+            <h3>Basic Setup Steps:</h3>
+            <ol>
+                <li><strong>Navigate to DynamoDB:</strong> In the AWS Management Console, go to the DynamoDB service.</li>
+                <li><strong>Create Table:</strong> Click the "Create table" button.</li>
+                <li><strong>Table Name:</strong> Provide a name for your table.</li>
+                <li><strong>Primary Key:</strong> Define the primary key for your table. You will specify the attribute name and type for the partition key, and optionally for the sort key.</li>
+                <li><strong>Capacity Mode:</strong> Choose a capacity mode: On-demand or Provisioned.</li>
+                <li><strong>Create:</strong> Click "Create" to create the table.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>14.4 DynamoDB Read/Write Capacity Modes</h2>
+            <p>DynamoDB offers two capacity modes to manage the cost and performance of your tables.</p>
+            <ul>
+                <li><strong>On-Demand:</strong> DynamoDB instantly accommodates your workloads as they ramp up or down. You pay for what you use, making it a good option for unpredictable workloads.</li>
+                <li><strong>Provisioned:</strong> You specify the number of reads and writes per second that you require for your application. You can use Auto Scaling to automatically adjust your table’s capacity based on traffic. This is a good option for predictable workloads.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>14.5 Uses of DynamoDB</h2>
+            <p>DynamoDB is a good fit for a variety of applications that require low-latency data access at any scale.</p>
+            <h3>Common Use Cases:</h3>
+            <ul>
+                <li><strong>Web and Mobile Applications:</strong> User profiles, session data, and shopping carts.</li>
+                <li><strong>Gaming:</strong> Leaderboards, player data, and game state.</li>
+                <li><strong>IoT:</strong> Sensor data, device metadata, and real-time data ingestion.</li>
+                <li><strong>Real-time Bidding:</strong> Ad targeting, campaign data, and user profiles.</li>
+            </ul>
+        </section>
+
+        <p><a href="caching.html" class="next-module-link">Next Module: Caching &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

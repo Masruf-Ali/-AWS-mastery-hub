@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 17: AWS Lambda - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 17: AWS Lambda</h1>
+
+        <section>
+            <h2>17.1 What is AWS Lambda?</h2>
+            <p>AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use.</p>
+            <h3>Key Characteristics:</h3>
+            <ul>
+                <li><strong>Serverless:</strong> You don't have to worry about servers; AWS handles the infrastructure for you.</li>
+                <li><strong>Event-driven:</strong> Lambda functions are triggered by events from other AWS services, such as an S3 bucket upload or an API Gateway request.</li>
+                <li><strong>Pay-per-use:</strong> You are charged based on the number of requests for your functions and the duration, the time it takes for your code to execute.</li>
+                <li><strong>Scalable:</strong> Lambda automatically scales your application by running code in response to each trigger.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>17.2 Core Lambda Concepts</h2>
+            <p>To understand Lambda, you need to be familiar with a few core concepts.</p>
+            <p><img src="../assets/diagrams/lambda-architecture.svg" alt="Lambda Architecture Diagram" style="max-width:100%; height:auto;"></p>
+            <ul>
+                <li><strong>Function:</strong> A script or program that runs in Lambda. You can write Lambda functions in many popular programming languages.</li>
+                <li><strong>Trigger:</strong> An AWS service or application that invokes a Lambda function.</li>
+                <li><strong>Event:</strong> A JSON document that contains the data for a Lambda function to process.</li>
+                <li><strong>Execution Environment:</strong> A secure and isolated runtime environment where your Lambda function runs.</li>
+                <li><strong>Concurrency:</strong> The number of requests that your function is serving at any given time.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>17.3 How to Set Up a Lambda Function</h2>
+            <p>Creating a Lambda function is a simple process.</p>
+            <h3>Basic Setup Steps:</h3>
+            <ol>
+                <li><strong>Navigate to Lambda:</strong> In the AWS Management Console, go to the Lambda service.</li>
+                <li><strong>Create Function:</strong> Click the "Create function" button.</li>
+                <li><strong>Author from scratch:</strong> Choose to author a function from scratch.</li>
+                <li><strong>Function Name:</strong> Provide a name for your function.</li>
+                <li><strong>Runtime:</strong> Select a runtime for your function (e.g., Node.js, Python, Go).</li>
+                <li><strong>Permissions:</strong> Create or choose an execution role that grants your function permission to access other AWS services.</li>
+                <li><strong>Create:</strong> Click "Create function".</li>
+                <li><strong>Add Trigger:</strong> Configure a trigger for your function, such as API Gateway for an HTTP endpoint.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>17.4 Uses of AWS Lambda</h2>
+            <p>Lambda is a versatile service that can be used for a wide variety of use cases.</p>
+            <h3>Common Use Cases:</h3>
+            <ul>
+                <li><strong>Web Applications:</strong> Build serverless backends for your web applications using Lambda and API Gateway.</li>
+                <li><strong>Data Processing:</strong> Process data in real-time from sources like Kinesis, DynamoDB Streams, and S3.</li>
+                <li><strong>Chatbots:</strong> Create chatbots and other conversational interfaces with Amazon Lex and Lambda.</li>
+                <li><strong>IT Automation:</strong> Automate your IT tasks, such as creating backups, checking for idle resources, and generating reports.</li>
+            </ul>
+        </section>
+
+        <p><a href="route-53.html" class="next-module-link">Next Module: Route 53 &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

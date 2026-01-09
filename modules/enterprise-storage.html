@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 19: Enterprise Storage - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 19: Enterprise Storage</h1>
+
+        <section>
+            <h2>19.1 Amazon FSx</h2>
+            <p>Amazon FSx provides fully managed third-party file systems with the native compatibility and feature sets for your workloads. It eliminates the administrative overhead of managing file servers and storage, allowing you to use familiar file systems in the cloud.</p>
+            <h3>FSx for Windows File Server:</h3>
+            <ul>
+                <li><strong>Fully Managed:</strong> Provides a fully managed native Microsoft Windows file system.</li>
+                <li><strong>SMB Protocol:</strong> Accessible via the Server Message Block (SMB) protocol.</li>
+                <li><strong>Active Directory Integration:</strong> Seamlessly integrates with Microsoft Active Directory for user authentication.</li>
+                <li><strong>Use Cases:</strong> Lift-and-shift Windows applications, home directories, shared file storage.</li>
+            </ul>
+            <h3>FSx for Lustre:</h3>
+            <ul>
+                <li><strong>High-Performance File System:</strong> Optimized for compute-intensive workloads like HPC (High-Performance Computing), machine learning, and media processing.</li>
+                <li><strong>Scalable:</strong> Scales to hundreds of gigabytes per second of throughput and millions of IOPS.</li>
+                <li><strong>Integration with S3:</strong> Can be linked to S3 buckets to process data stored in S3.</li>
+                <li><strong>Use Cases:</strong> HPC, financial modeling, electronic design automation.</li>
+            </ul>
+            <h3>FSx for NetApp ONTAP:</h3>
+            <ul>
+                <li><strong>Fully Managed ONTAP:</strong> Provides a fully managed shared file storage built on NetApp ONTAP.</li>
+                <li><strong>Multi-protocol Support:</strong> Supports NFS, SMB, and iSCSI.</li>
+                <li><strong>Advanced Data Management:</strong> Offers ONTAP features like snapshots, replication, and data deduplication.</li>
+                <li><strong>Use Cases:</strong> Enterprise applications, databases, DevOps, media workflows.</li>
+            </ul>
+            <h3>FSx for OpenZFS:</h3>
+            <ul>
+                <li><strong>High-Performance ZFS:</strong> Provides a fully managed native OpenZFS file system.</li>
+                <li><strong>Scalable:</strong> Scales to hundreds of thousands of IOPS and gigabytes per second of throughput.</li>
+                <li><strong>Data Management:</strong> Offers ZFS features like snapshots, clones, and data compression.</li>
+                <li><strong>Use Cases:</strong> Machine learning, electronic design automation, media processing.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-fsx-overview.svg" alt="AWS FSx Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>19.2 AWS Storage Gateway</h2>
+            <p>AWS Storage Gateway is a hybrid cloud storage service that enables your on-premises applications to seamlessly use AWS cloud storage. It provides a bridge between your on-premises infrastructure and AWS cloud storage, allowing you to store data in AWS for scalability, durability, and cost-effectiveness.</p>
+            <h3>Gateway Types:</h3>
+            <ul>
+                <li><strong>File Gateway:</strong> Stores files as objects in S3, accessible via NFS and SMB protocols.</li>
+                <li><strong>Volume Gateway:</strong> Provides block storage to your on-premises applications using iSCSI. It comes in two modes:
+                    <ul>
+                        <li><strong>Cached Volumes:</strong> Stores primary data in S3 and retains frequently accessed data locally in a cache.</li>
+                        <li><strong>Stored Volumes:</strong> Stores primary data locally and asynchronously backs up snapshots to S3.</li>
+                    </ul>
+                </li>
+                <li><strong>Tape Gateway:</strong> Provides a virtual tape library (VTL) interface, allowing you to use your existing backup applications with a cloud-based virtual tape library.</li>
+            </ul>
+            <p><strong>Use Cases:</strong> Hybrid cloud storage, backup and recovery, disaster recovery, archiving.</p>
+            <p><img src="../assets/diagrams/aws-storage-gateway.svg" alt="AWS Storage Gateway Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>19.3 AWS DataSync</h2>
+            <p>AWS DataSync is a data transfer service that makes it easy for you to automate moving data between on-premises storage and Amazon S3, Amazon EFS, or Amazon FSx for Windows File Server. It simplifies, automates, and accelerates copying large amounts of data.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Automated Data Transfer:</strong> Automates copying data between various storage locations.</li>
+                <li><strong>Accelerated Transfer:</strong> Uses a purpose-built network protocol and parallelization to speed up transfers.</li>
+                <li><strong>Secure:</strong> Data is encrypted in transit and at rest.</li>
+                <li><strong>Managed Service:</strong> No need to manage transfer infrastructure.</li>
+                <li><strong>Use Cases:</strong> Data migration, recurring data transfers, disaster recovery.</li>
+            </ul>
+            <p>DataSync can transfer data at speeds up to 10x faster than open-source tools.</p>
+        </section>
+
+        <p><a href="monitoring.html" class="next-module-link">Next Module: Monitoring &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

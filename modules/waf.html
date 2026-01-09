@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 28: AWS WAF - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 28: AWS WAF</h1>
+
+        <section>
+            <h2>28.1 What is AWS WAF?</h2>
+            <p>AWS WAF is a web application firewall that helps protect your web applications or APIs against common web exploits that may affect availability, compromise security, or consume excessive resources. AWS WAF gives you control over how traffic reaches your applications by enabling you to create security rules that block common attack patterns, such as SQL injection or cross-site scripting, and rules that filter out specific traffic patterns you define.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Protection against common attacks:</strong> Protects against OWASP Top 10 security risks.</li>
+                <li><strong>Customizable rules:</strong> Create your own rules to filter traffic based on IP addresses, HTTP headers, HTTP body, or URI strings.</li>
+                <li><strong>Managed rule groups:</strong> Use managed rule groups from AWS or AWS Marketplace sellers to get protection from a wide range of common threats.</li>
+                <li><strong>Real-time visibility:</strong> Get real-time visibility into your web traffic and see which requests are being blocked, allowed, or counted.</li>
+            </ul>
+            <p><img src="../assets/diagrams/aws-waf-architecture.svg" alt="WAF Architecture Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>28.2 Core WAF Concepts</h2>
+            <p>To use AWS WAF, you need to understand its core components.</p>
+            <ul>
+                <li><strong>Web ACL (Access Control List):</strong> A set of rules that define the traffic patterns to allow or block.</li>
+                <li><strong>Rule:</strong> A condition that AWS WAF searches for in web requests. You can create your own rules or use managed rules.</li>
+                <li><strong>Rule Group:</strong> A reusable set of rules that you can add to a web ACL.</li>
+                <li><strong>Managed Rule Groups:</strong> A pre-configured set of rules managed by AWS or AWS Marketplace sellers to protect against common threats.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>28.3 How to Set Up AWS WAF</h2>
+            <p>Setting up AWS WAF involves creating a web ACL and associating it with an AWS resource.</p>
+            <h3>Basic Setup Steps:</h3>
+            <ol>
+                <li><strong>Navigate to WAF & Shield:</strong> In the AWS Management Console, go to the WAF & Shield service.</li>
+                <li><strong>Create web ACL:</strong> Click the "Create web ACL" button.</li>
+                <li><strong>Describe web ACL and associate to AWS resources:</strong> Provide a name for your web ACL, and choose the AWS resource to associate it with (e.g., an Application Load Balancer, API Gateway, or CloudFront distribution).</li>
+                <li><strong>Add rules and rule groups:</strong> Add rules to your web ACL. You can create your own rules or use managed rule groups.</li>
+                <li><strong>Set rule priority:</strong> Set the priority for your rules to determine the order in which they are evaluated.</li>
+                <li><strong>Review and create web ACL:</strong> Review your web ACL configuration and click "Create web ACL".</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>28.4 Uses of AWS WAF</h2>
+            <p>AWS WAF is a critical component for securing your web applications and APIs on AWS.</p>
+            <h3>Common Use Cases:</h3>
+            <ul>
+                <li><strong>Protecting against web attacks:</strong> Block common web attacks such as SQL injection and cross-site scripting.</li>
+                <li><strong>Filtering malicious traffic:</strong> Filter out traffic from known malicious IP addresses.</li>
+                <li><strong>Geographic blocking:</strong> Block traffic from specific geographic locations.</li>
+                <li><strong>Rate-based rules:</strong> Protect your applications from brute-force attacks and other volumetric attacks by limiting the number of requests from a single IP address.</li>
+            </ul>
+        </section>
+
+        <p><a href="../index.html" class="next-module-link">Back to Home &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

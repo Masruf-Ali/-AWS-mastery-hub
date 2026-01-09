@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 16: Route 53 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Module 16: Amazon Route 53</h1>
+
+        <section>
+            <h2>16.1 What is Route 53?</h2>
+            <p>Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. It is designed to give developers and businesses an extremely reliable and cost-effective way to route end users to Internet applications by translating human readable names, like <code>www.example.com</code>, into the numeric IP addresses, like <code>192.0.2.1</code>, that computers use to connect to each other.</p>
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Domain Registration:</strong> Register new domain names directly with Route 53.</li>
+                <li><strong>DNS Service:</strong> Manage DNS records for your domains.</li>
+                <li><strong>Traffic Management:</strong> Route traffic to various resources using different routing policies.</li>
+                <li><strong>Health Checks:</strong> Monitor the health of your resources and route traffic away from unhealthy endpoints.</li>
+                <li><strong>Integration:</strong> Integrates seamlessly with other AWS services.</li>
+            </ul>
+            <p><img src="../assets/diagrams/route53-overview.svg" alt="Route 53 Overview Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>16.2 Route 53 Record Types</h2>
+            <p>Route 53 supports various DNS record types, each serving a specific purpose.</p>
+            <ul>
+                <li><strong>A Record (Address Record):</strong> Maps a domain name to an IPv4 address (e.g., <code>example.com</code> to <code>192.0.2.1</code>).</li>
+                <li><strong>AAAA Record (IPv6 Address Record):</strong> Maps a domain name to an IPv6 address.</li>
+                <li><strong>CNAME Record (Canonical Name Record):</strong> Maps an alias domain name to another canonical domain name (e.g., <code>www.example.com</code> to <code>example.com</code>). Cannot be used for the root domain.</li>
+                <li><strong>Alias Record:</strong> An AWS-specific extension to DNS. Maps a domain name to an AWS resource (e.g., ELB, CloudFront distribution, S3 bucket for static website hosting). Can be used for the root domain and behaves like an A record but points to an AWS resource.</li>
+                <li><strong>MX Record (Mail Exchange Record):</strong> Specifies the mail servers responsible for receiving email messages on behalf of a domain name.</li>
+                <li><strong>PTR Record (Pointer Record):</strong> Used for reverse DNS lookups (mapping an IP address to a domain name).</li>
+                <li><strong>NS Record (Name Server Record):</strong> Delegates a DNS zone to use a specific authoritative name server.</li>
+                <li><strong>SOA Record (Start of Authority Record):</strong> Provides authoritative information about a DNS zone, such as the primary name server and the email of the domain administrator.</li>
+                <li><strong>TXT Record (Text Record):</strong> Stores arbitrary text strings, often used for SPF (Sender Policy Framework) or domain verification.</li>
+            </ul>
+            <p><strong>Alias Records vs. CNAME Records:</strong> Alias records are preferred for AWS resources because they can be used for the root domain (e.g., <code>example.com</code>) and are free of charge when pointing to AWS resources.</p>
+        </section>
+
+        <section>
+            <h2>16.3 Route 53 Routing Policies</h2>
+            <p>Route 53 offers various routing policies to control how DNS queries are responded to, enabling advanced traffic management scenarios.</p>
+            <ul>
+                <li><strong>Simple Routing:</strong> Routes traffic to a single resource. No health checks.</li>
+                <li><strong>Failover Routing:</strong> Routes traffic to a primary resource when it's healthy, and to a secondary resource when the primary is unhealthy. Requires health checks.</li>
+                <li><strong>Geolocation Routing:</strong> Routes traffic based on the geographic location of your users.</li>
+                <li><strong>Geoproximity Routing:</strong> Routes traffic based on the geographic location of your users and your resources. You can optionally route more traffic to resources in one location than to resources in another.</li>
+                <li><strong>Latency-based Routing:</strong> Routes traffic to the resource that provides the best latency for the user.</li>
+                <li><strong>Weighted Routing:</strong> Routes traffic to multiple resources based on a weight you assign to each resource. Useful for A/B testing or distributing traffic across different versions of an application.</li>
+                <li><strong>Multivalue Answer Routing:</strong> Returns up to eight healthy records selected at random. Useful when you want to return multiple values, such as IP addresses for web servers, and you want to use Route 53 health checking to ensure that only healthy records are returned.</li>
+            </ul>
+            <p><img src="../assets/diagrams/route53-routing-policies.svg" alt="Route 53 Routing Policies Diagram" style="max-width:100%; height:auto;"></p>
+        </section>
+
+        <section>
+            <h2>16.4 TTL (Time To Live)</h2>
+            <p>TTL (Time To Live) is a setting in a DNS record that tells a DNS resolver how long to cache a query before requesting a new update. A shorter TTL means changes to your DNS records propagate faster, but it also means more frequent queries to Route 53.</p>
+            <ul>
+                <li><strong>Short TTL (e.g., 60 seconds):</strong> Good for resources that might change frequently or during planned maintenance/failovers. Faster propagation of changes.</li>
+                <li><strong>Long TTL (e.g., 3600 seconds):</strong> Good for stable resources that rarely change. Reduces the load on DNS servers and can improve performance by reducing DNS lookup times.</li>
+            </ul>
+            <p>Alias records in Route 53 ignore the TTL set on the record and behave as if they have a TTL of 0, meaning they are always resolved directly to the AWS resource.</p>
+        </section>
+
+        <section>
+            <h2>16.5 Route 53 Failover</h2>
+            <p>Route 53 failover routing allows you to configure active-passive or active-active failover configurations for your applications. This enhances the availability and resilience of your services.</p>
+            <h3>How Failover Works:</h3>
+            <ol>
+                <li>You create health checks that monitor the health of your primary resources (e.g., an EC2 instance, an ELB, or an endpoint).</li>
+                <li>You configure a failover routing policy with a primary and a secondary record.</li>
+                <li>If the health check for the primary resource fails, Route 53 automatically routes traffic to the secondary resource.</li>
+                <li>When the primary resource becomes healthy again, Route 53 can be configured to automatically fail back to the primary.</li>
+            </ol>
+            <p>This is a critical component for building highly available and fault-tolerant architectures on AWS.</p>
+        </section>
+
+        <p><a href="global-networking.html" class="next-module-link">Next Module: Global Networking &rarr;</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
