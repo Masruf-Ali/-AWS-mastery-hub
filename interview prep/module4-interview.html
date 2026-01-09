@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 4: Networking Basics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 4: Networking Basics</h1>
+            <p>Here are some common interview questions related to the Networking Basics module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. Explain the OSI model and its relevance in cloud networking.</h3>
+                <p><strong>Answer:</strong> The OSI (Open Systems Interconnection) model is a conceptual framework of seven layers that standardizes how network systems communicate. It helps in understanding and troubleshooting network issues. In cloud networking, while we don't always interact with all layers directly, understanding it helps in configuring services like Security Groups (Layer 4), Network ACLs (Layer 3/4), VPC routing (Layer 3), and Load Balancers (Layer 4/7). It provides a common language for discussing network components and their functions.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. What is CIDR and why is it important for VPC design?</h3>
+                <p><strong>Answer:</strong> CIDR (Classless Inter-Domain Routing) is a method for allocating IP addresses and routing IP packets. It allows for more efficient use of IP addresses compared to the older classful system. In VPC design, CIDR is crucial for defining the IP address range of your VPC and its subnets. Proper CIDR planning ensures efficient IP address utilization, avoids IP conflicts when connecting VPCs or on-premises networks, and allows for future network expansion.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. Differentiate between public and private subnets in an AWS VPC. How do instances in a private subnet access the internet?</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Public Subnet:</strong> Has a route to an Internet Gateway (IGW) in its route table, allowing instances within it to have public IP addresses and communicate directly with the internet.</li>
+                        <li><strong>Private Subnet:</strong> Does NOT have a route to an IGW. Instances cannot be directly accessed from the internet. To access the internet (e.g., for updates), instances in a private subnet route their traffic through a NAT Gateway (or NAT Instance) located in a public subnet.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. Explain the role of DNS in cloud environments. Which AWS service provides DNS functionality?</h3>
+                <p><strong>Answer:</strong> DNS (Domain Name System) translates human-readable domain names (e.g., example.com) into machine-readable IP addresses. In cloud environments, DNS is critical for service discovery, routing traffic to applications, and ensuring high availability. AWS Route 53 is the highly available and scalable cloud DNS web service that provides domain registration, DNS management, and traffic routing capabilities.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. What is the difference between Security Groups and Network ACLs in AWS?</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Security Groups:</strong> Act as virtual firewalls at the instance level. They are stateful (return traffic is automatically allowed) and only support ALLOW rules.</li>
+                        <li><strong>Network ACLs (NACLs):</strong> Act as stateless firewalls at the subnet level. They support both ALLOW and DENY rules, and return traffic must be explicitly allowed. NACLs provide an additional layer of security.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. When would you use a Site-to-Site VPN in AWS?</h3>
+                <p><strong>Answer:</strong> A Site-to-Site VPN is used to securely connect your on-premises network (e.g., corporate data center or office) to your Amazon VPC over the public internet. This creates an encrypted tunnel, allowing resources in your VPC and on-premises network to communicate privately, as if they were in the same network. It's ideal for extending your corporate network into AWS or for hybrid cloud architectures.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. What are the common private IP address ranges? Why are they used?</h3>
+                <p><strong>Answer:</strong> The common private IP address ranges are <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, and <code>192.168.0.0/16</code>. They are used for internal networks that are not directly routable on the public internet. This helps conserve public IP addresses and provides a layer of security by isolating internal network traffic from external threats. They can be reused in different private networks without conflict.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. How do you ensure high availability for your network infrastructure within a VPC?</h3>
+                <p><strong>Answer:</strong> To ensure high availability, you should: deploy resources across multiple Availability Zones (AZs), use Elastic Load Balancers (ELBs) to distribute traffic, configure Auto Scaling Groups (ASGs) to maintain desired instance counts, and ensure critical network components like NAT Gateways are deployed in each AZ for redundancy. Route tables should be configured to direct traffic appropriately across AZs.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. What is the purpose of an Internet Gateway (IGW) in a VPC?</h3>
+                <p><strong>Answer:</strong> An Internet Gateway (IGW) is a horizontally scaled, redundant, and highly available VPC component that allows communication between instances in your VPC and the internet. It serves two purposes: to provide a target in your VPC route tables for internet-routable traffic, and to perform network address translation (NAT) for instances that have been assigned public IPv4 addresses.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Describe a scenario where you would use a Network ACL instead of a Security Group.</h3>
+                <p><strong>Answer:</strong> While Security Groups are generally preferred for instance-level security, NACLs can be used for an additional, coarser layer of security at the subnet level. For example, if you need to explicitly DENY traffic from a specific IP address range to an entire subnet, a stateless NACL rule would be appropriate. NACLs are also useful for protecting against broad network attacks before traffic even reaches individual instances.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

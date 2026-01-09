@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 3: Cloud Challenges - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 3: Cloud Challenges</h1>
+            <p>Here are some common interview questions related to the Cloud Challenges module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. Explain the AWS Shared Responsibility Model in detail and provide examples of customer and AWS responsibilities.</h3>
+                <p><strong>Answer:</strong> The AWS Shared Responsibility Model outlines security responsibilities. AWS is responsible for <strong>security OF the Cloud</strong>, meaning protecting the global infrastructure (hardware, software, networking, facilities). This includes EC2 instances, S3, RDS, etc. The customer is responsible for <strong>security IN the Cloud</strong>, which depends on the service. For EC2, this includes OS patching, application security, data encryption, network configuration (Security Groups, NACLs), and IAM. For S3, it covers bucket policies, object encryption, and access controls. The model clarifies that while AWS secures the underlying infrastructure, customers are responsible for securing their data and applications within that infrastructure.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. How do you mitigate vendor lock-in in a cloud environment?</h3>
+                <p><strong>Answer:</strong> Mitigating vendor lock-in involves strategies like: <strong>Multi-cloud strategy</strong> (using multiple providers), <strong>Hybrid cloud adoption</strong> (keeping critical parts on-premises), using <strong>open standards and open-source technologies</strong> (e.g., Kubernetes, Linux), designing with <strong>loosely coupled architectures</strong> (microservices), and utilizing <strong>abstraction layers</strong> (e.g., serverless frameworks). The goal is to make applications portable and reduce dependency on proprietary services.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. What are the 6 R's of cloud migration strategies, according to AWS?</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Rehost (Lift and Shift):</strong> Move applications without changes.</li>
+                        <li><strong>Replatform (Lift, Tinker, and Shift):</strong> Move applications with minor modifications to optimize for cloud.</li>
+                        <li><strong>Refactor/Re-architect:</strong> Rework application architecture to fully utilize cloud-native features.</li>
+                        <li><strong>Repurchase (Drop and Shop):</strong> Move to a different product, typically SaaS.</li>
+                        <li><strong>Retain:</strong> Keep some applications on-premises.</li>
+                        <li><strong>Retire:</strong> Decommission applications no longer needed.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. Describe different Disaster Recovery (DR) strategies in AWS. What factors influence the choice of strategy?</h3>
+                <p><strong>Answer:</strong> DR strategies include: <strong>Backup and Restore</strong> (highest RTO/RPO, lowest cost), <strong>Pilot Light</strong> (minimal non-production environment active), <strong>Warm Standby</strong> (scaled-down but functional environment), and <strong>Multi-Site Active/Active</strong> (full active deployment in multiple regions, lowest RTO/RPO, highest cost). Factors influencing choice are Recovery Time Objective (RTO), Recovery Point Objective (RPO), and cost. Business criticality of the application usually dictates the RTO/RPO requirements.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. What are common security challenges in the cloud, even with AWS responsible for security OF the cloud?</h3>
+                <p><strong>Answer:</strong> Common challenges stem from the customer's responsibility IN the Cloud. These include: <strong>Misconfigurations</strong> (e.g., public S3 buckets, overly permissive Security Groups), <strong>Weak IAM practices</strong> (e.g., broad permissions, lack of MFA), <strong>Data protection issues</strong> (lack of encryption, improper access controls), and <strong>Vulnerability management</strong> (not patching OS or applications).</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. How do you ensure compliance with regulatory standards (e.g., HIPAA, GDPR) when operating on AWS?</h3>
+                <p><strong>Answer:</strong> AWS offers a secure and compliant platform, but customers are ultimately responsible for their own compliance. This involves: leveraging AWS compliance certifications, implementing appropriate security controls (encryption, access management), regularly auditing with services like CloudTrail and Config, designing secure architectures, segregating sensitive data, and using services like Macie for data discovery. Thorough understanding and implementation of the Shared Responsibility Model is key.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. What is the importance of effective monitoring and logging in a cloud environment?</h3>
+                <p><strong>Answer:</strong> Effective monitoring and logging (using services like CloudWatch, CloudTrail, X-Ray) are critical for: <strong>Performance optimization</strong> (identifying bottlenecks), <strong>Availability assurance</strong> (detecting outages), <strong>Security</strong> (detecting anomalies, unauthorized access), <strong>Cost management</strong> (tracking resource utilization), and <strong>Compliance</strong> (maintaining audit trails). They provide necessary visibility into system health and behavior.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. Can you give an example of a situation where you would choose the 'Refactor/Re-architect' migration strategy and why?</h3>
+                <p><strong>Answer:</strong> You would choose 'Refactor/Re-architect' when an existing application doesn't fully leverage cloud benefits or has significant technical debt, and there's a strategic need to transform it. For example, moving a monolithic application to a microservices architecture using Lambda and ECS to gain agility, scalability, and cost reduction, even though it requires significant development effort.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. What AWS services would you use to implement a comprehensive monitoring and logging solution?</h3>
+                <p><strong>Answer:</strong> I would use: <strong>Amazon CloudWatch</strong> for collecting and visualizing metrics, logs, and setting alarms; <strong>AWS CloudTrail</strong> for auditing API calls and actions; <strong>Amazon EventBridge</strong> for event-driven architectures and routing events; and <strong>AWS X-Ray</strong> for end-to-end tracing and debugging of distributed applications.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Describe a scenario where data transfer costs could become a significant challenge in AWS. How would you address it?</h3>
+                <p><strong>Answer:</strong> Data transfer costs can be significant when moving large volumes of data OUT of AWS Regions (egress). For example, frequently downloading backups from S3 to an on-premises data center, or replicating a large database across different cloud providers. To address this: minimize egress traffic by processing data within AWS, use services like CloudFront for content delivery (which has optimized egress pricing), consider VPN or Direct Connect for consistent egress at predictable costs, and optimize data transfer with services like DataSync or Snow Family for initial bulk transfers.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

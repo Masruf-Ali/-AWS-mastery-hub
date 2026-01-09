@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 6: AWS Global Infrastructure - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 6: AWS Global Infrastructure</h1>
+            <p>Here are some common interview questions related to the AWS Global Infrastructure module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. What is an AWS Region, and why is it important to choose the right one?</h3>
+                <p><strong>Answer:</strong> An AWS Region is a physical location in the world where AWS clusters data centers. Each Region is isolated for fault tolerance. Choosing the right Region is critical for <strong>data residency</strong> (compliance), <strong>latency</strong> (proximity to users), and <strong>cost</strong> (pricing varies by Region). It also impacts the availability of certain services.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. Explain the concept of an Availability Zone (AZ) and how it contributes to high availability.</h3>
+                <p><strong>Answer:</strong> An Availability Zone (AZ) is one or more discrete data centers within an AWS Region, with redundant power, networking, and connectivity. AZs are physically separated to prevent a single event (like a fire or flood) from affecting multiple AZs. Deploying applications across multiple AZs within a Region ensures high availability and fault tolerance, as if one AZ fails, the application can continue to run in another.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. What are AWS Edge Locations and how do they differ from Regions and AZs?</h3>
+                <p><strong>Answer:</strong> Edge Locations are sites used by Amazon CloudFront (CDN) to cache content closer to end-users, reducing latency. They are distinct from Regions and AZs, which host core AWS services and infrastructure. Edge Locations are more numerous and geographically dispersed than Regions, focusing on content delivery rather than full service deployment.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. Briefly explain the AWS Shared Responsibility Model in the context of global infrastructure.</h3>
+                <p><strong>Answer:</strong> AWS is responsible for the security OF the Cloud, which includes the global infrastructure (Regions, AZs, Edge Locations), physical security of data centers, and the underlying hardware and software. The customer is responsible for security IN the Cloud, which includes their data, applications, operating systems, and network configurations deployed within that global infrastructure.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. How does AWS pricing work, and what are some ways to optimize costs?</h3>
+                <p><strong>Answer:</strong> AWS pricing is primarily pay-as-you-go, meaning you only pay for the services you consume. Costs are influenced by compute, storage, and data transfer. To optimize: use the <strong>AWS Free Tier</strong>, choose appropriate <strong>instance types and storage classes</strong>, leverage <strong>Reserved Instances or Savings Plans</strong> for predictable workloads, utilize <strong>Spot Instances</strong> for fault-tolerant tasks, and monitor usage with <strong>AWS Cost Explorer</strong> and <strong>billing alerts</strong>.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. What is the significance of data residency when choosing an AWS Region?</h3>
+                <p><strong>Answer:</strong> Data residency refers to the physical location where data is stored. It's significant because many countries and industries have strict regulations (e.g., GDPR, HIPAA) that require data to be stored within specific geographic boundaries. Choosing the correct AWS Region ensures compliance with these legal and regulatory requirements.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. How does AWS ensure low latency for users accessing content globally?</h3>
+                <p><strong>Answer:</strong> AWS ensures low latency through its extensive global infrastructure. This includes: deploying applications in AWS Regions geographically close to users, utilizing <strong>Edge Locations</strong> for caching static content via CloudFront, and leveraging <strong>AWS Global Accelerator</strong> to route dynamic traffic over the optimized AWS global network, bypassing congested public internet paths.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. Can you explain the difference between an Edge Location and a Regional Edge Cache?</h3>
+                <p><strong>Answer:</strong> Both are part of CloudFront's network. <strong>Edge Locations</strong> are the most numerous and geographically dispersed points where content is cached and delivered to users. <strong>Regional Edge Caches</strong> are larger caches located between Edge Locations and your origin servers. They hold less frequently accessed content than Edge Locations but more than origin servers, serving as a second tier of caching to further reduce latency and origin load.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. What are some factors that can influence the cost of AWS services?</h3>
+                <p><strong>Answer:</strong> Factors include: <strong>Service type</strong> (e.g., EC2, S3, RDS), <strong>resource size/capacity</strong> (e.g., instance type, storage amount), <strong>Region</strong> (pricing varies), <strong>data transfer out</strong> (egress costs), <strong>data requests</strong> (e.g., S3 PUT/GET requests), <strong>purchase model</strong> (On-Demand, Reserved, Spot), and additional features like <strong>data encryption</strong> or <strong>monitoring</strong>.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Why does AWS recommend using IAM users instead of the root account for daily tasks?</h3>
+                <p><strong>Answer:</strong> The root account has unrestricted access to all resources and services in the AWS account. Using it for daily tasks increases the risk of accidental misconfigurations or security breaches. IAM users allow for the principle of least privilege, where users are granted only the permissions necessary to perform their specific tasks, significantly enhancing security and auditability.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

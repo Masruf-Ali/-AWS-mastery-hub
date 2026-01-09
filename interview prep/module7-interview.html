@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 7: IAM - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 7: IAM</h1>
+            <p>Here are some common interview questions related to the IAM module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. What is AWS IAM, and why is it a crucial security service?</h3>
+                <p><strong>Answer:</strong> AWS IAM (Identity and Access Management) securely controls access to AWS resources. It's crucial because it allows you to manage who is authenticated (signed in) and authorized (has permissions) to use your resources. This enables fine-grained control, enforcing the principle of least privilege, which is fundamental to cloud security.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. Explain the difference between an IAM User, Group, and Role.</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>IAM User:</strong> Represents a person or application that interacts with AWS. It has long-term credentials (password, access keys).</li>
+                        <li><strong>IAM Group:</strong> A collection of IAM users. Policies are attached to groups, and users inherit those permissions, simplifying management. Groups do not have credentials.</li>
+                        <li><strong>IAM Role:</strong> An identity with specific permissions, but no long-term credentials. Roles are assumed by trusted entities (users, services, federated identities) to gain temporary permissions. They are used for delegating access.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. What is the principle of least privilege in IAM, and why is it important?</h3>
+                <p><strong>Answer:</strong> The principle of least privilege dictates that an entity (user, group, role) should only be granted the minimum permissions necessary to perform its specific task and nothing more. It's important because it reduces the attack surface, limits the potential impact of a security breach, and prevents unauthorized actions, thereby enhancing the overall security posture of your AWS environment.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. How do IAM Policies work? Describe their key components.</h3>
+                <p><strong>Answer:</strong> IAM Policies are JSON objects that define permissions. Key components include: <strong>Version</strong> (policy language version), <strong>Statement</strong> (an array of individual permission statements), <strong>Effect</strong> (Allow or Deny, Deny always overrides), <strong>Action</strong> (specific API calls allowed/denied, e.g., s3:GetObject), and <strong>Resource</strong> (the specific AWS resources, by ARN, to which the action applies). Policies can be identity-based (attached to users/roles) or resource-based (attached to resources like S3 buckets).</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. When would you use an IAM Role versus an IAM User? Provide a practical example.</h3>
+                <p><strong>Answer:</strong> You use an <strong>IAM User</strong> for a human or application that needs consistent, long-term access, like an administrator or a CI/CD tool. You use an <strong>IAM Role</strong> for temporary delegated access. For example, if an EC2 instance needs to read from an S3 bucket, you would attach an IAM Role with S3 read permissions to the EC2 instance. The instance assumes the role, gets temporary credentials, and can then access S3 without storing long-lived access keys on the instance.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. What is Multi-Factor Authentication (MFA), and why is it recommended for AWS accounts?</h3>
+                <p><strong>Answer:</strong> MFA adds an extra layer of security by requiring more than just a password to sign in. It typically involves something you 'know' (password) and something you 'have' (MFA device code). It's highly recommended for AWS accounts, especially the root account and administrative IAM users, because it significantly reduces the risk of unauthorized access even if a password is compromised.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. Explain how the 'Deny' effect works in an IAM policy.</h3>
+                <p><strong>Answer:</strong> The 'Deny' effect in an IAM policy is a powerful security tool because it always overrides an 'Allow' effect. If an action is explicitly denied by any policy, the principal will not be able to perform that action, even if another policy explicitly grants permission. This ensures that you can enforce strict prohibitions regardless of other permissions.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. What are Access Keys in IAM, and what are the best practices for handling them?</h3>
+                <p><strong>Answer:</strong> Access Keys consist of an Access Key ID and a Secret Access Key. They are used for programmatic access to AWS (CLI, SDKs, direct API calls). Best practices include: <strong>never embedding them directly in code</strong>, <strong>rotating them regularly</strong>, giving them only the <strong>minimum necessary permissions</strong> (least privilege), and <strong>deleting unused access keys</strong>. IAM Roles providing temporary credentials are often preferred over long-lived access keys for applications.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. How would you ensure a new IAM user only has read-only access to S3?</h3>
+                <p><strong>Answer:</strong> I would create an IAM user and then attach the AWS managed policy <code>AmazonS3ReadOnlyAccess</code> to either the user directly or, preferably, to an IAM Group that the user is a member of. This policy grants read-only permissions to all S3 buckets. If more granular access is needed (e.g., read-only to a specific bucket), I would create a custom IAM policy and attach it.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Describe a scenario where you would need to use a resource-based policy instead of an identity-based policy.</h3>
+                <p><strong>Answer:</strong> A common scenario is controlling access to an S3 bucket. While identity-based policies (attached to users/roles) can grant access, a <strong>Bucket Policy</strong> (a type of resource-based policy) defines who can access the bucket directly, even entities outside your AWS account. For instance, to allow public read access to a static website hosted on S3, you would use a bucket policy that grants `s3:GetObject` permission to the principal `*` (anonymous users) on the specific bucket resources.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

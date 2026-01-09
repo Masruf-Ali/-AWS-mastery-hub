@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 1: Course Overview - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 1: Course Overview</h1>
+            <p>Here are some common interview questions related to the AWS Course Overview module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. What is cloud computing and why is it beneficial for businesses?</h3>
+                <p><strong>Answer:</strong> Cloud computing is the on-demand delivery of IT resources over the Internet with pay-as-you-go pricing. Benefits include: <strong>Cost-effectiveness</strong> (trade CapEx for OpEx), <strong>Scalability & Elasticity</strong> (scale up/down as needed), <strong>Agility</strong> (faster resource provisioning), <strong>Global Reach</strong> (deploy globally in minutes), and <strong>Reduced Operational Burden</strong> (AWS manages infrastructure).</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. What is AWS and what makes it a leading cloud provider?</h3>
+                <p><strong>Answer:</strong> AWS (Amazon Web Services) is the world's most comprehensive and broadly adopted cloud platform. It's a leader due to its <strong>breadth and depth of services</strong> (over 200), extensive <strong>global infrastructure</strong> (Regions, AZs, Edge Locations), strong focus on <strong>innovation</strong>, and a robust <strong>ecosystem</strong> of partners and tools.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. Explain the concept of the AWS Free Tier. Why is it important?</h3>
+                <p><strong>Answer:</strong> The AWS Free Tier allows new and existing customers to explore and try out AWS services free of charge up to certain limits for a specified period (e.g., 12 months free, always free offers). It's important because it enables hands-on learning and experimentation without incurring costs, helping users understand services before committing financially.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. What are some common career paths in AWS?</h3>
+                <p><strong>Answer:</strong> Common career paths include Cloud Architect, Cloud Engineer, DevOps Engineer, Solutions Architect, Cloud Security Engineer, and Cloud Developer. These roles often require expertise in designing, implementing, and managing cloud solutions.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. Why is it crucial to set up billing alerts in your AWS account?</h3>
+                <p><strong>Answer:</strong> Setting up billing alerts is crucial to avoid unexpected charges. It notifies you when your estimated AWS charges exceed a predefined threshold, allowing you to monitor your spending, especially when using the Free Tier or experimenting with new services, and take corrective action if necessary.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. What is the AWS Shared Responsibility Model? (Briefly)</h3>
+                <p><strong>Answer:</strong> It defines what AWS is responsible for (security OF the Cloud - infrastructure, hardware, software, facilities) and what the customer is responsible for (security IN the Cloud - data, applications, OS, network configuration, IAM). It's a partnership for security.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. How would you approach learning a new AWS service?</h3>
+                <p><strong>Answer:</strong> Start with the official AWS documentation and whitepapers. Utilize the AWS Free Tier for hands-on experimentation. Look for tutorials, online courses, and community forums. Understand its core purpose, key features, pricing model, and how it integrates with other AWS services.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. What are the advantages of a pay-as-you-go model in cloud computing?</h3>
+                <p><strong>Answer:</strong> Advantages include: <strong>No upfront capital expenditure</strong>, only pay for resources consumed, ability to <strong>scale resources up or down</strong> without wasted capacity, and <strong>cost optimization</strong> by aligning spending with actual usage.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. What are some common AWS certifications and why pursue them?</h3>
+                <p><strong>Answer:</strong> Common certifications include Cloud Practitioner (foundational), Solutions Architect Associate/Professional, Developer Associate, SysOps Administrator Associate, and various Specialty certifications. Pursuing them validates your cloud expertise, enhances career opportunities, and demonstrates a commitment to continuous learning in the AWS ecosystem.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Describe a scenario where cloud computing would be a disadvantage.</h3>
+                <p><strong>Answer:</strong> While rare, potential disadvantages could include: very specific regulatory compliance requirements that mandate on-premises data, extremely low-latency applications where physical proximity to hardware is critical, or situations where existing on-premises investments are so significant that migration costs outweigh cloud benefits in the short term. Also, potential vendor lock-in if not managed carefully.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

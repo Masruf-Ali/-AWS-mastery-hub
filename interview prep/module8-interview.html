@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 8: EC2 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 8: EC2</h1>
+            <p>Here are some common interview questions related to the EC2 module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. What is Amazon EC2, and what are its core benefits?</h3>
+                <p><strong>Answer:</strong> Amazon EC2 (Elastic Compute Cloud) provides resizable compute capacity in the cloud, essentially virtual servers (instances). Core benefits include: <strong>Elasticity</strong> (scale up/down easily), <strong>Cost-effectiveness</strong> (various pricing models), <strong>Control</strong> (full control over instances), <strong>Integration</strong> (seamless with other AWS services), and <strong>Reliability</strong> (runs on Amazon's proven infrastructure).</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. Describe the different EC2 instance types and when you would use each.</h3>
+                <p><strong>Answer:</strong> EC2 offers various instance types optimized for different workloads:
+                    <ul>
+                        <li><strong>General Purpose (M, T):</strong> Balanced CPU, memory, networking. Good for web servers, dev/test (e.g., T2/T3 for burstable, M5 for general).</li>
+                        <li><strong>Compute Optimized (C):</strong> High-performance processors. For HPC, batch processing, gaming servers.</li>
+                        <li><strong>Memory Optimized (R, X, Z):</strong> High memory-to-CPU ratio. For high-performance databases, in-memory caches.</li>
+                        <li><strong>Storage Optimized (I, D, H):</strong> High sequential read/write access to local storage. For NoSQL DBs, data warehousing.</li>
+                        <li><strong>Accelerated Computing (P, G, F):</strong> Hardware accelerators (GPUs). For ML, graphics-intensive apps.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. Explain the different EC2 pricing models and when to use each.</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>On-Demand:</strong> Pay by hour/second, no commitment. For irregular, unpredictable workloads, dev/test.</li>
+                        <li><strong>Reserved Instances (RIs):</strong> Commit for 1 or 3 years. Significant discount for steady-state, predictable workloads.</li>
+                        <li><strong>Savings Plans:</strong> Flexible commitment (1 or 3 years) for consistent usage ($/hour). Discounts across EC2, Fargate, Lambda.</li>
+                        <li><strong>Spot Instances:</strong> Bid on unused capacity, up to 90% off. For fault-tolerant, flexible, stateless workloads (can be interrupted).</li>
+                        <li><strong>Dedicated Hosts:</strong> Physical servers for your use. For licensing requirements, strict compliance.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. What is an EC2 Security Group, and how does it function?</h3>
+                <p><strong>Answer:</strong> An EC2 Security Group acts as a virtual firewall for your EC2 instances, controlling inbound and outbound traffic. It operates at the instance level, is stateful (return traffic is automatically allowed), and only supports ALLOW rules. All inbound traffic is denied by default, and all outbound traffic is allowed by default. You define rules based on protocol, port range, and source/destination IP addresses or other security groups.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. How do you securely connect to a Linux EC2 instance? What is an EC2 Key Pair?</h3>
+                <p><strong>Answer:</strong> You securely connect to a Linux EC2 instance using SSH (Secure Shell) and an EC2 Key Pair. An EC2 Key Pair consists of a public key (stored on AWS and associated with the instance) and a private key (stored securely on your local machine). When you connect, the private key authenticates you to the instance. It's crucial to keep the private key file (`.pem`) secure and never share it.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. What is an Amazon Machine Image (AMI), and why would you create a custom one?</h3>
+                <p><strong>Answer:</strong> An AMI provides the information needed to launch an instance, including a template for the root volume (OS, application server, applications), launch permissions, and block device mappings. You would create a custom AMI to: <strong>pre-configure instances</strong> with your specific software and settings, <strong>speed up deployment</strong>, ensure <strong>consistency</strong> across instances, and create a <strong>golden image</strong> for your applications.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. Describe a scenario where Spot Instances would be a good choice.</h3>
+                <p><strong>Answer:</strong> Spot Instances are excellent for fault-tolerant, flexible, and stateless workloads that can tolerate interruptions. Examples include: <strong>batch processing jobs</strong> (e.g., image rendering, video encoding), <strong>data analysis</strong>, <strong>containerized applications</strong> (where tasks can be easily restarted), and <strong>development/testing environments</strong> where cost savings are prioritized over strict uptime guarantees.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. How would you ensure that your EC2 instances are highly available?</h3>
+                <p><strong>Answer:</strong> To ensure high availability, deploy EC2 instances across multiple Availability Zones (AZs) within a Region. Use an Elastic Load Balancer (ELB) to distribute traffic across these instances. Implement an Auto Scaling Group (ASG) to automatically replace unhealthy instances and scale capacity up or down based on demand, ensuring a desired number of healthy instances are always running.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. What is User Data when launching an EC2 instance? Provide an example.</h3>
+                <p><strong>Answer:</strong> User Data is a script or set of commands that you can provide when launching an EC2 instance. This script runs automatically the first time the instance starts up. It's used for bootstrapping tasks like installing software, updating packages, configuring services, or downloading files. For example, a user data script could install Apache web server and start it: `#!/bin/bash
+sudo yum update -y
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd`</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. What is the difference between a Public IP and an Elastic IP for an EC2 instance?</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Public IP:</strong> Automatically assigned to an EC2 instance upon launch if in a public subnet. It changes every time the instance is stopped and started.</li>
+                        <li><strong>Elastic IP (EIP):</strong> A static, public IPv4 address that you can allocate to your AWS account and associate with an EC2 instance. It remains associated with your account until you release it, even if the instance is stopped or terminated. EIPs are used for applications that require a fixed public IP address.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

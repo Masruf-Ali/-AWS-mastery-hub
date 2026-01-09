@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 2: Cloud Basics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 2: Cloud Basics</h1>
+            <p>Here are some common interview questions related to the Cloud Basics module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. What is the difference between IaaS, PaaS, and SaaS? Give an example of each.</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>IaaS (Infrastructure as a Service):</strong> Provides virtualized computing resources over the internet. You manage the OS, applications, and data. AWS EC2 is an example.</li>
+                        <li><strong>PaaS (Platform as a Service):</strong> Provides a platform for developing, running, and managing applications without the complexity of building and maintaining the infrastructure. AWS Elastic Beanstalk is an example.</li>
+                        <li><strong>SaaS (Software as a Service):</strong> Provides a complete, ready-to-use application over the internet. You just use the software. Gmail or Salesforce are examples.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. Explain the concept of virtualization and its role in cloud computing.</h3>
+                <p><strong>Answer:</strong> Virtualization is the creation of a virtual version of something, like a server or OS. It allows a single physical server to run multiple isolated virtual machines (VMs) using a hypervisor. In cloud computing, virtualization is fundamental as it enables cloud providers to abstract physical hardware, allowing multiple customers to share underlying resources efficiently and securely, leading to scalability and cost-effectiveness.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. What are the main cloud deployment models? Describe each.</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Public Cloud:</strong> Services delivered over the public internet, shared among multiple tenants (e.g., AWS, Azure, GCP).</li>
+                        <li><strong>Private Cloud:</strong> Cloud resources used exclusively by a single organization, either on-premises or hosted by a third party.</li>
+                        <li><strong>Hybrid Cloud:</strong> A combination of public and private clouds, allowing data and applications to be shared between them for flexibility and optimization.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. What are the advantages of cloud computing over traditional on-premises IT?</h3>
+                <p><strong>Answer:</strong> Key advantages include: <strong>Cost Savings</strong> (OpEx vs. CapEx), <strong>Scalability & Elasticity</strong> (on-demand resources), <strong>Agility</strong> (faster deployment), <strong>Global Reach</strong> (deploy globally in minutes), <strong>Reduced Operational Burden</strong> (AWS manages infrastructure), and <strong>Improved Reliability & Security</strong> (leveraging cloud provider expertise).</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. What is a hypervisor and what are the two main types?</h3>
+                <p><strong>Answer:</strong> A hypervisor is software, firmware, or hardware that creates and runs virtual machines (VMs).
+                    <ul>
+                        <li><strong>Type 1 (Bare-Metal):</strong> Runs directly on the host hardware (e.g., VMware ESXi, AWS Nitro).</li>
+                        <li><strong>Type 2 (Hosted):</strong> Runs on a conventional operating system (e.g., VirtualBox, VMware Workstation).</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. Explain the concept of elasticity and scalability in cloud computing.</h3>
+                <p><strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Elasticity:</strong> The ability to acquire computing resources as you need them and release resources when you no longer need them, automatically scaling up or down to meet demand.</li>
+                        <li><strong>Scalability:</strong> The ability of a system to handle a growing amount of work by adding resources to the system, either vertically (more powerful instance) or horizontally (more instances).</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. When would you choose a private cloud over a public cloud?</h3>
+                <p><strong>Answer:</strong> A private cloud might be chosen for strict regulatory compliance requirements, highly sensitive data, or when an organization needs complete control over its infrastructure. It often involves higher upfront costs and management overhead compared to a public cloud.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. How does cloud computing contribute to business agility?</h3>
+                <p><strong>Answer:</strong> Cloud computing significantly boosts business agility by allowing rapid provisioning of IT resources. New applications and features can be deployed in minutes, enabling faster experimentation, iteration, and response to market changes, rather than waiting weeks or months for hardware procurement and setup.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. What are some potential challenges or concerns with adopting cloud computing?</h3>
+                <p><strong>Answer:</strong> Challenges can include: <strong>Security and Compliance</strong> (shared responsibility model requires customer diligence), <strong>Cost Management</strong> (optimizing spending), <strong>Vendor Lock-in</strong> (difficulty migrating between providers), <strong>Data Transfer</strong> (moving large datasets), and <strong>Operational Complexity</strong> (managing new cloud-native services).</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Describe a scenario where a hybrid cloud model would be beneficial.</h3>
+                <p><strong>Answer:</strong> A hybrid cloud is beneficial when an organization needs to keep sensitive data or legacy applications on-premises due to compliance or performance, while leveraging the public cloud for scalable, less sensitive workloads (e.g., web servers, development environments). It allows for bursting capacity to the cloud during peak demand or for disaster recovery.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

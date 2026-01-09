@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep: Module 5: Cloud Provider Comparison - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="interview-content">
+            <h1>Interview Prep: Module 5: Cloud Provider Comparison</h1>
+            <p>Here are some common interview questions related to the Cloud Provider Comparison module, along with suggested answers.</p>
+
+            <div class="question-answer">
+                <h3>1. What are the key strengths and weaknesses of AWS compared to other major cloud providers?</h3>
+                <p><strong>Answer:</strong> AWS's key strengths include its <strong>market leadership</strong>, the <strong>breadth and depth of its services</strong> (over 200), extensive <strong>global infrastructure</strong>, and a mature <strong>ecosystem</strong>. Weaknesses can include its <strong>complex pricing model</strong> and the potential for a steeper <strong>learning curve</strong> for beginners compared to some rivals.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>2. When would an organization typically choose Microsoft Azure over AWS?</h3>
+                <p><strong>Answer:</strong> Organizations often choose Azure when they have a significant existing investment in <strong>Microsoft technologies</strong> (Windows Server, SQL Server, .NET, Active Directory). Azure offers excellent <strong>hybrid cloud capabilities</strong>, seamlessly integrating on-premises Microsoft environments, and has strong appeal in regulated enterprise sectors due to its numerous <strong>compliance certifications</strong>.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>3. What are Google Cloud Platform (GCP)'s distinguishing features?</h3>
+                <p><strong>Answer:</strong> GCP is distinguished by its leadership in <strong>AI/ML and big data services</strong> (BigQuery, TensorFlow), its strong commitment to <strong>open-source technologies</strong> (Kubernetes originated at Google), and its highly performant <strong>global network infrastructure</strong>. It often appeals to companies with data-intensive workloads and those already using Google's productivity tools.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>4. You're consulting for a startup that needs to quickly deploy web applications with minimal operational overhead and cost. Which non-major cloud provider might you recommend and why?</h3>
+                <p><strong>Answer:</strong> I might recommend <strong>DigitalOcean</strong>. It's known for its <strong>simplicity, ease of use</strong>, and <strong>developer-centric approach</strong>, making it quick for startups to get started. Its pricing is generally straightforward and competitive for virtual private servers (Droplets), which is often a perfect fit for smaller to medium-sized web applications.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>5. Describe a use case where Oracle Cloud Infrastructure (OCI) would be a strong contender.</h3>
+                <p><strong>Answer:</strong> OCI is a strong contender for workloads that require <strong>high-performance computing</strong> and traditional <strong>enterprise database workloads</strong>, especially those already running Oracle Database. OCI is designed to deliver superior performance and more cost-effective solutions for these specific enterprise-grade requirements, often with strong SLAs.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>6. How do AWS, Azure, and GCP compare in terms of global presence?</h3>
+                <p><strong>Answer:</strong> AWS has the most extensive global infrastructure with the largest number of Regions and Availability Zones. Azure is rapidly expanding and has a strong global footprint, often focusing on governmental and highly regulated markets. GCP has a significant global presence, leveraging Google's robust network, but generally has fewer Regions and AZs compared to AWS and Azure.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>7. What considerations would lead you to choose a multi-cloud strategy?</h3>
+                <p><strong>Answer:</strong> A multi-cloud strategy might be chosen to: <strong>mitigate vendor lock-in</strong>, leverage <strong>best-of-breed services</strong> from different providers (e.g., AWS for breadth, GCP for AI/ML), meet specific <strong>regulatory compliance</strong> needs tied to geographic regions, or for enhanced <strong>disaster recovery</strong> by distributing workloads across independent infrastructures. It often adds operational complexity but can offer significant benefits.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>8. A company has a significant existing infrastructure running on IBM hardware and software. Which cloud provider might offer the most natural migration path?</h3>
+                <p><strong>Answer:</strong> <strong>IBM Cloud</strong> would likely offer the most natural migration path. They have a strong focus on enterprise clients with existing IBM investments and robust hybrid cloud solutions, often leveraging technologies like Red Hat OpenShift, which would be familiar to such a company.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>9. How important is the ecosystem (partners, community, market share) when choosing a cloud provider?</h3>
+                <p><strong>Answer:</strong> The ecosystem is very important. A large community and extensive partner network (like AWS has) means more third-party tools, integrations, skilled professionals, and support resources are available. This can accelerate development, reduce operational burden, and provide greater flexibility and choice when building solutions.</p>
+            </div>
+
+            <div class="question-answer">
+                <h3>10. Discuss the general pricing models of major cloud providers.</h3>
+                <p><strong>Answer:</strong> All major cloud providers primarily use a <strong>pay-as-you-go</strong> model. However, differences exist: AWS is known for detailed and sometimes complex pricing, with many options for savings (RIs, Savings Plans). Azure often offers value for enterprise agreements and strong hybrid benefits. GCP is often perceived as having simpler pricing, sometimes with per-second billing. All offer various tiers, discounts for commitment, and charge for compute, storage, data transfer, and services consumed.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
