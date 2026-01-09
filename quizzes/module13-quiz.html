@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 13: Databases & Analytics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 13: Databases & Analytics</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which AWS service is a fully managed relational database service that supports several popular database engines like MySQL, PostgreSQL, and Aurora?",
+                    options: ["Amazon DynamoDB", "Amazon Redshift", "Amazon RDS", "Amazon Athena"],
+                    answer: "Amazon RDS"
+                },
+                {
+                    question: "Amazon Aurora is compatible with which two open-source relational database engines?",
+                    options: ["Oracle and SQL Server", "MySQL and PostgreSQL", "MariaDB and Cassandra", "MongoDB and Redis"],
+                    answer: "MySQL and PostgreSQL"
+                },
+                {
+                    question: "Which AWS database service is a fast and flexible NoSQL database service that provides consistent, single-digit-millisecond latency at any scale?",
+                    options: ["Amazon RDS", "Amazon Aurora", "Amazon DynamoDB", "Amazon Redshift"],
+                    answer: "Amazon DynamoDB"
+                },
+                {
+                    question: "What is Amazon Redshift primarily used for?",
+                    options: ["Transactional processing for web applications", "Fully managed NoSQL database", "Petabyte-scale data warehousing and analytics", "In-memory caching"],
+                    answer: "Petabyte-scale data warehousing and analytics"
+                },
+                {
+                    question: "Which AWS service is an interactive query service that makes it easy to analyze data directly in Amazon S3 using standard SQL, and is serverless?",
+                    options: ["AWS Glue", "Amazon EMR", "Amazon Athena", "Amazon Redshift"],
+                    answer: "Amazon Athena"
+                },
+                {
+                    question: "What is AWS Glue?",
+                    options: ["A managed relational database service", "A fully managed extract, transform, and load (ETL) service", "A real-time streaming data service", "A service for running big data frameworks like Hadoop"],
+                    answer: "A fully managed extract, transform, and load (ETL) service"
+                },
+                {
+                    question: "Which AWS service simplifies running big data frameworks like Apache Hadoop and Apache Spark?",
+                    options: ["Amazon Athena", "AWS Glue", "Amazon EMR", "Amazon DynamoDB"],
+                    answer: "Amazon EMR"
+                },
+                {
+                    question: "What is a key benefit of Amazon Aurora compared to standard MySQL or PostgreSQL?",
+                    options: ["It is significantly slower", "It is not fully managed", "It offers higher performance and availability", "It is only available on-premises"],
+                    answer: "It offers higher performance and availability"
+                },
+                {
+                    question: "Which DynamoDB feature allows for multi-Region, multi-master replication?",
+                    options: ["Read Replicas", "Global Tables", "Multi-AZ deployments", "Provisioned IOPS"],
+                    answer: "Global Tables"
+                },
+                {
+                    question: "If you need to perform ad-hoc SQL queries on data stored in S3 without provisioning any servers, which service would be most suitable?",
+                    options: ["Amazon RDS", "Amazon Redshift", "Amazon DynamoDB", "Amazon Athena"],
+                    answer: "Amazon Athena"
+                }
+            ];
+
+            window.loadQuiz("Module 13: Databases & Analytics", questions);
+        });
+    </script>
+</body>
+</html>

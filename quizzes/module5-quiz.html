@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 5: Cloud Provider Comparison - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 5: Cloud Provider Comparison</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which cloud provider is generally considered the market share leader with the broadest and deepest set of services?",
+                    options: ["Microsoft Azure", "Google Cloud Platform (GCP)", "Amazon Web Services (AWS)", "IBM Cloud"],
+                    answer: "Amazon Web Services (AWS)"
+                },
+                {
+                    question: "Which cloud provider is known for its strong appeal to enterprises already invested in Microsoft technologies and excellent hybrid cloud offerings?",
+                    options: ["Amazon Web Services (AWS)", "Google Cloud Platform (GCP)", "Microsoft Azure", "Oracle Cloud Infrastructure (OCI)"],
+                    answer: "Microsoft Azure"
+                },
+                {
+                    question: "Which cloud provider is recognized for its innovation in AI/ML, big data, and Kubernetes, and has a strong commitment to open-source technologies?",
+                    options: ["Amazon Web Services (AWS)", "Microsoft Azure", "Google Cloud Platform (GCP)", "Alibaba Cloud"],
+                    answer: "Google Cloud Platform (GCP)"
+                },
+                {
+                    question: "DigitalOcean is often praised for which of the following?",
+                    options: ["Its exabyte-scale data transfer services", "Its strong focus on enterprise clients and hybrid cloud solutions", "Its simplicity, ease of use, and developer-centric approach", "Its high-performance computing for traditional enterprise applications"],
+                    answer: "Its simplicity, ease of use, and developer-centric approach"
+                },
+                {
+                    question: "Which cloud provider is a significant player in the Asia-Pacific region and leverages expertise in e-commerce and AI?",
+                    options: ["IBM Cloud", "Oracle Cloud Infrastructure (OCI)", "Alibaba Cloud", "DigitalOcean"],
+                    answer: "Alibaba Cloud"
+                },
+                {
+                    question: "Which of the following is a strength of Oracle Cloud Infrastructure (OCI)?",
+                    options: ["Broadest range of services", "Strong integration with Microsoft developer tools", "High-performance computing and enterprise database workloads", "Developer-friendly VPS (Droplets)"],
+                    answer: "High-performance computing and enterprise database workloads"
+                },
+                {
+                    question: "What is a common weakness cited for AWS?",
+                    options: ["Lack of services", "Poor global reach", "Can be complex to navigate for beginners", "Weak security features"],
+                    answer: "Can be complex to navigate for beginners"
+                },
+                {
+                    question: "Which cloud provider is known for its Watson AI services and strong offerings in blockchain?",
+                    options: ["Google Cloud Platform (GCP)", "IBM Cloud", "Microsoft Azure", "Amazon Web Services (AWS)"],
+                    answer: "IBM Cloud"
+                },
+                {
+                    question: "When comparing AWS, Azure, and GCP, which one often has a simpler pricing model with per-second billing for some services?",
+                    options: ["AWS", "Azure", "GCP", "All have equally complex pricing"],
+                    answer: "GCP"
+                },
+                {
+                    question: "For a company heavily invested in .NET and Windows Server, which cloud provider might offer the most seamless transition and integration?",
+                    options: ["Amazon Web Services (AWS)", "Google Cloud Platform (GCP)", "Microsoft Azure", "DigitalOcean"],
+                    answer: "Microsoft Azure"
+                }
+            ];
+
+            window.loadQuiz("Module 5: Cloud Provider Comparison", questions);
+        });
+    </script>
+</body>
+</html>

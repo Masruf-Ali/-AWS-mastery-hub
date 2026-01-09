@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 10: Load Balancing & Auto Scaling - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 10: Load Balancing & Auto Scaling</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which type of Elastic Load Balancer (ELB) operates at Layer 7 (application layer) and is ideal for HTTP/HTTPS traffic with advanced routing features?",
+                    options: ["Classic Load Balancer (CLB)", "Network Load Balancer (NLB)", "Application Load Balancer (ALB)", "Gateway Load Balancer (GLB)"],
+                    answer: "Application Load Balancer (ALB)"
+                },
+                {
+                    question: "Which ELB type is designed for extreme performance, static IP addresses, and operates at Layer 4 (connection level)?",
+                    options: ["Classic Load Balancer (CLB)", "Network Load Balancer (NLB)", "Application Load Balancer (ALB)", "Gateway Load Balancer (GLB)"],
+                    answer: "Network Load Balancer (NLB)"
+                },
+                {
+                    question: "What is the primary benefit of using AWS Auto Scaling?",
+                    options: ["To manually provision EC2 instances", "To automatically adjust capacity to maintain performance and cost", "To encrypt data at rest", "To provide static IP addresses to instances"],
+                    answer: "To automatically adjust capacity to maintain performance and cost"
+                },
+                {
+                    question: "Which Auto Scaling scaling policy is most commonly recommended for maintaining a specified target utilization level for a metric (e.g., CPU utilization at 50%)?",
+                    options: ["Simple Scaling", "Step Scaling", "Target Tracking Scaling", "Scheduled Scaling"],
+                    answer: "Target Tracking Scaling"
+                },
+                {
+                    question: "What is a Launch Configuration or Launch Template used for in Auto Scaling?",
+                    options: ["To define the desired capacity of the Auto Scaling Group", "To specify when the Auto Scaling Group should scale", "To define the parameters for launching EC2 instances", "To monitor the health of instances"],
+                    answer: "To define the parameters for launching EC2 instances"
+                },
+                {
+                    question: "Which of the following is a benefit of load balancing?",
+                    options: ["Decreased application availability", "Increased server overload", "Improved application responsiveness and availability", "Reduced security"],
+                    answer: "Improved application responsiveness and availability"
+                },
+                {
+                    question: "If you have an application that requires path-based routing (e.g., /users to one service, /products to another), which ELB type would you choose?",
+                    options: ["Classic Load Balancer (CLB)", "Network Load Balancer (NLB)", "Application Load Balancer (ALB)", "Gateway Load Balancer (GLB)"],
+                    answer: "Application Load Balancer (ALB)"
+                },
+                {
+                    question: "What happens to unhealthy instances in an Auto Scaling Group?",
+                    options: ["They are kept in service but receive less traffic", "They are manually replaced by the user", "They are automatically replaced by new, healthy instances", "They are ignored by the load balancer"],
+                    answer: "They are automatically replaced by new, healthy instances"
+                },
+                {
+                    question: "Which ELB type is considered legacy and is generally not recommended for new applications?",
+                    options: ["Classic Load Balancer (CLB)", "Network Load Balancer (NLB)", "Application Load Balancer (ALB)", "Gateway Load Balancer (GLB)"],
+                    answer: "Classic Load Balancer (CLB)"
+                },
+                {
+                    question: "What is the purpose of an Auto Scaling Group (ASG)?",
+                    options: ["To manually launch EC2 instances", "To manage a collection of EC2 instances as a logical grouping for scaling", "To distribute incoming network traffic", "To encrypt data in transit"],
+                    answer: "To manage a collection of EC2 instances as a logical grouping for scaling"
+                }
+            ];
+
+            window.loadQuiz("Module 10: Load Balancing & Auto Scaling", questions);
+        });
+    </script>
+</body>
+</html>

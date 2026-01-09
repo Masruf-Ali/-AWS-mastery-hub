@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 6: AWS Global Infrastructure - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 6: AWS Global Infrastructure</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is an AWS Region?",
+                    options: ["A single data center", "A collection of Edge Locations", "A physical location in the world with multiple Availability Zones", "A global network backbone"],
+                    answer: "A physical location in the world with multiple Availability Zones"
+                },
+                {
+                    question: "What is the primary purpose of an Availability Zone (AZ)?",
+                    options: ["To cache content closer to users", "To provide a single point of failure for applications", "To achieve high availability and fault tolerance within a Region", "To transfer large amounts of data into AWS"],
+                    answer: "To achieve high availability and fault tolerance within a Region"
+                },
+                {
+                    question: "Where are Edge Locations primarily used?",
+                    options: ["To host EC2 instances", "To store EBS volumes", "To cache content for services like CloudFront", "To manage IAM users"],
+                    answer: "To cache content for services like CloudFront"
+                },
+                {
+                    question: "Under the Shared Responsibility Model, who is responsible for the physical security of AWS data centers?",
+                    options: ["The customer", "AWS", "A third-party auditor", "Both the customer and AWS"],
+                    answer: "AWS"
+                },
+                {
+                    question: "Which of the following is NOT a key principle of AWS pricing?",
+                    options: ["Pay for what you use", "Pay less when you reserve", "Pay more as AWS grows", "Pay less with volume discounts"],
+                    answer: "Pay more as AWS grows"
+                },
+                {
+                    question: "Why is choosing the correct AWS Region important?",
+                    options: ["It determines the color of your AWS console", "It impacts data residency, latency, and cost", "It is only relevant for billing purposes", "It has no impact on application performance"],
+                    answer: "It impacts data residency, latency, and cost"
+                },
+                {
+                    question: "How many Availability Zones does each AWS Region have at a minimum?",
+                    options: ["One", "Two", "Three", "Four"],
+                    answer: "Two"
+                },
+                {
+                    question: "What is the main difference between an Edge Location and a Regional Edge Cache?",
+                    options: ["Edge Locations are for compute, Regional Edge Caches are for storage", "Regional Edge Caches have larger cache sizes and act as a second tier of caching", "Edge Locations are only for static content, Regional Edge Caches are for dynamic content", "There is no difference"],
+                    answer: "Regional Edge Caches have larger cache sizes and act as a second tier of caching"
+                },
+                {
+                    question: "What is the primary benefit of distributing your application across multiple Availability Zones?",
+                    options: ["To reduce the cost of EC2 instances", "To improve application performance by using faster networks", "To achieve high availability and fault tolerance", "To simplify security management"],
+                    answer: "To achieve high availability and fault tolerance"
+                },
+                {
+                    question: "Which AWS service helps you manage and monitor your AWS costs effectively?",
+                    options: ["AWS IAM", "AWS CloudFormation", "AWS Pricing Calculator", "AWS Direct Connect"],
+                    answer: "AWS Pricing Calculator"
+                }
+            ];
+
+            window.loadQuiz("Module 6: AWS Global Infrastructure", questions);
+        });
+    </script>
+</body>
+</html>

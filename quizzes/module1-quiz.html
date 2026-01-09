@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 1: Course Overview - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 1: Course Overview</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which of the following is NOT a key characteristic of AWS?",
+                    options: ["Elasticity", "Agility", "High upfront costs", "Global Reach"],
+                    answer: "High upfront costs"
+                },
+                {
+                    question: "What is the primary benefit of cloud computing regarding cost?",
+                    options: ["Trade capital expense for variable expense", "Increased capital expenditure", "Fixed monthly costs regardless of usage", "Elimination of all IT costs"],
+                    answer: "Trade capital expense for variable expense"
+                },
+                {
+                    question: "Which AWS certification is considered entry-level?",
+                    options: ["Solutions Architect – Professional", "Developer – Associate", "Cloud Practitioner", "SysOps Administrator – Associate"],
+                    answer: "Cloud Practitioner"
+                },
+                {
+                    question: "What does the AWS Free Tier allow you to do?",
+                    options: ["Use all AWS services indefinitely for free", "Explore and try out AWS services free of charge up to certain limits", "Receive a monthly credit for any AWS service", "Only use services that are always free"],
+                    answer: "Explore and try out AWS services free of charge up to certain limits"
+                },
+                {
+                    question: "Why is it important to set up billing alerts in AWS?",
+                    options: ["To automatically pay your AWS bill", "To receive marketing emails from AWS", "To avoid unexpected charges", "To increase your Free Tier limits"],
+                    answer: "To avoid unexpected charges"
+                },
+                {
+                    question: "What is a best practice after creating your AWS root user?",
+                    options: ["Use the root user for all daily tasks", "Share root user credentials with your team", "Create an IAM user for daily tasks and enable MFA for both", "Disable MFA for the root user"],
+                    answer: "Create an IAM user for daily tasks and enable MFA for both"
+                },
+                {
+                    question: "Which of these is a common career path in AWS?",
+                    options: ["Cloud Architect", "DevOps Engineer", "Cloud Security Engineer", "All of the above"],
+                    answer: "All of the above"
+                },
+                {
+                    question: "What is the main purpose of AWS?",
+                    options: ["To sell physical servers", "To provide on-demand IT resources over the Internet", "To develop desktop applications", "To manage on-premises data centers"],
+                    answer: "To provide on-demand IT resources over the Internet"
+                },
+                {
+                    question: "Which of the following is a benefit of cloud computing?",
+                    options: ["Stop guessing capacity", "Increased capital expenditure", "Slower deployment speed", "Limited global reach"],
+                    answer: "Stop guessing capacity"
+                },
+                {
+                    question: "What is the recommended approach for securing your AWS root account?",
+                    options: ["Use a simple password", "Enable Multi-Factor Authentication (MFA)", "Share the password with trusted colleagues", "Disable all security features"],
+                    answer: "Enable Multi-Factor Authentication (MFA)"
+                }
+            ];
+
+            window.loadQuiz("Module 1: Course Overview", questions);
+        });
+    </script>
+</body>
+</html>

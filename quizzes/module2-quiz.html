@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 2: Cloud Basics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 2: Cloud Basics</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which of the following is a key benefit of virtualization?",
+                    options: ["Increased hardware costs", "Reduced resource utilization", "Better hardware utilization", "Slower server provisioning"],
+                    answer: "Better hardware utilization"
+                },
+                {
+                    question: "What is a hypervisor?",
+                    options: ["A type of physical server", "A piece of software, firmware, or hardware that creates and runs virtual machines", "A cloud storage service", "A network security device"],
+                    answer: "A piece of software, firmware, or hardware that creates and runs virtual machines"
+                },
+                {
+                    question: "Which cloud service model gives you the most control over your IT resources?",
+                    options: ["SaaS", "PaaS", "IaaS", "All provide equal control"],
+                    answer: "IaaS"
+                },
+                {
+                    question: "Which of the following is an example of Software as a Service (SaaS)?",
+                    options: ["Amazon EC2", "AWS Elastic Beanstalk", "Gmail", "Amazon S3 (for raw storage)"],
+                    answer: "Gmail"
+                },
+                {
+                    question: "What is a characteristic of a public cloud deployment model?",
+                    options: ["Dedicated resources for a single organization", "Physically located on the company's on-site data center", "Shared infrastructure among multiple tenants", "Higher control and enhanced security at higher cost"],
+                    answer: "Shared infrastructure among multiple tenants"
+                },
+                {
+                    question: "Which of the following is a characteristic of a Type 1 Hypervisor?",
+                    options: ["Runs on a conventional operating system", "Typically used for end-user virtualization on personal computers", "Runs directly on the host hardware", "Also known as a hosted hypervisor"],
+                    answer: "Runs directly on the host hardware"
+                },
+                {
+                    question: "In the context of cloud computing, what does 'elasticity' refer to?",
+                    options: ["The ability to acquire computing resources as you need them and release resources when you no longer need them", "The ability of a system to handle a growing amount of work by adding resources to the system", "The ability of a system to continue operating without interruption when one or more of its components fail", "The ability to store data in multiple geographic regions"],
+                    answer: "The ability to acquire computing resources as you need them and release resources when you no longer need them"
+                },
+                {
+                    question: "Which cloud deployment model combines a public cloud with a private cloud?",
+                    options: ["Public Cloud", "Private Cloud", "Hybrid Cloud", "Community Cloud"],
+                    answer: "Hybrid Cloud"
+                },
+                {
+                    question: "What is the primary difference in cost model between Traditional IT and Cloud Computing?",
+                    options: ["Both are Capital Expenditure", "Traditional IT is Operational Expenditure, Cloud is Capital Expenditure", "Both are Operational Expenditure", "Traditional IT is Capital Expenditure, Cloud is Operational Expenditure"],
+                    answer: "Traditional IT is Capital Expenditure, Cloud is Operational Expenditure"
+                },
+                {
+                    question: "Which of the following is an example of Infrastructure as a Service (IaaS)?",
+                    options: ["Salesforce", "AWS Lambda", "Amazon EC2", "Microsoft Office 365"],
+                    answer: "Amazon EC2"
+                }
+            ];
+
+            window.loadQuiz("Module 2: Cloud Basics", questions);
+        });
+    </script>
+</body>
+</html>

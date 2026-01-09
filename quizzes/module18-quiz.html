@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 18: DevOps & IaC - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 18: DevOps & IaC</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is the primary goal of DevOps?",
+                    options: ["To separate development and operations teams", "To shorten the systems development life cycle and provide continuous delivery", "To eliminate the need for testing", "To reduce infrastructure costs only"],
+                    answer: "To shorten the systems development life cycle and provide continuous delivery"
+                },
+                {
+                    question: "Which AWS service allows you to define your infrastructure in JSON or YAML templates and automates the provisioning of resources?",
+                    options: ["AWS Elastic Beanstalk", "AWS CodePipeline", "AWS CloudFormation", "AWS CodeDeploy"],
+                    answer: "AWS CloudFormation"
+                },
+                {
+                    question: "What is Infrastructure as Code (IaC)?",
+                    options: ["Manually configuring servers and networks", "Managing infrastructure using a descriptive model with version control", "A method for deploying applications without any infrastructure", "A way to monitor application performance"],
+                    answer: "Managing infrastructure using a descriptive model with version control"
+                },
+                {
+                    question: "Which AWS service is a continuous delivery service that automates your release pipelines for fast and reliable application updates?",
+                    options: ["AWS CodeBuild", "AWS CodeCommit", "AWS CodePipeline", "AWS CodeDeploy"],
+                    answer: "AWS CodePipeline"
+                },
+                {
+                    question: "AWS Elastic Beanstalk is considered a PaaS (Platform as a Service) because it:",
+                    options: ["Provides raw compute capacity", "Manages the underlying infrastructure for you, allowing you to focus on your code", "Only provides storage services", "Requires you to manage all servers manually"],
+                    answer: "Manages the underlying infrastructure for you, allowing you to focus on your code"
+                },
+                {
+                    question: "Which stage in a typical DevOps pipeline involves compiling code and running unit tests?",
+                    options: ["Source", "Build", "Test", "Deploy"],
+                    answer: "Build"
+                },
+                {
+                    question: "What is the main purpose of AWS CodeDeploy?",
+                    options: ["To build and compile source code", "To store source code in a version control system", "To automate code deployments to various compute services", "To create infrastructure using templates"],
+                    answer: "To automate code deployments to various compute services"
+                },
+                {
+                    question: "Which of the following is a benefit of using Infrastructure as Code (IaC)?",
+                    options: ["Increased manual configuration", "Inconsistent environments", "Reduced automation", "Consistency and rapid provisioning of infrastructure"],
+                    answer: "Consistency and rapid provisioning of infrastructure"
+                },
+                {
+                    question: "If you want to deploy an application to EC2 instances with minimal downtime using strategies like in-place or blue/green deployments, which AWS service would you use?",
+                    options: ["AWS CloudFormation", "AWS Elastic Beanstalk", "AWS CodePipeline", "AWS CodeDeploy"],
+                    answer: "AWS CodeDeploy"
+                },
+                {
+                    question: "Which AWS service would you use to manage a Git repository for your source code within AWS?",
+                    options: ["AWS CodeBuild", "AWS CodeCommit", "AWS CodePipeline", "AWS CodeDeploy"],
+                    answer: "AWS CodeCommit"
+                }
+            ];
+
+            window.loadQuiz("Module 18: DevOps & IaC", questions);
+        });
+    </script>
+</body>
+</html>

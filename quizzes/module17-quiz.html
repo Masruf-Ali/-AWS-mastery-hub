@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 17: Global Networking - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 17: Global Networking</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is the primary purpose of Amazon CloudFront?",
+                    options: ["To host web applications", "To provide a highly available DNS service", "To deliver content with low latency using a global network of Edge Locations", "To manage virtual servers"],
+                    answer: "To deliver content with low latency using a global network of Edge Locations"
+                },
+                {
+                    question: "How does CloudFront improve content delivery performance?",
+                    options: ["By encrypting all data in transit", "By caching content at Edge Locations closer to users", "By automatically scaling EC2 instances", "By providing static IP addresses"],
+                    answer: "By caching content at Edge Locations closer to users"
+                },
+                {
+                    question: "What is AWS Global Accelerator primarily designed to improve?",
+                    options: ["The storage capacity of S3 buckets", "The performance and availability of applications with local or global users", "The security of web applications against SQL injection", "The speed of data transfer to AWS S3"],
+                    answer: "The performance and availability of applications with local or global users"
+                },
+                {
+                    question: "Which of the following is a key feature of AWS Global Accelerator?",
+                    options: ["It caches static content at Edge Locations", "It provides two static Anycast IP addresses as fixed entry points", "It is primarily used for serverless function execution", "It manages relational databases"],
+                    answer: "It provides two static Anycast IP addresses as fixed entry points"
+                },
+                {
+                    question: "When would you typically choose CloudFront over Global Accelerator?",
+                    options: ["When you need to improve the performance of dynamic content", "When you need static IP addresses for your application", "When you want to cache static content (images, videos) closer to users", "When you need to route traffic over the AWS global network for optimal performance"],
+                    answer: "When you want to cache static content (images, videos) closer to users"
+                },
+                {
+                    question: "What is an 'Origin Server' in the context of CloudFront?",
+                    options: ["The server where CloudFront Edge Locations are hosted", "The server that generates the DNS responses for CloudFront", "The source of the content that CloudFront distributes (e.g., S3 bucket, EC2 instance)", "A server that monitors the health of CloudFront distributions"],
+                    answer: "The source of the content that CloudFront distributes (e.g., S3 bucket, EC2 instance)"
+                },
+                {
+                    question: "How does Global Accelerator route user traffic?",
+                    options: ["By using traditional DNS lookups only", "By routing traffic over the public internet to the nearest Region", "By using the AWS global network to route traffic to the optimal application endpoint", "By caching all application logic at Edge Locations"],
+                    answer: "By using the AWS global network to route traffic to the optimal application endpoint"
+                },
+                {
+                    question: "Which AWS service does CloudFront integrate with for web application firewall capabilities?",
+                    options: ["AWS Shield", "AWS WAF", "Amazon GuardDuty", "AWS KMS"],
+                    answer: "AWS WAF"
+                },
+                {
+                    question: "What is a key benefit of Global Accelerator's static Anycast IP addresses?",
+                    options: ["They change frequently to enhance security", "They simplify DNS management and provide fixed entry points", "They are only accessible from within a VPC", "They are used for internal AWS service communication only"],
+                    answer: "They simplify DNS management and provide fixed entry points"
+                },
+                {
+                    question: "Both CloudFront and Global Accelerator aim to reduce latency. What is a primary difference in their approach?",
+                    options: ["CloudFront focuses on dynamic content, Global Accelerator on static content", "CloudFront caches content, Global Accelerator optimizes network path for dynamic traffic", "CloudFront is a regional service, Global Accelerator is global", "CloudFront uses TCP, Global Accelerator uses UDP"],
+                    answer: "CloudFront caches content, Global Accelerator optimizes network path for dynamic traffic"
+                }
+            ];
+
+            window.loadQuiz("Module 17: Global Networking", questions);
+        });
+    </script>
+</body>
+</html>

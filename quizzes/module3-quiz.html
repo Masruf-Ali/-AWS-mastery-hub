@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 3: Cloud Challenges - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 3: Cloud Challenges</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "According to the AWS Shared Responsibility Model, who is responsible for the security OF the Cloud?",
+                    options: ["The customer", "AWS", "A third-party auditor", "Both the customer and AWS"],
+                    answer: "AWS"
+                },
+                {
+                    question: "Which of the following is a customer's responsibility under the Shared Responsibility Model?",
+                    options: ["Physical security of data centers", "Hardware maintenance", "Operating system patching", "Global infrastructure"],
+                    answer: "Operating system patching"
+                },
+                {
+                    question: "What is a common challenge associated with cloud adoption where a customer becomes dependent on a single cloud provider?",
+                    options: ["Cloud bursting", "Vendor lock-in", "Cloud sprawl", "Shadow IT"],
+                    answer: "Vendor lock-in"
+                },
+                {
+                    question: "Which strategy involves moving applications to the cloud with minor modifications to take advantage of cloud features?",
+                    options: ["Rehost", "Replatform", "Refactor/Re-architect", "Repurchase"],
+                    answer: "Replatform"
+                },
+                {
+                    question: "Which AWS service is primarily used for monitoring metrics and logs?",
+                    options: ["AWS CloudTrail", "Amazon S3", "Amazon CloudWatch", "AWS Config"],
+                    answer: "Amazon CloudWatch"
+                },
+                {
+                    question: "Which Disaster Recovery (DR) strategy involves a minimal version of the environment always running in the DR region?",
+                    options: ["Backup and Restore", "Pilot Light", "Warm Standby", "Multi-Site Active/Active"],
+                    answer: "Pilot Light"
+                },
+                {
+                    question: "What is the primary purpose of AWS CloudTrail?",
+                    options: ["To monitor application performance", "To store large amounts of data", "To record API calls and related events in your AWS account", "To provide a content delivery network"],
+                    answer: "To record API calls and related events in your AWS account"
+                },
+                {
+                    question: "Which of the following is a benefit of effective monitoring and logging in the cloud?",
+                    options: ["Increased operational burden", "Reduced visibility into application health", "Identification of bottlenecks and optimization of resource utilization", "Higher costs due to excessive data collection"],
+                    answer: "Identification of bottlenecks and optimization of resource utilization"
+                },
+                {
+                    question: "Which compliance standard is relevant for organizations handling credit card information?",
+                    options: ["GDPR", "HIPAA", "PCI DSS", "SOC 2"],
+                    answer: "PCI DSS"
+                },
+                {
+                    question: "What does the 'Retire' strategy in cloud migration refer to?",
+                    options: ["Moving applications to a different cloud provider", "Decommissioning applications that are no longer needed", "Reworking an application's architecture for cloud-native capabilities", "Keeping applications on-premises"],
+                    answer: "Decommissioning applications that are no longer needed"
+                }
+            ];
+
+            window.loadQuiz("Module 3: Cloud Challenges", questions);
+        });
+    </script>
+</body>
+</html>

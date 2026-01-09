@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 22: Advanced VPC - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 22: Advanced VPC</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is the valid range for a VPC CIDR block size?",
+                    options: ["Between /8 and /16", "Between /16 and /28", "Between /24 and /32", "Any size up to /1"],
+                    answer: "Between /16 and /28"
+                },
+                {
+                    question: "Which of the following is a characteristic of a private subnet in an AWS VPC?",
+                    options: ["It has a route to an Internet Gateway", "Instances within it can be directly accessed from the internet", "It does NOT have a route to an Internet Gateway", "It must contain a Bastion Host"],
+                    answer: "It does NOT have a route to an Internet Gateway"
+                },
+                {
+                    question: "What is the recommended choice for providing outbound internet access from a private subnet in production environments?",
+                    options: ["NAT Instance", "Internet Gateway", "NAT Gateway", "VPC Peering"],
+                    answer: "NAT Gateway"
+                },
+                {
+                    question: "What is a Bastion Host primarily used for?",
+                    options: ["To host public-facing web applications", "To provide secure access to private instances from an external network", "To distribute network traffic across multiple servers", "To store application logs"],
+                    answer: "To provide secure access to private instances from an external network"
+                },
+                {
+                    question: "Which of the following is true about VPC Peering connections?",
+                    options: ["They are transitive, allowing VPC A to communicate with VPC C if A is peered with B and B with C", "They use the public internet for communication", "They enable private communication between two VPCs", "They can only be established between VPCs in the same AWS account"],
+                    answer: "They enable private communication between two VPCs"
+                },
+                {
+                    question: "What information do VPC Flow Logs capture?",
+                    options: ["Application code changes", "CPU utilization and memory usage", "IP traffic information (source/destination IP, ports, protocol, action)", "Billing and cost data"],
+                    answer: "IP traffic information (source/destination IP, ports, protocol, action)"
+                },
+                {
+                    question: "If you need to expand the IP address range of an existing VPC, what can you do?",
+                    options: ["Delete the VPC and recreate it with a larger CIDR", "Modify the existing CIDR block directly", "Associate additional CIDR blocks with your VPC", "Use a NAT Gateway to extend the range"],
+                    answer: "Associate additional CIDR blocks with your VPC"
+                },
+                {
+                    question: "What is a key characteristic of a NAT Gateway compared to a NAT Instance?",
+                    options: ["NAT Gateway requires manual management and patching", "NAT Gateway is a single point of failure", "NAT Gateway is a fully managed, highly available service", "NAT Gateway is cheaper for very low traffic volumes"],
+                    answer: "NAT Gateway is a fully managed, highly available service"
+                },
+                {
+                    question: "Which of the following is a valid use case for VPC Flow Logs?",
+                    options: ["To encrypt data at rest", "To monitor network traffic for anomalies and troubleshoot connectivity issues", "To automatically scale EC2 instances", "To manage DNS records"],
+                    answer: "To monitor network traffic for anomalies and troubleshoot connectivity issues"
+                },
+                {
+                    question: "What is the purpose of an Internet Gateway (IGW) in a VPC?",
+                    options: ["To provide private connectivity between VPCs", "To allow instances in a private subnet to access the internet", "To enable communication between instances in a public subnet and the internet", "To filter incoming network traffic"],
+                    answer: "To enable communication between instances in a public subnet and the internet"
+                }
+            ];
+
+            window.loadQuiz("Module 22: Advanced VPC", questions);
+        });
+    </script>
+</body>
+</html>

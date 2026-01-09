@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 23: AI/ML - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 23: AI/ML</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which AWS service is used for adding image and video analysis to your applications, including object, scene, and face detection?",
+                    options: ["Amazon Polly", "Amazon Lex", "Amazon Rekognition", "Amazon Translate"],
+                    answer: "Amazon Rekognition"
+                },
+                {
+                    question: "Amazon Polly is a service that converts text into what?",
+                    options: ["Machine learning models", "Lifelike speech", "Translated text", "Conversational interfaces"],
+                    answer: "Lifelike speech"
+                },
+                {
+                    question: "Which AWS service is used for building conversational interfaces (chatbots and virtual assistants) using voice and text?",
+                    options: ["Amazon Rekognition", "Amazon Polly", "Amazon Lex", "Amazon Translate"],
+                    answer: "Amazon Lex"
+                },
+                {
+                    question: "Amazon Translate is a neural machine translation service that provides high-quality translation for what?",
+                    options: ["Speech to text", "Text to speech", "Language translation", "Image to text"],
+                    answer: "Language translation"
+                },
+                {
+                    question: "Which AWS service is a fully managed service that helps developers and data scientists build, train, and deploy machine learning models quickly?",
+                    options: ["Amazon Rekognition", "Amazon Polly", "Amazon Lex", "Amazon SageMaker"],
+                    answer: "Amazon SageMaker"
+                },
+                {
+                    question: "Which layer of the AWS AI/ML stack consists of pre-trained, ready-to-use services that provide AI capabilities without requiring ML expertise?",
+                    options: ["AI Services (Top Layer)", "ML Services (Middle Layer)", "ML Frameworks & Infrastructure (Bottom Layer)", "Data Storage Layer"],
+                    answer: "AI Services (Top Layer)"
+                },
+                {
+                    question: "What does ASR stand for in the context of Amazon Lex?",
+                    options: ["Advanced Service Routing", "Automated System Recovery", "Automatic Speech Recognition", "Application Security Review"],
+                    answer: "Automatic Speech Recognition"
+                },
+                {
+                    question: "Which SageMaker feature allows you to easily deploy models to production for real-time inference or batch transformations?",
+                    options: ["Notebook Instances", "Built-in Algorithms", "Model Hosting", "Ground Truth"],
+                    answer: "Model Hosting"
+                },
+                {
+                    question: "If you need to identify celebrities in images and videos, which AWS AI service would you use?",
+                    options: ["Amazon Polly", "Amazon Lex", "Amazon Rekognition", "Amazon Translate"],
+                    answer: "Amazon Rekognition"
+                },
+                {
+                    question: "What is the purpose of SSML support in Amazon Polly?",
+                    options: ["To translate speech into text", "To control speech aspects like pronunciation, volume, and speaking rate", "To identify the intent of text", "To build custom machine learning models"],
+                    answer: "To control speech aspects like pronunciation, volume, and speaking rate"
+                }
+            ];
+
+            window.loadQuiz("Module 23: AI/ML", questions);
+        });
+    </script>
+</body>
+</html>

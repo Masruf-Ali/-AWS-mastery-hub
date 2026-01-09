@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 16: Route 53 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 16: Route 53</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is the primary function of Amazon Route 53?",
+                    options: ["To host web applications", "To provide a highly available and scalable cloud DNS web service", "To store objects in the cloud", "To manage virtual servers"],
+                    answer: "To provide a highly available and scalable cloud DNS web service"
+                },
+                {
+                    question: "Which Route 53 record type maps a domain name to an IPv4 address?",
+                    options: ["AAAA Record", "CNAME Record", "A Record", "MX Record"],
+                    answer: "A Record"
+                },
+                {
+                    question: "What is a key advantage of Route 53 Alias Records over CNAME Records for AWS resources?",
+                    options: ["Alias records are always faster", "Alias records can be used for the root domain", "CNAME records are free, Alias records are not", "Alias records support only static IP addresses"],
+                    answer: "Alias records can be used for the root domain"
+                },
+                {
+                    question: "Which routing policy routes traffic to the resource that provides the best latency for the user?",
+                    options: ["Simple Routing", "Failover Routing", "Weighted Routing", "Latency-based Routing"],
+                    answer: "Latency-based Routing"
+                },
+                {
+                    question: "What does TTL (Time To Live) in a DNS record determine?",
+                    options: ["The total time a domain name can exist", "How long a DNS resolver should cache a query before requesting a new update", "The maximum number of requests a DNS server can handle", "The time it takes for a DNS query to resolve"],
+                    answer: "How long a DNS resolver should cache a query before requesting a new update"
+                },
+                {
+                    question: "Which Route 53 routing policy is used to route traffic to a primary resource when it's healthy, and to a secondary resource when the primary is unhealthy?",
+                    options: ["Simple Routing", "Failover Routing", "Geolocation Routing", "Weighted Routing"],
+                    answer: "Failover Routing"
+                },
+                {
+                    question: "If you want to distribute traffic to multiple resources based on a percentage you assign to each, which routing policy would you use?",
+                    options: ["Simple Routing", "Latency-based Routing", "Weighted Routing", "Multivalue Answer Routing"],
+                    answer: "Weighted Routing"
+                },
+                {
+                    question: "What is the purpose of an MX Record?",
+                    options: ["To map a domain name to an IPv6 address", "To specify the mail servers responsible for receiving email for a domain", "To create an alias for a domain name", "To store arbitrary text strings"],
+                    answer: "To specify the mail servers responsible for receiving email for a domain"
+                },
+                {
+                    question: "Which of the following is a benefit of using Route 53 health checks with failover routing?",
+                    options: ["It increases the cost of DNS queries", "It ensures that unhealthy resources continue to receive traffic", "It enhances the availability and resilience of your services", "It simplifies domain registration"],
+                    answer: "It enhances the availability and resilience of your services"
+                },
+                {
+                    question: "Can VPCs in different AWS accounts be peered using Route 53?",
+                    options: ["Yes, but only if they are in the same Region", "No, VPC peering is only within the same account", "Route 53 is not used for VPC peering", "Yes, Route 53 facilitates cross-account VPC peering"],
+                    answer: "Route 53 is not used for VPC peering"
+                }
+            ];
+
+            window.loadQuiz("Module 16: Route 53", questions);
+        });
+    </script>
+</body>
+</html>

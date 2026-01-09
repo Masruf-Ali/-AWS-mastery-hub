@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 11: S3 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 11: S3</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is Amazon S3 primarily designed for?",
+                    options: ["Relational database hosting", "Object storage", "Block storage for EC2 instances", "File system for multiple EC2 instances"],
+                    answer: "Object storage"
+                },
+                {
+                    question: "Which of the following is a key characteristic of S3?",
+                    options: ["Designed for 99.999999999% (11 nines) of durability", "Supports SQL queries directly", "Provides a file system interface (NFS)", "Limited to 1TB of storage per bucket"],
+                    answer: "Designed for 99.999999999% (11 nines) of durability"
+                },
+                {
+                    question: "What is the primary purpose of an S3 bucket policy?",
+                    options: ["To define the storage class for objects", "To control access to the bucket and its objects", "To enable versioning on objects", "To configure static website hosting"],
+                    answer: "To control access to the bucket and its objects"
+                },
+                {
+                    question: "Which S3 encryption option involves AWS managing the encryption keys and is the simplest to use?",
+                    options: ["SSE-C", "Client-Side Encryption", "SSE-KMS", "SSE-S3"],
+                    answer: "SSE-S3"
+                },
+                {
+                    question: "What does S3 Versioning protect against?",
+                    options: ["Unauthorized access to buckets", "Accidental deletions and overwrites of objects", "High latency for object retrieval", "Exceeding storage limits"],
+                    answer: "Accidental deletions and overwrites of objects"
+                },
+                {
+                    question: "Which S3 feature allows you to automatically transition objects to different storage classes or expire them after a certain period?",
+                    options: ["S3 Replication", "S3 Transfer Acceleration", "S3 Lifecycle Management", "S3 Event Notifications"],
+                    answer: "S3 Lifecycle Management"
+                },
+                {
+                    question: "Can you host a dynamic website (e.g., with server-side scripting) directly from an S3 bucket using static website hosting?",
+                    options: ["Yes, S3 supports all dynamic content", "No, S3 static website hosting is only for static content", "Only if you use a custom domain", "Only if you integrate with Lambda@Edge"],
+                    answer: "No, S3 static website hosting is only for static content"
+                },
+                {
+                    question: "What is an S3 pre-signed URL used for?",
+                    options: ["To make an entire S3 bucket public", "To grant temporary access to a specific S3 object without AWS credentials", "To permanently encrypt an S3 object", "To transfer data between S3 buckets"],
+                    answer: "To grant temporary access to a specific S3 object without AWS credentials"
+                },
+                {
+                    question: "Which of the following is a valid S3 bucket naming rule?",
+                    options: ["Must be globally unique across all AWS accounts", "Can contain uppercase letters and underscores", "Can be formatted as an IP address", "Can be less than 3 characters long"],
+                    answer: "Must be globally unique across all AWS accounts"
+                },
+                {
+                    question: "Where are S3 objects stored?",
+                    options: ["On EC2 instance local storage", "Within an EBS volume", "Within buckets in a specific AWS Region", "Globally without any Region association"],
+                    answer: "Within buckets in a specific AWS Region"
+                }
+            ];
+
+            window.loadQuiz("Module 11: S3", questions);
+        });
+    </script>
+</body>
+</html>

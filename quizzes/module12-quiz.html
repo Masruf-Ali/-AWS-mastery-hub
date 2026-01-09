@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 12: Snow Family - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 12: Snow Family</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which AWS Snow Family device is designed for exabyte-scale data transfer, moving up to 100 petabytes of data?",
+                    options: ["AWS Snowcone", "AWS Snowball Edge", "AWS Snowmobile", "AWS Snowlift"],
+                    answer: "AWS Snowmobile"
+                },
+                {
+                    question: "Which Snow Family device provides up to 80 TB of usable storage and compute capabilities, suitable for large-scale data migrations and edge computing?",
+                    options: ["AWS Snowcone", "AWS Snowball Edge", "AWS Snowmobile", "AWS Snowlift"],
+                    answer: "AWS Snowball Edge"
+                },
+                {
+                    question: "What is the smallest member of the AWS Snow Family, designed for edge computing and data migration in rugged environments, offering 8 TB of storage?",
+                    options: ["AWS Snowcone", "AWS Snowball Edge", "AWS Snowmobile", "AWS Snowlift"],
+                    answer: "AWS Snowcone"
+                },
+                {
+                    question: "The AWS Snow Family services are primarily designed for situations where:",
+                    options: ["Network connectivity is always reliable and fast", "Traditional internet-based data transfer is impractical", "Only small amounts of data need to be transferred", "Real-time data processing is the main goal"],
+                    answer: "Traditional internet-based data transfer is impractical"
+                },
+                {
+                    question: "How is data typically transferred to AWS once a Snowball device is returned to AWS?",
+                    options: ["Via a direct internet connection from the device", "AWS uploads the data to your S3 bucket", "You manually transfer it using the AWS CLI", "It is automatically deleted"],
+                    answer: "AWS uploads the data to your S3 bucket"
+                },
+                {
+                    question: "Which Snow Family device can be used for advanced use cases like machine learning and full-motion video analysis at the edge?",
+                    options: ["AWS Snowcone", "AWS Snowball Edge Compute Optimized", "AWS Snowmobile", "AWS Snowlift"],
+                    answer: "AWS Snowball Edge Compute Optimized"
+                },
+                {
+                    question: "What is a key characteristic of AWS Snowmobile?",
+                    options: ["It is a small, portable device for individual users", "It is a virtual appliance for data transfer", "It is a 45-foot ruggedized shipping container for exabyte-scale data", "It is a software-only solution for data migration"],
+                    answer: "It is a 45-foot ruggedized shipping container for exabyte-scale data"
+                },
+                {
+                    question: "Which of the following is a common use case for AWS Snowcone?",
+                    options: ["Migrating an entire data center", "Running large-scale data warehouses", "Data collection from remote sites with limited connectivity", "Hosting high-performance web applications"],
+                    answer: "Data collection from remote sites with limited connectivity"
+                },
+                {
+                    question: "What is the primary benefit of using the AWS Snow Family for data transfer?",
+                    options: ["Real-time data streaming", "Cost-effective transfer of extremely large datasets", "Instantaneous data access from on-premises", "Elimination of all network infrastructure"],
+                    answer: "Cost-effective transfer of extremely large datasets"
+                },
+                {
+                    question: "Can AWS Snowcone transfer data online if network connectivity becomes available?",
+                    options: ["No, it only supports offline transfer", "Yes, using AWS DataSync", "Only if it is shipped back to AWS", "Only for small files"],
+                    answer: "Yes, using AWS DataSync"
+                }
+            ];
+
+            window.loadQuiz("Module 12: Snow Family", questions);
+        });
+    </script>
+</body>
+</html>

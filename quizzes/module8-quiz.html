@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 8: EC2 - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 8: EC2</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What does EC2 stand for?",
+                    options: ["Elastic Cloud Compute", "Essential Cloud Computing", "Elastic Compute Cloud", "Easy Cloud Computing"],
+                    answer: "Elastic Compute Cloud"
+                },
+                {
+                    question: "Which EC2 instance family is best suited for workloads that require high-performance processors for batch processing or HPC?",
+                    options: ["General Purpose (M)", "Compute Optimized (C)", "Memory Optimized (R)", "Storage Optimized (I)"],
+                    answer: "Compute Optimized (C)"
+                },
+                {
+                    question: "Which EC2 pricing model offers the deepest discounts but allows AWS to terminate your instances with a 2-minute warning?",
+                    options: ["On-Demand Instances", "Reserved Instances", "Savings Plans", "Spot Instances"],
+                    answer: "Spot Instances"
+                },
+                {
+                    question: "What is the primary function of an EC2 Security Group?",
+                    options: ["To store data persistently", "To act as a virtual firewall for your EC2 instances", "To provide a static IP address to your instance", "To automatically scale your instances"],
+                    answer: "To act as a virtual firewall for your EC2 instances"
+                },
+                {
+                    question: "What is an EC2 Key Pair primarily used for?",
+                    options: ["Encrypting data at rest on the instance", "Authenticating to Windows instances via RDP", "Securely connecting to Linux EC2 instances via SSH", "Managing IAM permissions for the instance"],
+                    answer: "Securely connecting to Linux EC2 instances via SSH"
+                },
+                {
+                    question: "Which EC2 pricing model is ideal for steady-state, predictable workloads where you commit to a specific instance type and Region for a 1-year or 3-year term?",
+                    options: ["On-Demand Instances", "Reserved Instances", "Spot Instances", "Dedicated Hosts"],
+                    answer: "Reserved Instances"
+                },
+                {
+                    question: "By default, what is the inbound traffic rule for a newly created EC2 Security Group?",
+                    options: ["All inbound traffic is allowed", "All inbound traffic is denied", "Only SSH traffic is allowed", "Only HTTP traffic is allowed"],
+                    answer: "All inbound traffic is denied"
+                },
+                {
+                    question: "What is an AMI?",
+                    options: ["Amazon Machine Interface", "Amazon Management Instance", "Amazon Machine Image", "Amazon Mainframe Integration"],
+                    answer: "Amazon Machine Image"
+                },
+                {
+                    question: "Which EC2 instance family is best for workloads that process large datasets in memory, such as high-performance databases?",
+                    options: ["Compute Optimized (C)", "Memory Optimized (R)", "Storage Optimized (I)", "General Purpose (T)"],
+                    answer: "Memory Optimized (R)"
+                },
+                {
+                    question: "When launching an EC2 instance, what is a 'User Data' script used for?",
+                    options: ["To define the instance's network settings", "To specify the instance's storage configuration", "To run commands when the instance starts up", "To select the instance's operating system"],
+                    answer: "To run commands when the instance starts up"
+                }
+            ];
+
+            window.loadQuiz("Module 8: EC2", questions);
+        });
+    </script>
+</body>
+</html>

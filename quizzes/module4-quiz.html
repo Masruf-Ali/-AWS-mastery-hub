@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 4: Networking Basics - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 4: Networking Basics</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which layer of the OSI model is responsible for logical addressing (IP addresses) and routing?",
+                    options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
+                    answer: "Network Layer"
+                },
+                {
+                    question: "What is the primary purpose of DNS?",
+                    options: ["To encrypt network traffic", "To translate domain names into IP addresses", "To manage physical network connections", "To provide server-side scripting"],
+                    answer: "To translate domain names into IP addresses"
+                },
+                {
+                    question: "Which of the following IP address ranges is considered a private IP range?",
+                    options: ["8.8.8.8", "192.168.1.1", "203.0.113.45", "1.1.1.1"],
+                    answer: "192.168.1.1"
+                },
+                {
+                    question: "In AWS, what acts as a virtual firewall for your EC2 instances?",
+                    options: ["Network ACLs", "Route Tables", "Security Groups", "Internet Gateways"],
+                    answer: "Security Groups"
+                },
+                {
+                    question: "What does a /24 in a CIDR block (e.g., 192.168.1.0/24) represent?",
+                    options: ["The number of available host addresses", "The number of bits in the network portion of the address", "The subnet mask in decimal form", "The total number of networks"],
+                    answer: "The number of bits in the network portion of the address"
+                },
+                {
+                    question: "Which type of subnet in an AWS VPC does NOT have a route to an Internet Gateway?",
+                    options: ["Public Subnet", "Private Subnet", "DMZ Subnet", "Shared Subnet"],
+                    answer: "Private Subnet"
+                },
+                {
+                    question: "What is the purpose of a VPN?",
+                    options: ["To speed up internet access", "To extend a private network across a public network securely", "To block all incoming network traffic", "To translate public IP addresses to private IP addresses"],
+                    answer: "To extend a private network across a public network securely"
+                },
+                {
+                    question: "Which OSI layer is responsible for reliable or unreliable data transfer between end systems (e.g., TCP, UDP)?",
+                    options: ["Network Layer", "Data Link Layer", "Application Layer", "Transport Layer"],
+                    answer: "Transport Layer"
+                },
+                {
+                    question: "What is the main difference between Security Groups and Network ACLs in AWS?",
+                    options: ["Security Groups are stateless, Network ACLs are stateful", "Security Groups operate at the subnet level, Network ACLs at the instance level", "Security Groups are stateful, Network ACLs are stateless", "There is no functional difference"],
+                    answer: "Security Groups are stateful, Network ACLs are stateless"
+                },
+                {
+                    question: "Which of the following is a reason to use subnets?",
+                    options: ["To increase the total number of IP addresses in a VPC", "To reduce broadcast traffic and apply different security policies", "To connect directly to the internet from private instances", "To bypass DNS resolution"],
+                    answer: "To reduce broadcast traffic and apply different security policies"
+                }
+            ];
+
+            window.loadQuiz("Module 4: Networking Basics", questions);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 14: Caching - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 14: Caching</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is the primary purpose of caching in an application architecture?",
+                    options: ["To increase database load", "To store data permanently", "To improve application performance and responsiveness by storing frequently accessed data", "To encrypt data in transit"],
+                    answer: "To improve application performance and responsiveness by storing frequently accessed data"
+                },
+                {
+                    question: "Amazon ElastiCache supports which two open-source in-memory engines?",
+                    options: ["MySQL and PostgreSQL", "MongoDB and Cassandra", "Redis and Memcached", "Oracle and SQL Server"],
+                    answer: "Redis and Memcached"
+                },
+                {
+                    question: "Which ElastiCache engine supports advanced data structures, persistence, and pub/sub messaging?",
+                    options: ["Memcached", "Redis", "Both Memcached and Redis", "Neither"],
+                    answer: "Redis"
+                },
+                {
+                    question: "What is Amazon RDS Proxy primarily designed to do?",
+                    options: ["Replace your RDS database", "Provide a fully managed NoSQL database", "Improve application resiliency and security by handling connection pooling and managing credentials for RDS", "Cache static website content"],
+                    answer: "Improve application resiliency and security by handling connection pooling and managing credentials for RDS"
+                },
+                {
+                    question: "A key benefit of RDS Proxy for serverless applications (like AWS Lambda) is that it reduces the overhead of:",
+                    options: ["Managing EC2 instances", "Establishing new database connections", "Writing SQL queries", "Configuring network security groups"],
+                    answer: "Establishing new database connections"
+                },
+                {
+                    question: "Which of the following is NOT a benefit of caching?",
+                    options: ["Improved performance", "Reduced database load", "Increased latency", "Cost savings"],
+                    answer: "Increased latency"
+                },
+                {
+                    question: "If you need a simple, high-performance object caching system for your web application, which ElastiCache engine would be a good choice?",
+                    options: ["Redis", "Memcached", "DynamoDB Accelerator (DAX)", "Amazon Aurora"],
+                    answer: "Memcached"
+                },
+                {
+                    question: "How does RDS Proxy enhance security for database access?",
+                    options: ["By encrypting all data in the database", "By eliminating the need for any credentials", "By integrating with AWS Secrets Manager and IAM to manage credentials", "By making the database publicly accessible"],
+                    answer: "By integrating with AWS Secrets Manager and IAM to manage credentials"
+                },
+                {
+                    question: "ElastiCache is a fully managed service, meaning AWS handles tasks like:",
+                    options: ["Application code development", "Database schema design", "Patching, backups, and scaling of cache clusters", "User authentication and authorization"],
+                    answer: "Patching, backups, and scaling of cache clusters"
+                },
+                {
+                    question: "What is the typical latency for data retrieval from ElastiCache?",
+                    options: ["Several seconds", "Hundreds of milliseconds", "Single-digit-millisecond", "Several minutes"],
+                    answer: "Single-digit-millisecond"
+                }
+            ];
+
+            window.loadQuiz("Module 14: Caching", questions);
+        });
+    </script>
+</body>
+</html>

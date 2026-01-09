@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 9: EC2 Storage - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 9: EC2 Storage</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which EC2 storage option provides persistent block storage volumes that can be attached to a running instance in the same Availability Zone?",
+                    options: ["Instance Store", "Amazon S3", "Amazon EBS", "Amazon EFS"],
+                    answer: "Amazon EBS"
+                },
+                {
+                    question: "Which EBS volume type is recommended for most workloads, balancing price and performance?",
+                    options: ["Provisioned IOPS SSD (io1/io2)", "General Purpose SSD (gp2/gp3)", "Throughput Optimized HDD (st1)", "Cold HDD (sc1)"],
+                    answer: "General Purpose SSD (gp2/gp3)"
+                },
+                {
+                    question: "Which storage service provides scalable, elastic file storage that can be accessed by multiple EC2 instances concurrently using NFS?",
+                    options: ["Amazon EBS", "Amazon S3", "Amazon EFS", "Instance Store"],
+                    answer: "Amazon EFS"
+                },
+                {
+                    question: "What is a key characteristic of Instance Store volumes?",
+                    options: ["Data persists independently of the instance life", "They are network-attached storage", "Data is lost when the instance stops or terminates", "They can be accessed by multiple instances concurrently"],
+                    answer: "Data is lost when the instance stops or terminates"
+                },
+                {
+                    question: "What is an EBS snapshot?",
+                    options: ["A full backup of an entire EC2 instance", "A point-in-time backup of your EBS volume, stored incrementally in S3", "A temporary storage location for frequently accessed data", "A type of file system for shared access"],
+                    answer: "A point-in-time backup of your EBS volume, stored incrementally in S3"
+                },
+                {
+                    question: "Which of the following is true about EBS volumes?",
+                    options: ["They are physically part of the EC2 instance", "They can be attached to an EC2 instance in a different Availability Zone", "They are highly available and reliable block storage", "They are primarily used for shared file access"],
+                    answer: "They are highly available and reliable block storage"
+                },
+                {
+                    question: "What does an Amazon Machine Image (AMI) provide?",
+                    options: ["Temporary block-level storage for an instance", "A template for the root volume of an instance, including OS and applications", "A shared file system for multiple instances", "A network interface for an EC2 instance"],
+                    answer: "A template for the root volume of an instance, including OS and applications"
+                },
+                {
+                    question: "Which EBS volume type is designed for I/O-intensive applications like large relational or NoSQL databases that require sustained IOPS performance?",
+                    options: ["General Purpose SSD (gp2/gp3)", "Provisioned IOPS SSD (io1/io2)", "Throughput Optimized HDD (st1)", "Cold HDD (sc1)"],
+                    answer: "Provisioned IOPS SSD (io1/io2)"
+                },
+                {
+                    question: "When should you NOT use Instance Store for data?",
+                    options: ["For caching and scratch data", "For temporary buffers", "For data that needs to persist beyond the life of the instance", "For high-performance I/O operations"],
+                    answer: "For data that needs to persist beyond the life of the instance"
+                },
+                {
+                    question: "What is the durability of Amazon EBS snapshots?",
+                    options: ["They are stored on the local instance disk and are temporary", "They are stored in Amazon S3 and are highly durable", "They are only available for 24 hours", "They are only available within the same Availability Zone"],
+                    answer: "They are stored in Amazon S3 and are highly durable"
+                }
+            ];
+
+            window.loadQuiz("Module 9: EC2 Storage", questions);
+        });
+    </script>
+</body>
+</html>

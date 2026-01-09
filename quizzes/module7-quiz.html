@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 7: IAM - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 7: IAM</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "What is the primary purpose of AWS IAM?",
+                    options: ["To manage billing and payments", "To control access to AWS resources", "To monitor application performance", "To store large amounts of data"],
+                    answer: "To control access to AWS resources"
+                },
+                {
+                    question: "Which IAM entity is a collection of IAM users and simplifies permission management?",
+                    options: ["IAM Role", "IAM Policy", "IAM Group", "IAM User"],
+                    answer: "IAM Group"
+                },
+                {
+                    question: "What is a key characteristic of an IAM Role compared to an IAM User?",
+                    options: ["Roles have long-lived access keys", "Roles are associated with a single person", "Roles provide temporary security credentials", "Roles cannot be assumed by AWS services"],
+                    answer: "Roles provide temporary security credentials"
+                },
+                {
+                    question: "In an IAM policy, what does an 'Effect: Deny' statement do?",
+                    options: ["Allows the specified action", "Has no impact if an 'Allow' statement exists", "Always overrides an 'Allow' statement", "Only applies to the root user"],
+                    answer: "Always overrides an 'Allow' statement"
+                },
+                {
+                    question: "What is the recommended best practice for the AWS root user?",
+                    options: ["Use it for all daily administrative tasks", "Share its credentials with your team", "Enable MFA and use IAM users for daily tasks", "Disable it completely"],
+                    answer: "Enable MFA and use IAM users for daily tasks"
+                },
+                {
+                    question: "Which of the following is NOT a type of IAM policy?",
+                    options: ["Identity-based policies", "Resource-based policies", "Service-based policies", "Managed policies"],
+                    answer: "Service-based policies"
+                },
+                {
+                    question: "What does MFA stand for in AWS security?",
+                    options: ["Main Factor Authentication", "Multi-Factor Authorization", "Multi-Factor Authentication", "Managed Feature Access"],
+                    answer: "Multi-Factor Authentication"
+                },
+                {
+                    question: "Which of these is a common use case for IAM Roles?",
+                    options: ["Granting permanent administrative access to a developer", "Allowing an EC2 instance to access an S3 bucket", "Creating a new AWS account", "Setting up billing alerts"],
+                    answer: "Allowing an EC2 instance to access an S3 bucket"
+                },
+                {
+                    question: "What is the purpose of an Access Key in IAM?",
+                    options: ["To log in to the AWS Management Console", "To provide programmatic access to AWS (CLI, SDK, API)", "To enable MFA for a user", "To define permissions for a group"],
+                    answer: "To provide programmatic access to AWS (CLI, SDK, API)"
+                },
+                {
+                    question: "Which element in an IAM policy specifies the AWS resources to which the action applies?",
+                    options: ["Effect", "Action", "Resource", "Principal"],
+                    answer: "Resource"
+                }
+            ];
+
+            window.loadQuiz("Module 7: IAM", questions);
+        });
+    </script>
+</body>
+</html>

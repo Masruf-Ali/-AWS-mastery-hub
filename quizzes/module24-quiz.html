@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 24: Security & Governance - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 24: Security & Governance</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which AWS service is a web application firewall that helps protect your web applications from common web exploits?",
+                    options: ["AWS Shield", "AWS KMS", "AWS WAF", "Amazon GuardDuty"],
+                    answer: "AWS WAF"
+                },
+                {
+                    question: "What is the primary purpose of AWS Shield?",
+                    options: ["To manage cryptographic keys", "To protect against DDoS attacks", "To discover sensitive data in S3", "To assess applications for vulnerabilities"],
+                    answer: "To protect against DDoS attacks"
+                },
+                {
+                    question: "Which AWS service makes it easy to create and manage cryptographic keys and control their use across AWS services?",
+                    options: ["AWS WAF", "AWS Shield", "AWS KMS", "AWS Secrets Manager"],
+                    answer: "AWS KMS"
+                },
+                {
+                    question: "Amazon GuardDuty is a threat detection service that continuously monitors your AWS accounts for what?",
+                    options: ["Billing anomalies", "Malicious activity and unauthorized behavior", "Application performance metrics", "Network latency"],
+                    answer: "Malicious activity and unauthorized behavior"
+                },
+                {
+                    question: "Which AWS service uses machine learning to discover and protect your sensitive data stored in Amazon S3?",
+                    options: ["Amazon Inspector", "Amazon Macie", "AWS KMS", "AWS Shield"],
+                    answer: "Amazon Macie"
+                },
+                {
+                    question: "What is Amazon Inspector primarily used for?",
+                    options: ["To manage secrets and credentials", "To provide automated security assessments for applications and container images", "To protect against DDoS attacks", "To filter web traffic"],
+                    answer: "To provide automated security assessments for applications and container images"
+                },
+                {
+                    question: "Which AWS service helps you protect access to your applications by enabling you to easily rotate, manage, and retrieve database credentials and API keys?",
+                    options: ["AWS IAM", "AWS KMS", "AWS Secrets Manager", "Amazon GuardDuty"],
+                    answer: "AWS Secrets Manager"
+                },
+                {
+                    question: "Which type of AWS Shield is automatically included with all AWS accounts at no additional cost?",
+                    options: ["AWS Shield Advanced", "AWS Shield Standard", "AWS Shield Enterprise", "AWS Shield Basic"],
+                    answer: "AWS Shield Standard"
+                },
+                {
+                    question: "What is a key benefit of AWS KMS integration with other AWS services?",
+                    options: ["It eliminates the need for any encryption", "It provides seamless encryption of data at rest and in transit", "It only works with on-premises applications", "It is only used for user authentication"],
+                    answer: "It provides seamless encryption of data at rest and in transit"
+                },
+                {
+                    question: "If you need to identify personally identifiable information (PII) and other sensitive data in your S3 buckets, which service would be most helpful?",
+                    options: ["Amazon GuardDuty", "Amazon Inspector", "Amazon Macie", "AWS WAF"],
+                    answer: "Amazon Macie"
+                }
+            ];
+
+            window.loadQuiz("Module 24: Security & Governance", questions);
+        });
+    </script>
+</body>
+</html>

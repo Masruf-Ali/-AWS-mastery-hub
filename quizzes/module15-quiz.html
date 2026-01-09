@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 15: Containers & Serverless - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 15: Containers & Serverless</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which AWS service is a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications?",
+                    options: ["Amazon EKS", "AWS Lambda", "Amazon ECS", "AWS Fargate"],
+                    answer: "Amazon ECS"
+                },
+                {
+                    question: "What is AWS Fargate?",
+                    options: ["A managed Kubernetes service", "A serverless compute engine for containers", "A service for running traditional virtual machines", "A content delivery network"],
+                    answer: "A serverless compute engine for containers"
+                },
+                {
+                    question: "Which AWS service is a serverless, event-driven compute service that lets you run code without provisioning or managing servers?",
+                    options: ["Amazon EC2", "AWS Lambda", "Amazon ECS", "Amazon EKS"],
+                    answer: "AWS Lambda"
+                },
+                {
+                    question: "Amazon EKS is a fully managed service for running which open-source container orchestration system?",
+                    options: ["Docker Swarm", "Apache Mesos", "Kubernetes", "OpenShift"],
+                    answer: "Kubernetes"
+                },
+                {
+                    question: "What is the primary benefit of using containers?",
+                    options: ["They are slower to start than virtual machines", "They require more system resources than virtual machines", "They provide portability, efficiency, and isolation for applications", "They eliminate the need for an operating system"],
+                    answer: "They provide portability, efficiency, and isolation for applications"
+                },
+                {
+                    question: "Which AWS service acts as a "front door" for applications to access data, business logic, or functionality from your backend services, and is commonly used to expose Lambda functions as HTTP endpoints?",
+                    options: ["Amazon S3", "Amazon Route 53", "Amazon API Gateway", "AWS CloudFront"],
+                    answer: "Amazon API Gateway"
+                },
+                {
+                    question: "In AWS Lambda, how are you primarily charged?",
+                    options: ["Per hour of server uptime", "Per GB of data stored", "Per actual compute time consumed and number of requests", "Per number of containers running"],
+                    answer: "Per actual compute time consumed and number of requests"
+                },
+                {
+                    question: "Which of the following is a key benefit of AWS Fargate?",
+                    options: ["You have full control over the underlying EC2 instances", "It requires manual patching and scaling of servers", "It removes the need to provision and manage servers for containers", "It is only compatible with Amazon EKS"],
+                    answer: "It removes the need to provision and manage servers for containers"
+                },
+                {
+                    question: "What is a "Task Definition" in Amazon ECS?",
+                    options: ["A physical server where containers run", "A logical grouping of EC2 instances", "A blueprint for your application, specifying Docker image, CPU, memory, etc.", "A service that maintains a desired number of tasks"],
+                    answer: "A blueprint for your application, specifying Docker image, CPU, memory, etc."
+                },
+                {
+                    question: "Which of these is a common use case for AWS Lambda?",
+                    options: ["Running a traditional relational database", "Hosting a static website directly", "Backend for web/mobile apps, data processing, event-driven architectures", "Managing a Kubernetes control plane"],
+                    answer: "Backend for web/mobile apps, data processing, event-driven architectures"
+                }
+            ];
+
+            window.loadQuiz("Module 15: Containers & Serverless", questions);
+        });
+    </script>
+</body>
+</html>

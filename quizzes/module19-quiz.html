@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Module 19: Enterprise Storage - AWS Master Course</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="quiz-styles.css"> <!-- Optional: for quiz-specific styles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                // Save theme preference to local storage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Apply saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AWS Master Course</div>
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="theme-toggle">Toggle Theme</button>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../glossary.html">Glossary</a></li>
+                <li><a href="../interview-prep.html">Interview Prep</a></li>
+                <li><a href="../final-projects.html">Final Projects</a></li>
+                <li class="dropdown">
+                    <a href="#">Modules</a>
+                    <ul class="dropdown-content">
+                        <!-- Module links will be dynamically generated here -->
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <div class="quiz-container">
+            <h1 id="quiz-title">Quiz: Module 19: Enterprise Storage</h1>
+            <form id="quiz-form">
+                <!-- Questions will be dynamically loaded here -->
+            </form>
+            <button class="submit-quiz-btn" id="submit-quiz">Submit Quiz</button>
+            <div id="quiz-results" style="display:none;">
+                <h2>Your Results:</h2>
+                <p>Score: <span id="score"></span> / <span id="total-questions"></span></p>
+                <div id="individual-results"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 AWS Master Course</p>
+    </footer>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                {
+                    question: "Which AWS service provides fully managed third-party file systems like Windows File Server, Lustre, NetApp ONTAP, and OpenZFS?",
+                    options: ["Amazon S3", "Amazon EFS", "Amazon FSx", "AWS Storage Gateway"],
+                    answer: "Amazon FSx"
+                },
+                {
+                    question: "Which Amazon FSx file system is optimized for compute-intensive workloads like HPC and machine learning?",
+                    options: ["FSx for Windows File Server", "FSx for Lustre", "FSx for NetApp ONTAP", "FSx for OpenZFS"],
+                    answer: "FSx for Lustre"
+                },
+                {
+                    question: "What is AWS Storage Gateway?",
+                    options: ["A fully managed file system for Windows applications", "A service for transferring large amounts of data to AWS", "A hybrid cloud storage service that connects on-premises applications to AWS cloud storage", "A high-performance block storage service for EC2"],
+                    answer: "A hybrid cloud storage service that connects on-premises applications to AWS cloud storage"
+                },
+                {
+                    question: "Which Storage Gateway type stores files as objects in S3 and is accessible via NFS and SMB protocols?",
+                    options: ["Volume Gateway", "Tape Gateway", "File Gateway", "Cached Volumes"],
+                    answer: "File Gateway"
+                },
+                {
+                    question: "What is AWS DataSync primarily used for?",
+                    options: ["To provide persistent block storage for EC2 instances", "To manage and operate message brokers in the cloud", "To automate moving large amounts of data between on-premises storage and AWS storage services", "To host static websites"],
+                    answer: "To automate moving large amounts of data between on-premises storage and AWS storage services"
+                },
+                {
+                    question: "Which Amazon FSx file system seamlessly integrates with Microsoft Active Directory for user authentication?",
+                    options: ["FSx for Lustre", "FSx for OpenZFS", "FSx for Windows File Server", "FSx for NetApp ONTAP"],
+                    answer: "FSx for Windows File Server"
+                },
+                {
+                    question: "A Volume Gateway in \"Cached Volumes\" mode stores primary data where?",
+                    options: ["Locally on-premises only", "In Amazon S3, retaining frequently accessed data locally", "Only in an EBS volume", "In Amazon EFS"],
+                    answer: "In Amazon S3, retaining frequently accessed data locally"
+                },
+                {
+                    question: "Which AWS Storage Gateway type provides a virtual tape library (VTL) interface?",
+                    options: ["File Gateway", "Volume Gateway", "Tape Gateway", "Cached Volumes"],
+                    answer: "Tape Gateway"
+                },
+                {
+                    question: "What is a key benefit of AWS DataSync?",
+                    options: ["It provides a fully managed relational database", "It accelerates data transfers up to 10x faster than open-source tools", "It allows you to run containerized applications", "It manages cryptographic keys"],
+                    answer: "It accelerates data transfers up to 10x faster than open-source tools"
+                },
+                {
+                    question: "If you need a fully managed shared file storage built on NetApp ONTAP, supporting NFS, SMB, and iSCSI, which FSx option would you choose?",
+                    options: ["FSx for Windows File Server", "FSx for Lustre", "FSx for NetApp ONTAP", "FSx for OpenZFS"],
+                    answer: "FSx for NetApp ONTAP"
+                }
+            ];
+
+            window.loadQuiz("Module 19: Enterprise Storage", questions);
+        });
+    </script>
+</body>
+</html>
